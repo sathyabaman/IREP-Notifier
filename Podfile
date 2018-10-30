@@ -10,7 +10,7 @@ target 'IREP Notifier' do
   pod 'RealmSwift'
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
-  pod 'SwiftyXML', '~> 1.7.0'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'IREP NotifierTests' do
     inherit! :search_paths
