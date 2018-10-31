@@ -55,7 +55,73 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="504.80000000000001" y="28.335832083958024"/>
+            <point key="canvasLocation" x="521" y="896"/>
+        </scene>
+        <!--Account Manager View Controller-->
+        <scene sceneID="lcT-lK-ntl">
+            <objects>
+                <viewController id="4bC-7n-PMD" customClass="AccountManagerViewController" customModule="IREP_Notifier" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HDU-ef-PMB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5yc-xx-oOS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountTableViewCell" id="RXu-3z-53B" customClass="AccountTableViewCell" customModule="IREP_Notifier" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RXu-3z-53B" id="PXv-xk-0om">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPs-cQ-4xi">
+                                                    <rect key="frame" x="10" y="11" width="45" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtk-lB-g5D">
+                                                    <rect key="frame" x="75" y="12" width="40" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="EPs-cQ-4xi" firstAttribute="centerY" secondItem="PXv-xk-0om" secondAttribute="centerY" id="5Ir-rY-JMv"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Mtk-lB-g5D" secondAttribute="trailing" constant="10" id="CPG-oC-09N"/>
+                                                <constraint firstItem="Mtk-lB-g5D" firstAttribute="leading" secondItem="EPs-cQ-4xi" secondAttribute="trailing" constant="20" id="aZm-6v-4mf"/>
+                                                <constraint firstItem="EPs-cQ-4xi" firstAttribute="leading" secondItem="PXv-xk-0om" secondAttribute="leading" constant="10" id="hM7-BP-wlB"/>
+                                                <constraint firstItem="Mtk-lB-g5D" firstAttribute="centerY" secondItem="PXv-xk-0om" secondAttribute="centerY" id="ifw-nu-LON"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="categoryLabel" destination="EPs-cQ-4xi" id="XoI-vJ-juC"/>
+                                            <outlet property="nameLabel" destination="Mtk-lB-g5D" id="dnW-fU-iYT"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5yc-xx-oOS" firstAttribute="top" secondItem="Ng1-xt-C1S" secondAttribute="top" id="YPv-bN-www"/>
+                            <constraint firstItem="5yc-xx-oOS" firstAttribute="leading" secondItem="Ng1-xt-C1S" secondAttribute="leading" id="bGG-1f-9a0"/>
+                            <constraint firstItem="5yc-xx-oOS" firstAttribute="trailing" secondItem="Ng1-xt-C1S" secondAttribute="trailing" id="jdS-80-QDn"/>
+                            <constraint firstItem="5yc-xx-oOS" firstAttribute="bottom" secondItem="Ng1-xt-C1S" secondAttribute="bottom" id="ref-4y-NOL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ng1-xt-C1S"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XJk-LK-fIV"/>
+                    <connections>
+                        <outlet property="accountTableView" destination="5yc-xx-oOS" id="TAb-er-woj"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="X" id="kNd-5X-uwk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HjB-Z3-HMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="520.79999999999995" y="28.335832083958024"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">
@@ -68,7 +134,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cdu-Ro-3tO"/>
+                        <segue destination="4bC-7n-PMD" kind="relationship" relationship="rootViewController" id="3AW-bR-wIs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bop-Lq-3b6" userLabel="First Responder" sceneMemberID="firstResponder"/>
