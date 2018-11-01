@@ -7,6 +7,8 @@ target 'IREP Notifier' do
 
   # Pods for IREP Notifier
   pod 'Alamofire', '~> 4.7'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
   pod 'RealmSwift'
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'

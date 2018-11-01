@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E641DD914AF100F2AB69FEF0E244A201"
+               BlueprintIdentifier = "DBDC3C65A257D22FEAE41A4FC2F98BB1"
                BuildableName = "Pods_IREP_Notifier.framework"
                BlueprintName = "Pods-IREP Notifier"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E641DD914AF100F2AB69FEF0E244A201"
+            BlueprintIdentifier = "DBDC3C65A257D22FEAE41A4FC2F98BB1"
             BuildableName = "Pods_IREP_Notifier.framework"
             BlueprintName = "Pods-IREP Notifier"
             ReferencedContainer = "container:Pods.xcodeproj">
