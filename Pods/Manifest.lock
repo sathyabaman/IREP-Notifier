@@ -66,13 +66,11 @@ PODS:
   - Realm/Headers (3.11.1)
   - RealmSwift (3.11.1):
     - Realm (= 3.11.1)
-  - RxBlocking (4.3.1):
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
-  - RxCocoa (4.3.1):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.3.1)
-  - RxTest (4.3.1):
-    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
@@ -80,10 +78,8 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - RealmSwift
-  - RxBlocking (~> 4.0)
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
-  - RxTest (~> 4.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -101,10 +97,9 @@ SPEC REPOS:
     - Protobuf
     - Realm
     - RealmSwift
-    - RxBlocking
+    - RxAtomic
     - RxCocoa
     - RxSwift
-    - RxTest
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -121,12 +116,11 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   Realm: 037c5919b9ceb59d6beed5d3b031096856b119b3
   RealmSwift: c9580133e73ef40ed340401af2dbc9a5790dfea7
-  RxBlocking: 64c051285261ca2339481e91b5f70eb06b03660a
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
-  RxTest: ea97a208826906f3904c0debdd09575ebcbfe216
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 19f47accfe126b722e19e62ccae76fdd7dec687b
+PODFILE CHECKSUM: fe030a4251a3ce2f2cb5afaee4c54a7123aed675
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

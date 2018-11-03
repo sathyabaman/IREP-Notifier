@@ -8,20 +8,20 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    // myfcmexample-665e9
-    // AIzaSyApP5wD_33YCw-kIRSFAhYUnGruSozjfwE
-    
-    // AAAAtsRTV6c:APA91bGF71fM5RG3LHl1SvaOjnDZ3_ZVUY25X83R6HmPcwpqIrWD0adjfGGGgkzuZXPVAOhYCmO_3m1yHZXXYA_pDlnz_kvCXxq3hdSo6j2TIa6a98XT5xsNAMmnJ6z7H28TYhDHWe-UZyzwFKMs-DDLHbHkp-jSXw
-    // 784977844135
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [
+      UIApplication.LaunchOptionsKey: Any
+    ]?
+  ) -> Bool {
+    FirebaseApp.configure()
     return true
   }
 
@@ -47,6 +47,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
-
 }
-

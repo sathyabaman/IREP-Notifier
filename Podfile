@@ -17,8 +17,8 @@ target 'IREP Notifier' do
   target 'IREP NotifierTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RxBlocking', '~> 4.0'
-    pod 'RxTest',     '~> 4.0'
+    # pod 'RxBlocking', '~> 4.0'
+    # pod 'RxTest',     '~> 4.0'
   end
 
   target 'IREP NotifierUITests' do
