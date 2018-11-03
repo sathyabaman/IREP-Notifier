@@ -14,6 +14,7 @@
 		7274ACCD2184601E0023543D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7274ACCB2184601E0023543D /* LaunchScreen.storyboard */; };
 		7274ACD82184601E0023543D /* IREP_NotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACD72184601E0023543D /* IREP_NotifierTests.swift */; };
 		7274ACE32184601E0023543D /* IREP_NotifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACE22184601E0023543D /* IREP_NotifierUITests.swift */; };
+		72C4314E218DB5DF00F0628F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */; };
 		842B46D385A59CAC6800DDB7 /* Pods_IREP_NotifierTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A865E4BD887E91C3A95EE3D /* Pods_IREP_NotifierTests.framework */; };
 		A437D7252188A42900A5301A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A437D7242188A42900A5301A /* Constants.swift */; };
 		A471AF002189EFE6009FE1F0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AEFF2189EFE6009FE1F0 /* Account.swift */; };
@@ -60,6 +61,7 @@
 		7274ACDE2184601E0023543D /* IREP NotifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IREP NotifierUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7274ACE22184601E0023543D /* IREP_NotifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IREP_NotifierUITests.swift; sourceTree = "<group>"; };
 		7274ACE42184601E0023543D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F73148A51F49F9347EA93C5 /* Pods-IREP NotifierUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierUITests/Pods-IREP NotifierUITests.release.xcconfig"; sourceTree = "<group>"; };
 		84DA0C8033FF8B19348411C8 /* Pods_IREP_NotifierUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_NotifierUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A437D7242188A42900A5301A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -156,12 +158,13 @@
 		7274ACC12184601B0023543D /* IREP Notifier */ = {
 			isa = PBXGroup;
 			children = (
+				7274ACCE2184601E0023543D /* Info.plist */,
+				72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */,
 				A4D8734E2185F9B80008A055 /* Models */,
 				720BC12B2185809B001C5595 /* Views */,
 				A4D8734F2185F9BE0008A055 /* ViewModels */,
 				7274ACC22184601B0023543D /* AppDelegate.swift */,
 				7274ACC92184601E0023543D /* Assets.xcassets */,
-				7274ACCE2184601E0023543D /* Info.plist */,
 			);
 			path = "IREP Notifier";
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7274ACCD2184601E0023543D /* LaunchScreen.storyboard in Resources */,
+				72C4314E218DB5DF00F0628F /* GoogleService-Info.plist in Resources */,
 				7274ACCA2184601E0023543D /* Assets.xcassets in Resources */,
 				7274ACC82184601B0023543D /* Main.storyboard in Resources */,
 			);
@@ -392,28 +396,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6F499134FB64810FF7C2E690 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-IREP NotifierTests/Pods-IREP NotifierTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
-				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IREP NotifierTests/Pods-IREP NotifierTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8B8BD32D906DD12F9B2C7AB0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,6 +408,7 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -438,6 +421,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",

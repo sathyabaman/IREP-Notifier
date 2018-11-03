@@ -30,8 +30,8 @@ struct AccountViewModel {
   }
   
   func fetchAccountInfo() {
-    if let disposable = AccountManager.getAccountListBDeviceID()?.subscribe({ (event) in
-      switch event {
+    if let disposable = AccountManager.getAccountListBDeviceID()?.subscribe({
+      switch $0 {
       case .next(let data):
         print("Receiving data ...")
         self.processAccountInfo(data)
