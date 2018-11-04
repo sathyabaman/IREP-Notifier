@@ -2,7 +2,7 @@
 //  AccountManagementModel.swift
 //  IREP Notifier
 //
-//  Created by Aaron Lee on 29/10/18.
+//  Created by Kerk Chin Wee on 29/10/18.
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 

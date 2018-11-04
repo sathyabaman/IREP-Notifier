@@ -2,7 +2,7 @@
 //  Constants.swift
 //  IREP Notifier
 //
-//  Created by Aaron Lee on 30/10/18.
+//  Created by Kerk Chin Wee on 30/10/18.
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 

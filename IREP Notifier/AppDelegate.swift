@@ -11,7 +11,7 @@ import Firebase
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
   var window: UIWindow?
 
@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ]?
   ) -> Bool {
     FirebaseApp.configure()
+    self.configUserNotificationSettingsFor(application)
     return true
   }
 
@@ -45,6 +46,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+  }
+  
+  private func configUserNotificationSettingsFor(_ application: UIApplication) {
+    if #available(iOS 10, *) {
+      UNUserNotificationCenter.current().delegate = self
+      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+      UNUserNotificationCenter.current().requestAuthorization(
+        options: authOptions,
+        completionHandler: {_, _ in}
+      )
+    } else {
+      let settings: UIUserNotificationSettings = UIUserNotificationSettings(
+        types: [.alert, .badge, .sound],
+        categories: nil
+      )
+      application.registerUserNotificationSettings(settings)
+    }
   }
 
 }

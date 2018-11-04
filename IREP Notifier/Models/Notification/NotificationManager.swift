@@ -7,17 +7,34 @@
 //
 
 import Alamofire
+import Firebase
 import RxSwift
 
-struct NotificationManager {
-  static func getAccountListBDeviceID() -> Observable<Data>? {
-    let path = "\(BASE_URL)/api/Account/GetAccountListByDeviceID"
+class NotificationManager: NSObject {
+  static let shared = NotificationManager()
+  
+  private(set) var fcmToken: String
+  private(set) var messages: [MessagingRemoteMessage]
+  
+  private override init() {
+    self.fcmToken = ""
+    self.messages = [MessagingRemoteMessage]()
+    super.init()
+    Messaging.messaging().delegate = self
+  }
+  
+  func getNotificationsByDeviceID() -> Observable<Data>? {
+    let path = "\(BASE_URL)/api/Account/GetNotificationByDeviceID"
     guard let url = URL(string: path) else { return nil }
     return Observable.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
-        parameters: ["imei": "356904080702361"],
+        parameters: [
+          "FcmID": self.fcmToken,
+          "Imei": "356904080702361",
+          "Keyword": nil
+        ],
         encoding: JSONEncoding(),
         headers: nil
         ).responseJSON(
@@ -40,5 +57,14 @@ struct NotificationManager {
     }
   }
   
-  private init() {}
+}
+
+extension NotificationManager: MessagingDelegate {
+  func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+    self.fcmToken = fcmToken
+  }
+  
+  func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+    self.messages.append(remoteMessage)
+  }
 }

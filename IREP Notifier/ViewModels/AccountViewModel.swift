@@ -2,7 +2,7 @@
 //  AccountViewModel.swift
 //  IREP Notifier
 //
-//  Created by Aaron Lee on 31/10/18.
+//  Created by Kerk Chin Wee on 31/10/18.
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
@@ -33,12 +33,11 @@ struct AccountViewModel {
     if let disposable = AccountManager.getAccountListBDeviceID()?.subscribe({
       switch $0 {
       case .next(let data):
-        print("Receiving data ...")
         self.processAccountInfo(data)
       case .error(let error):
-        print("Server error: \(error.localizedDescription)")
+        fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
       case .completed:
-        print("Fetch completed")
+        break
       }
     }) {
       self.disposeBag.insert(disposable)
