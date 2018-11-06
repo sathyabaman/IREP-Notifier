@@ -30,18 +30,17 @@ struct AccountViewModel {
   }
   
   func fetchAccountInfo() {
-    if let disposable = AccountManager.getAccountListBDeviceID()?.subscribe({
+    let disposable = AccountManager.getAccountListBDeviceID()?.subscribe {
       switch $0 {
-      case .next(let data):
-        self.processAccountInfo(data)
       case .error(let error):
         fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
+      case .next(let data):
+        self.processAccountInfo(data)
       case .completed:
         break
       }
-    }) {
-      self.disposeBag.insert(disposable)
     }
+    disposable?.disposed(by: self.disposeBag)
   }
   
   private func processAccountInfo(_ data: Data) {

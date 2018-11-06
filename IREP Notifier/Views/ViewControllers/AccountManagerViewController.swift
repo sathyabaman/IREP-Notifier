@@ -19,21 +19,6 @@ class AccountManagerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.accountViewModel.fetchAccountInfo()
-    NotificationManager.shared.getNotificationsByDeviceID()?.subscribe({ (event) in
-      switch event {
-      case .next(let data):
-        do {
-          let json = try JSON(data: data)
-          print("N: \(json.description)")
-        } catch {
-          print("Err: \(error.localizedDescription)")
-        }
-      case .error(let error):
-        print("E: \(error.localizedDescription)")
-      default:
-        break
-      }
-    })
   }
 
 }

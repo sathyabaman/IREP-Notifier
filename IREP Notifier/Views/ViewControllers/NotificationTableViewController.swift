@@ -1,5 +1,5 @@
 //
-//  NotificationListViewController.swift
+//  NotificationTableViewController.swift
 //  IREP Notifier
 //
 //  Created by Kerk Chin Wee on 29/10/18.
@@ -10,9 +10,9 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NotificationListViewController: UIViewController {
-  private lazy var notificationListViewModel: NotificationListViewModel = {
-    return NotificationListViewModel(notificationListTable: &self.notificationTableView)
+class NotificationTableViewController: UIViewController {
+  private lazy var notificationTableViewModel: NotificationTableViewModel = {
+    return NotificationTableViewModel(notificationTable: &self.notificationTableView)
   }()
   
   @IBOutlet weak var infoBoard: UIView!
@@ -20,6 +20,7 @@ class NotificationListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.notificationTableViewModel.fetchNotications()
   }
   
   @IBAction func menuAction(_ sender: UIBarButtonItem) {
