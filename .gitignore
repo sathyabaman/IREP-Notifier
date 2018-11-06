@@ -1,2 +1,3 @@
 # config files in local directory
 .DS_Store
+Pods/
