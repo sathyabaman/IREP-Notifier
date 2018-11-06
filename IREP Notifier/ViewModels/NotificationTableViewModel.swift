@@ -19,13 +19,16 @@ class NotificationTableViewModel {
     self.notications = BehaviorRelay<[Notification]>(value: [])
     let disposable = self.notications
       .asObservable()
+      // reactiveX logics goes here
       .bind(to: notificationTable.rx.items(
         cellIdentifier: NotificationTableViewCell.identifier,
         cellType: NotificationTableViewCell.self
       )) {(row, notification, cell) in
         cell.titleLabel.text = notification.title
         cell.descriptionLabel.text = notification.text
-    }
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+      }
     disposable.disposed(by: self.disposeBag)
   }
   

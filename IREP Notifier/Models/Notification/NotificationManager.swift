@@ -36,11 +36,11 @@ class NotificationManager: NSObject {
         ],
         encoding: JSONEncoding(),
         headers: nil
-        ).responseJSON(
-          queue: DispatchQueue.global(),
-          options: JSONSerialization.ReadingOptions.mutableContainers
-        ) { (response) in
-          switch (response.data, response.error) {
+      ).responseJSON(
+        queue: DispatchQueue.global(),
+        options: JSONSerialization.ReadingOptions.mutableContainers
+      ) { (response) in
+        switch (response.data, response.error) {
           case (_, .some(let error)):
             observable.onError(error)
           case (.some(let data), _):
@@ -48,7 +48,37 @@ class NotificationManager: NSObject {
             observable.onCompleted()
           default:
             break
-          }
+        }
+      }
+      return Disposables.create {
+        // do anything needed when clean up.
+      }
+    }
+  }
+  
+  func updateReadNotificationStatusByID(id: String) -> Observable<Data>? {
+    let path = "\(BASE_URL)/api/Account/UpdateReadNotificationStatusByID"
+    guard let url = URL(string: path) else { return nil }
+    return Observable.create { (observable) -> Disposable in
+      Alamofire.request(
+        url,
+        method: .post,
+        parameters: ["ID": id],
+        encoding: JSONEncoding(),
+        headers: nil
+      ).responseJSON(
+        queue: DispatchQueue.global(),
+        options: JSONSerialization.ReadingOptions.mutableContainers
+      ) { (response) in
+        switch (response.data, response.error) {
+          case (_, .some(let error)):
+            observable.onError(error)
+          case (.some(let data), _):
+            observable.onNext(data)
+            observable.onCompleted()
+          default:
+            break
+        }
       }
       return Disposables.create {
         // do anything needed when clean up.

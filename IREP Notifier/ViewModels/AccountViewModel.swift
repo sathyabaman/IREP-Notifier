@@ -23,24 +23,30 @@ struct AccountViewModel {
         cellIdentifier: AccountTableViewCell.identifier,
         cellType: AccountTableViewCell.self
       )) {(row, account, cell) in
-        cell.categoryLabel.text = account.category
+        cell.categoryLabel.text = account.companyName
         cell.nameLabel.text = account.name
     }
     disposable.disposed(by: self.disposeBag)
   }
   
   func fetchAccountInfo() {
-    let disposable = AccountManager.getAccountListBDeviceID()?.subscribe {
-      switch $0 {
-      case .error(let error):
-        fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
-      case .next(let data):
-        self.processAccountInfo(data)
-      case .completed:
-        break
+    let disposable = AccountManager.getAccountListBDeviceID()?
+      // reactiveX logics goes here
+      .subscribe {
+        switch $0 {
+        case .error(let error):
+          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
+        case .next(let data):
+          self.processAccountInfo(data)
+        case .completed:
+          break
+        }
       }
-    }
     disposable?.disposed(by: self.disposeBag)
+  }
+  
+  func registerAccount() {
+    
   }
   
   private func processAccountInfo(_ data: Data) {

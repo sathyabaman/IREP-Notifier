@@ -10,12 +10,14 @@ import SwiftyJSON
 
 struct Account {
   let id: Int
+  let companyName: String
   let category: String
   let loginID: String // account user name which is used for login in general
   let name: String // account given name for display
   
-  init(id: Int, category: String, loginID: String, name: String) {
+  init(id: Int, company: String, category: String, loginID: String, name: String) {
     self.id = id
+    self.companyName = company
     self.category = category
     self.loginID = loginID
     self.name = name
@@ -23,9 +25,10 @@ struct Account {
   
   init(info: JSON) {
     let id = info["ID"].intValue
+    let company = info["CompanyName"].stringValue
     let category = info["Name"].stringValue
     let loginID = info["LoginID"].stringValue
     let name = info["UserName"].stringValue
-    self.init(id: id, category: category, loginID: loginID, name: name)
+    self.init(id: id, company: company, category: category, loginID: loginID, name: name)
   }
 }
