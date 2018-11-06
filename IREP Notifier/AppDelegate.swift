@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ]?
   ) -> Bool {
     FirebaseApp.configure()
+    print(NotificationManager.shared.fcmToken)
     application.registerForRemoteNotifications()
     self.configUserNotificationSettingsFor(application)
     return true

@@ -35,12 +35,7 @@ class NotificationTableViewModel {
       case .error(let error):
         fatalError("Failed to get notifications by device ID: \(error.localizedDescription)")
       case .next(let data):
-        do {
-          let json = try JSON(data: data)
-          print("N: \(json.description)")
-        } catch {
-          print("Err: \(error.localizedDescription)")
-        }
+        self.processNotications(data)
       default:
         break
       }
@@ -56,7 +51,7 @@ class NotificationTableViewModel {
         return Notification(info: info)
       }))
     } catch {
-      print("JSON parse error: \(error)")
+      fatalError("JSON parse error: \(error)")
     }
   }
 }
