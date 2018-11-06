@@ -11,6 +11,9 @@ import RxCocoa
 import RxSwift
 
 class NotificationListViewController: UIViewController {
+  private lazy var notificationListViewModel: NotificationListViewModel = {
+    return NotificationListViewModel(notificationListTable: &self.notificationTableView)
+  }()
   
   @IBOutlet weak var infoBoard: UIView!
   @IBOutlet weak var notificationTableView: UITableView!

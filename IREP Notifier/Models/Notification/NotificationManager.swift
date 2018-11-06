@@ -32,8 +32,7 @@ class NotificationManager: NSObject {
         method: .post,
         parameters: [
           "FcmID": self.fcmToken,
-          "Imei": "356904080702361",
-          "Keyword": nil
+          "Imei": "356904080702361"
         ],
         encoding: JSONEncoding(),
         headers: nil
@@ -65,6 +64,7 @@ extension NotificationManager: MessagingDelegate {
   }
   
   func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+    print("Getting message: \(remoteMessage.messageID)")
     self.messages.append(remoteMessage)
   }
 }
