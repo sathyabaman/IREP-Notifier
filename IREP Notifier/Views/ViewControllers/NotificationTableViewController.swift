@@ -20,6 +20,8 @@ class NotificationTableViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.notificationTableView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+    self.view.backgroundColor = UIColor.gray
     self.notificationTableViewModel.fetchNotications()
   }
   

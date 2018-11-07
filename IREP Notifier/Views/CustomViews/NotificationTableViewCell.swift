@@ -13,4 +13,12 @@ class NotificationTableViewCell: UITableViewCell {
 
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var descriptionLabel: UILabel!
+  
+  override func layoutIfNeeded() {
+    super.layoutIfNeeded()
+    super.layoutSubviews()
+    self.contentView.backgroundColor = UIColor(white: 1.0, alpha: 0.6)
+    self.contentView.frame = self.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+    self.layer.cornerRadius = 10.0
+  }
 }

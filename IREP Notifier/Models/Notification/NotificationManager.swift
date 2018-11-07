@@ -24,7 +24,7 @@ class NotificationManager: NSObject {
   }
   
   func getNotificationsByDeviceID() -> Observable<Data>? {
-    let path = "\(BASE_URL)/api/Account/GetNotificationByDeviceID"
+    let path = "\(BASE_URL)/api/Notification/GetNotificationByDeviceID"
     guard let url = URL(string: path) else { return nil }
     return Observable.create { (observable) -> Disposable in
       Alamofire.request(
@@ -57,7 +57,7 @@ class NotificationManager: NSObject {
   }
   
   func updateReadNotificationStatusByID(id: String) -> Observable<Data>? {
-    let path = "\(BASE_URL)/api/Account/UpdateReadNotificationStatusByID"
+    let path = "\(BASE_URL)/api/Notification/UpdateReadNotificationStatusByID"
     guard let url = URL(string: path) else { return nil }
     return Observable.create { (observable) -> Disposable in
       Alamofire.request(

@@ -50,7 +50,8 @@ class NotificationTableViewModel {
     do {
       let json = try JSON(data: data)
       let data = json["Data"].arrayValue
-      self.notications.accept(data.map({ (info) -> Notification in
+      let messages = data[0]["FCMNotificationMsgList"].arrayValue
+      self.notications.accept(messages.map({ (info) -> Notification in
         return Notification(info: info)
       }))
     } catch {
