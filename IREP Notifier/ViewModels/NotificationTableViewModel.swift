@@ -32,6 +32,14 @@ class NotificationTableViewModel: NSObject {
       }
       .disposed(by: self.disposeBag)
     super.init()
+    let dataSource = RxTableViewSectionedReloadDataSource<NotificationGroup>(
+      configureCell: { dataSource, tableView, indexPath, item in
+        let cell = tableView.dequeueReusableCell(
+          withIdentifier: NotificationTableViewCell.identifier,
+          for: indexPath
+        )
+        return cell
+    })
     // tableview cell select event logics
     notificationTable
       .rx

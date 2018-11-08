@@ -6,7 +6,6 @@
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
-import Foundation
 import SwiftyJSON
 
 struct Notification {

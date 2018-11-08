@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FA683219496E6006EFDAA /* NotificationGroup.swift */; };
 		2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A5218F25A1000CA745 /* NotificationManager.swift */; };
 		2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */; };
 		2CC8140E219142EC005E1485 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8140D219142EC005E1485 /* NotificationTableViewCell.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		0A865E4BD887E91C3A95EE3D /* Pods_IREP_NotifierTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_NotifierTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C722117576781D08F74E3A9 /* Pods-IREP NotifierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierTests/Pods-IREP NotifierTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C3FA683219496E6006EFDAA /* NotificationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationGroup.swift; sourceTree = "<group>"; };
 		2CA719A5218F25A1000CA745 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewModel.swift; sourceTree = "<group>"; };
 		2CA719AB21912C63000CA745 /* IREP Notifier.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IREP Notifier.entitlements"; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				720943AF218DF189009318AD /* Notification.swift */,
 				2CA719A5218F25A1000CA745 /* NotificationManager.swift */,
+				2C3FA683219496E6006EFDAA /* NotificationGroup.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */,
 				720943B2218DF4A4009318AD /* Extensions.swift in Sources */,
 				7274ACC32184601B0023543D /* AppDelegate.swift in Sources */,
+				2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */,
 				A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */,
 				A437D7252188A42900A5301A /* Constants.swift in Sources */,
 				A471AF002189EFE6009FE1F0 /* Account.swift in Sources */,
@@ -699,7 +703,10 @@
 				DEVELOPMENT_TEAM = FT8DYS46LL;
 				INFOPLIST_FILE = "IREP Notifier/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gabkotech.invovations.IREP-Notifier";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -719,7 +726,10 @@
 				DEVELOPMENT_TEAM = FT8DYS46LL;
 				INFOPLIST_FILE = "IREP Notifier/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gabkotech.invovations.IREP-Notifier";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -737,7 +747,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YH5SLCL397;
 				INFOPLIST_FILE = "IREP NotifierTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chinwee.IREP-NotifierTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -755,7 +769,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YH5SLCL397;
 				INFOPLIST_FILE = "IREP NotifierTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chinwee.IREP-NotifierTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -772,7 +790,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YH5SLCL397;
 				INFOPLIST_FILE = "IREP NotifierUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chinwee.IREP-NotifierUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -789,7 +811,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YH5SLCL397;
 				INFOPLIST_FILE = "IREP NotifierUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chinwee.IREP-NotifierUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
