@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pK0-Jl-tRT">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationTableViewCell" rowHeight="332" id="Bzl-tL-kgC" customClass="NotificationTableViewCell" customModule="IREP_Notifier" customModuleProvider="target">
@@ -171,7 +171,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="4bC-7n-PMD" kind="relationship" relationship="rootViewController" id="esf-ZL-o5f"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="X62-Ow-r6H"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bop-Lq-3b6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +179,4 @@
             <point key="canvasLocation" x="-337" y="30"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="esf-ZL-o5f"/>
-    </inferredMetricsTieBreakers>
 </document>

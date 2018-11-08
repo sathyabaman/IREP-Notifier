@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - Differentiator (3.1.0)
   - Firebase/Core (5.11.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.3.0)
@@ -69,6 +70,10 @@ PODS:
   - RxAtomic (4.4.0)
   - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
+  - RxDataSources (3.1.0):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxSwift (4.4.0):
     - RxAtomic (~> 4.4)
   - SwiftyJSON (4.2.0)
@@ -79,12 +84,14 @@ DEPENDENCIES:
   - Firebase/Messaging
   - RealmSwift
   - RxCocoa (~> 4.0)
+  - RxDataSources (~> 3.0)
   - RxSwift (~> 4.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Differentiator
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -99,11 +106,13 @@ SPEC REPOS:
     - RealmSwift
     - RxAtomic
     - RxCocoa
+    - RxDataSources
     - RxSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
@@ -118,9 +127,10 @@ SPEC CHECKSUMS:
   RealmSwift: c9580133e73ef40ed340401af2dbc9a5790dfea7
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: fe030a4251a3ce2f2cb5afaee4c54a7123aed675
+PODFILE CHECKSUM: 33c8ec08c39b8b150a8a69f404cfb95ede163974
 
 COCOAPODS: 1.5.3

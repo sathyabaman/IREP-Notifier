@@ -25,8 +25,8 @@ struct AccountViewModel {
       )) {(row, account, cell) in
         cell.categoryLabel.text = account.companyName
         cell.nameLabel.text = account.name
-    }
-    .disposed(by: self.disposeBag)
+      }
+      .disposed(by: self.disposeBag)
   }
   
   func fetchAccounts() {
@@ -45,9 +45,9 @@ struct AccountViewModel {
       .disposed(by: self.disposeBag)
   }
   
-  func registerAccountBy(companyId: String, username: String, password: String) {
+  func registerAccountBy(accountType: Int, companyId: String, username: String, password: String) {
     AccountManager.registerAccountBy(
-      type: 1,
+      type: accountType,
       companyId: companyId,
       username: username,
       password: password
@@ -102,8 +102,9 @@ struct AccountViewModel {
       case 1: // success
         break
       case 0: // failure
-        let errorMessage = json["ErrMsg"].stringValue
-        print("Should Alert error \(errorMessage)")
+        if let errorMessage = json["ErrMsg"].string {
+          print("Should Alert error: \(errorMessage)")
+        }
       default: // unexpected encounter
         fatalError("Unexpected encounter of result returns from register account server request")
       }

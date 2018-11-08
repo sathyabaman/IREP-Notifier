@@ -18,8 +18,14 @@ class AccountManagerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    //self.accountViewModel.fetchAccounts()
-    self.accountViewModel.removeAccountBy(accountId: 1)
+//    self.accountViewModel.registerAccountBy(
+//      accountType: 1,
+//      companyId: "SEN0001",
+//      username: "Test",
+//      password: "1234"
+//    )
+//    self.accountViewModel.removeAccountBy(accountId: 43)
+    self.accountViewModel.fetchAccounts()
   }
 
 }

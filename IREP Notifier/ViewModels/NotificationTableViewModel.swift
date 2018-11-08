@@ -7,39 +7,41 @@
 //
 
 import RxCocoa
+import RxDataSources
 import RxSwift
 import SwiftyJSON
 
-class NotificationTableViewModel {
+class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
   private let notications: BehaviorRelay<[Notification]>
   
   init(notificationTable: inout UITableView) {
     self.notications = BehaviorRelay<[Notification]>(value: [])
     // table data load logics
-   self.notications
-    .asObservable()
-    // do observable binding here
-    .bind(to: notificationTable.rx.items(
-      cellIdentifier: NotificationTableViewCell.identifier,
-      cellType: NotificationTableViewCell.self
-    )) {(row, notification, cell) in
-      cell.titleLabel.text = notification.title
-      cell.descriptionLabel.text = notification.text
-      cell.setNeedsUpdateConstraints()
-      cell.updateConstraintsIfNeeded()
-    }
-    .disposed(by: self.disposeBag)
-  // tableview cell select event logics
-  notificationTable
-    .rx
-    .itemSelected
-    .subscribe(onNext: { [weak self] indexPath in
-      print("\(indexPath.row)")
+    self.notications
+      .asObservable()
+      // do observable binding here
+      .bind(to: notificationTable.rx.items(
+        cellIdentifier: NotificationTableViewCell.identifier,
+        cellType: NotificationTableViewCell.self
+      )) {(row, notification, cell) in
+        cell.titleLabel.text = notification.title
+        cell.descriptionLabel.text = notification.text
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+      }
+      .disposed(by: self.disposeBag)
+    super.init()
+    // tableview cell select event logics
+    notificationTable
+      .rx
+      .itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        print("\(indexPath.row)")
 //      let cell = notificationTable.cellForRow(at: indexPath) as? NotificationTableViewCell
 //      cell?.titleLabel.text = "\(clicked) \(cell?.titleLabel.text)"
-    })
-    .disposed(by: disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
   
   func fetchNotications() {
@@ -60,6 +62,7 @@ class NotificationTableViewModel {
     do {
       let json = try JSON(data: data)
       let data = json["Data"].arrayValue
+      print("Group count: \(data.count)")
       let messages = data[0]["FCMNotificationMsgList"].arrayValue
       self.notications.accept(messages.map({ (info) -> Notification in
         return Notification(info: info)
@@ -67,5 +70,11 @@ class NotificationTableViewModel {
     } catch {
       fatalError("JSON parse error: \(error)")
     }
+  }
+}
+
+extension NotificationTableViewModel: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    return nil
   }
 }
