@@ -41,13 +41,13 @@ class NotificationManager: NSObject {
         options: JSONSerialization.ReadingOptions.mutableContainers
       ) { (response) in
         switch (response.data, response.error) {
-          case (_, .some(let error)):
-            observable.onError(error)
-          case (.some(let data), _):
-            observable.onNext(data)
-            observable.onCompleted()
-          default:
-            break
+        case (_, .some(let error)):
+          observable.onError(error)
+        case (.some(let data), _):
+          observable.onNext(data)
+          observable.onCompleted()
+        default:
+          break
         }
       }
       return Disposables.create {
@@ -71,13 +71,13 @@ class NotificationManager: NSObject {
         options: JSONSerialization.ReadingOptions.mutableContainers
       ) { (response) in
         switch (response.data, response.error) {
-          case (_, .some(let error)):
-            observable.onError(error)
-          case (.some(let data), _):
-            observable.onNext(data)
-            observable.onCompleted()
-          default:
-            break
+        case (_, .some(let error)):
+          observable.onError(error)
+        case (.some(let data), _):
+          observable.onNext(data)
+          observable.onCompleted()
+        default:
+          break
         }
       }
       return Disposables.create {
