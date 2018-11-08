@@ -23,7 +23,7 @@ class NotificationManager: NSObject {
     Messaging.messaging().delegate = self
   }
   
-  func getNotificationsByDeviceID() -> Observable<Data>? {
+  func getNotificationsByDeviceId() -> Observable<Data>? {
     let path = "\(BASE_URL)/api/Notification/GetNotificationByDeviceID"
     guard let url = URL(string: path) else { return nil }
     return Observable.create { (observable) -> Disposable in
@@ -56,7 +56,7 @@ class NotificationManager: NSObject {
     }
   }
   
-  func updateReadNotificationStatusByID(id: String) -> Observable<Data>? {
+  func updateReadNotificationStatusById(id: String) -> Observable<Data>? {
     let path = "\(BASE_URL)/api/Notification/UpdateReadNotificationStatusByID"
     guard let url = URL(string: path) else { return nil }
     return Observable.create { (observable) -> Disposable in

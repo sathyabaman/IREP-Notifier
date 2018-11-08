@@ -12,28 +12,38 @@ import SwiftyJSON
 
 class NotificationTableViewModel {
   private let disposeBag = DisposeBag()
-  
-  let notications: BehaviorRelay<[Notification]>
+  private let notications: BehaviorRelay<[Notification]>
   
   init(notificationTable: inout UITableView) {
     self.notications = BehaviorRelay<[Notification]>(value: [])
-    let disposable = self.notications
-      .asObservable()
-      // reactiveX logics goes here
-      .bind(to: notificationTable.rx.items(
-        cellIdentifier: NotificationTableViewCell.identifier,
-        cellType: NotificationTableViewCell.self
-      )) {(row, notification, cell) in
-        cell.titleLabel.text = notification.title
-        cell.descriptionLabel.text = notification.text
-        cell.setNeedsUpdateConstraints()
-        cell.updateConstraintsIfNeeded()
-      }
-    disposable.disposed(by: self.disposeBag)
+    // table data load logics
+   self.notications
+    .asObservable()
+    // do observable binding here
+    .bind(to: notificationTable.rx.items(
+      cellIdentifier: NotificationTableViewCell.identifier,
+      cellType: NotificationTableViewCell.self
+    )) {(row, notification, cell) in
+      cell.titleLabel.text = notification.title
+      cell.descriptionLabel.text = notification.text
+      cell.setNeedsUpdateConstraints()
+      cell.updateConstraintsIfNeeded()
+    }
+    .disposed(by: self.disposeBag)
+  // tableview cell select event logics
+  notificationTable
+    .rx
+    .itemSelected
+    .subscribe(onNext: { [weak self] indexPath in
+      print("\(indexPath.row)")
+//      let cell = notificationTable.cellForRow(at: indexPath) as? NotificationTableViewCell
+//      cell?.titleLabel.text = "\(clicked) \(cell?.titleLabel.text)"
+    })
+    .disposed(by: disposeBag)
   }
   
   func fetchNotications() {
-    let disposable = NotificationManager.shared.getNotificationsByDeviceID()?.subscribe {
+    let disposable = NotificationManager.shared.getNotificationsByDeviceId()?.subscribe {
       switch $0 {
       case .error(let error):
         fatalError("Failed to get notifications by device ID: \(error.localizedDescription)")

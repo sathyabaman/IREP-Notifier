@@ -30,7 +30,7 @@ struct AccountViewModel {
   }
   
   func fetchAccountInfo() {
-    let disposable = AccountManager.getAccountListBDeviceID()?
+    let disposable = AccountManager.getAccountListByDeviceId()?
       // reactiveX logics goes here
       .subscribe {
         switch $0 {
