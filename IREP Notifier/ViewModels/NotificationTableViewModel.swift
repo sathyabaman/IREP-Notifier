@@ -14,6 +14,7 @@ import SwiftyJSON
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
   private let noticationGroups: BehaviorRelay<[NotificationGroup]>
+  private let noticationTexts: BehaviorRelay<[String]>
   private let refreshControl = UIRefreshControl()
   private let source: NotificationTableViewController
   
@@ -22,6 +23,7 @@ class NotificationTableViewModel: NSObject {
     viewController: NotificationTableViewController
   ) {
     self.noticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
+    self.noticationTexts = BehaviorRelay<[String]>(value: [])
     self.source = viewController
     super.init()
     self.prepareDataSourceFor(notificationTable: &notificationTable)
@@ -36,7 +38,6 @@ class NotificationTableViewModel: NSObject {
           for: indexPath
         ) as! NotificationTableViewCell
         cell.titleLabel.text = item.title
-        cell.descriptionLabel.text = item.text
         return cell
     })
     dataSource.titleForHeaderInSection = {(dataSource, section) in
@@ -86,20 +87,29 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: disposeBag)
   }
   
+  func bindNotificationTableDataSourceTo(searcher: UISearchBar) {
+  }
+  
   @objc func fetchNotications() {
+    self.refreshControl.beginRefreshing()
     NotificationManager
       .shared
       .getNotificationsByDeviceId()?
       .subscribe {
         switch $0 {
         case .error(let error):
+          DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+          }
           fatalError(
             "Failed to get notifications: \(error.localizedDescription)"
           )
         case .next(let data):
           self.processNotications(data)
         default:
-          break
+          DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+          }
         }
       }
       .disposed(by: self.disposeBag)
@@ -120,7 +130,13 @@ class NotificationTableViewModel: NSObject {
             })
         )
       })
+      DispatchQueue.main.async {
+        self.refreshControl.endRefreshing()
+      }
     } catch {
+      DispatchQueue.main.async {
+        self.refreshControl.endRefreshing()
+      }
       fatalError("JSON parse error: \(error)")
     }
   }

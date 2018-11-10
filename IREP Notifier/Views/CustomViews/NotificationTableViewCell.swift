@@ -12,7 +12,6 @@ class NotificationTableViewCell: UITableViewCell {
   static let identifier = "NotificationTableViewCell"
 
   @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var descriptionLabel: UILabel!
   
   override func awakeFromNib() {
     self.contentView.frame = self.frame.inset(
