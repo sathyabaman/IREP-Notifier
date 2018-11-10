@@ -13,14 +13,19 @@ import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
-  
   private let noticationGroups: BehaviorRelay<[NotificationGroup]>
+  private let refreshControl = UIRefreshControl()
+  private let source: NotificationTableViewController
   
-  init(notificationTable: inout UITableView) {
+  init(
+    notificationTable: inout UITableView,
+    viewController: NotificationTableViewController
+  ) {
     self.noticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
+    self.source = viewController
     super.init()
     self.prepareDataSourceFor(notificationTable: &notificationTable)
-    self.configureOnClickEventHandling(notificationTable: &notificationTable)
+    self.configureOnClickEventHandlingFor(notificationTable: &notificationTable)
   }
   
   func prepareDataSourceFor(notificationTable: inout UITableView) {
@@ -47,19 +52,41 @@ class NotificationTableViewModel: NSObject {
       .asObservable()
       .bind(to: notificationTable.rx.items(dataSource: dataSource))
       .disposed(by: self.disposeBag)
+    
+    self.refreshControl.addTarget(
+      self,
+      action: #selector(fetchNotications),
+      for: .valueChanged
+    )
+    if #available(iOS 10.0, *) {
+      notificationTable.refreshControl = self.refreshControl
+    } else {
+      notificationTable.addSubview(self.refreshControl)
+    }
   }
   
-  func configureOnClickEventHandling(notificationTable: inout UITableView) {
+  func configureOnClickEventHandlingFor(notificationTable: inout UITableView) {
     notificationTable
       .rx
       .itemSelected
       .subscribe(onNext: { [weak self] indexPath in
-        print("\(self?.noticationGroups.value[indexPath.section].items[indexPath.row].title)")
+        guard let section = self?.noticationGroups.value[indexPath.section]
+        else { return }
+        let item = section.items[indexPath.row]
+        let alert = UIAlertController(
+          title: item.title,
+          message: item.text,
+          preferredStyle: .alert
+        )
+        alert.addAction(
+          UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        )
+        self?.source.present(alert, animated: true, completion: nil)
       })
       .disposed(by: disposeBag)
   }
   
-  func fetchNotications() {
+  @objc func fetchNotications() {
     NotificationManager
       .shared
       .getNotificationsByDeviceId()?

@@ -14,12 +14,12 @@ import RxSwift
 class NotificationTableViewController: UIViewController {
   private lazy var notificationTableViewModel: NotificationTableViewModel = {
     return NotificationTableViewModel(
-      notificationTable: &self.notificationTableView
+      notificationTable: &self.notificationTableView,
+      viewController: self
     )
   }()
   
   @IBOutlet weak var navigationBarAccountButton: UIBarButtonItem!
-  
   @IBOutlet var notificationTableViewSearchBar: UISearchBar!
   @IBOutlet weak var notificationTableView: UITableView!
   
@@ -33,8 +33,7 @@ class NotificationTableViewController: UIViewController {
       name: .userCircle
     )
     self.notificationTableView.backgroundColor =
-      UIColor.gray.withAlphaComponent(0.5)
-    self.view.backgroundColor = UIColor.gray
+      UIColor.gray.withAlphaComponent(0.3)
     self.notificationTableViewModel.fetchNotications()
   }
   
