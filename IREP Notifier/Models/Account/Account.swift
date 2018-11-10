@@ -10,14 +10,20 @@ import SwiftyJSON
 
 struct Account {
   let id: Int
-  let companyName: String
+  let company: String
   let category: String
   let loginId: String // account user name which is used for login in general
   let name: String // account given name for display
   
-  init(id: Int, company: String, category: String, loginId: String, name: String) {
+  init(
+    id: Int,
+    company: String,
+    category: String,
+    loginId: String,
+    name: String
+  ) {
     self.id = id
-    self.companyName = company
+    self.company = company
     self.category = category
     self.loginId = loginId
     self.name = name

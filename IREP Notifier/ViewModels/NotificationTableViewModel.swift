@@ -13,26 +13,17 @@ import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
-//  private let notications: BehaviorRelay<[Notification]>
+  
   private let noticationGroups: BehaviorRelay<[NotificationGroup]>
   
   init(notificationTable: inout UITableView) {
     self.noticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
     super.init()
-    self.prepareNotificationTableDataSourceFor(&notificationTable)
-    // tableview cell select event logics
-    notificationTable
-      .rx
-      .itemSelected
-      .subscribe(onNext: { [weak self] indexPath in
-        print("\(indexPath.count)")
-      })
-      .disposed(by: disposeBag)
+    self.prepareDataSourceFor(notificationTable: &notificationTable)
+    self.configureOnClickEventHandling(notificationTable: &notificationTable)
   }
   
-  func prepareNotificationTableDataSourceFor(
-    _ notificationTable: inout UITableView
-  ) {
+  func prepareDataSourceFor(notificationTable: inout UITableView) {
     let dataSource = RxTableViewSectionedReloadDataSource<NotificationGroup>(
       configureCell: { dataSource, tableView, indexPath, item in
         let cell = tableView.dequeueReusableCell(
@@ -58,6 +49,16 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: self.disposeBag)
   }
   
+  func configureOnClickEventHandling(notificationTable: inout UITableView) {
+    notificationTable
+      .rx
+      .itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        print("\(self?.noticationGroups.value[indexPath.section].items[indexPath.row].title)")
+      })
+      .disposed(by: disposeBag)
+  }
+  
   func fetchNotications() {
     NotificationManager
       .shared
@@ -65,7 +66,9 @@ class NotificationTableViewModel: NSObject {
       .subscribe {
         switch $0 {
         case .error(let error):
-          fatalError("Failed to get notifications by device ID: \(error.localizedDescription)")
+          fatalError(
+            "Failed to get notifications: \(error.localizedDescription)"
+          )
         case .next(let data):
           self.processNotications(data)
         default:
@@ -79,12 +82,11 @@ class NotificationTableViewModel: NSObject {
     do {
       let json = try JSON(data: data)
       let data = json["Data"].arrayValue
-      print("From server : \(data.description)")
       self.noticationGroups.accept(data.map { (json) -> NotificationGroup in
         return NotificationGroup(
           accountTypeId: json["AccountTypeID"].intValue,
           title: json["Name"].stringValue,
-          notifications: json["FCMNotificationMsgList"]
+          items: json["FCMNotificationMsgList"]
             .arrayValue
             .map({ (itemInfo) -> Notification in
               return Notification(info: itemInfo)
@@ -97,8 +99,26 @@ class NotificationTableViewModel: NSObject {
   }
 }
 
-extension NotificationTableViewModel: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    return nil
-  }
-}
+//extension NotificationTableViewModel: UITableViewDelegate {
+//  func tableView(
+//    _ tableView: UITableView,
+//    viewForHeaderInSection section: Int
+//    ) -> UIView? {
+//    let headerView = UIView(frame: CGRect(
+//      x: 0,
+//      y: 0,
+//      width: UIScreen.main.bounds.size.width,
+//      height: 20
+//    ))
+//    headerView.backgroundColor = UIColor(white: 1.0, alpha: 0.8)
+//    headerView.layer.cornerRadius = 10.0
+//    let title = UILabel(frame: headerView.bounds)
+//    title.center = headerView.center
+//    title.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+//    title.textAlignment = .center
+//    title.textColor = UIColor.gray
+//    title.text = self.noticationGroups.value[section].title
+//    headerView.addSubview(title)
+//    return headerView
+//  }
+//}

@@ -12,18 +12,14 @@ import SwiftyJSON
 struct NotificationGroup {
   private(set) var accountTypeId: Int
   private(set) var title: String
-  var notifications: [Notification]
+  private(set) var items: [Notification]
 }
 
 extension NotificationGroup: SectionModelType {
   typealias Item = Notification
   
-  var items: [Notification] {
-    return self.notifications
-  }
-  
   init(original: NotificationGroup, items: [Notification]) {
     self = original
-    self.notifications = items
+    self.items = items
   }
 }
