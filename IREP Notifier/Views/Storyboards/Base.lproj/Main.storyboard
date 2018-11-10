@@ -21,9 +21,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pK0-Jl-tRT">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="qMH-pL-Hv9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationTableViewCell" rowHeight="332" id="Bzl-tL-kgC" customClass="NotificationTableViewCell" customModule="IREP_Notifier" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="332"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="332"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bzl-tL-kgC" id="0u1-8L-8Kq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
@@ -74,21 +79,30 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="IREP Notifier" id="gzt-Uh-vnz">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="uzI-TR-05K">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="0rp-Ai-BmG">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="menuAction:" destination="BYZ-38-t0r" id="6JL-6D-7n4"/>
-                            </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="uzI-TR-05K">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="4bC-7n-PMD" kind="show" identifier="showAccounts" id="kfC-UA-Esp"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="search" id="acy-63-0yn">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="navigationBarAccountButton" destination="uzI-TR-05K" id="XCQ-1s-UDy"/>
                         <outlet property="notificationTableView" destination="pK0-Jl-tRT" id="Af3-0T-oeS"/>
-                        <segue destination="4bC-7n-PMD" kind="show" identifier="getAccounts" id="6yZ-cl-3vp"/>
+                        <outlet property="notificationTableViewSearchBar" destination="qMH-pL-Hv9" id="uSO-UR-7fO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="520.79999999999995" y="895.50224887556226"/>
+            <point key="canvasLocation" x="466" y="29"/>
         </scene>
         <!--IREP Notifier-->
         <scene sceneID="lcT-lK-ntl">
@@ -154,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjB-Z3-HMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="520.79999999999995" y="28.335832083958024"/>
+            <point key="canvasLocation" x="1276" y="28.335832083958024"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">

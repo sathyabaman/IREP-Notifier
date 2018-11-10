@@ -7,9 +7,11 @@
 //
 
 import RxDataSources
+import SwiftyJSON
 
 struct NotificationGroup {
-  let title: String
+  private(set) var accountTypeId: Int
+  private(set) var title: String
   var notifications: [Notification]
 }
 

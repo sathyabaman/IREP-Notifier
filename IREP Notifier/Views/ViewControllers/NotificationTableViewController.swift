@@ -7,26 +7,35 @@
 //
 
 import UIKit
+import FontAwesome_swift
 import RxCocoa
 import RxSwift
 
 class NotificationTableViewController: UIViewController {
   private lazy var notificationTableViewModel: NotificationTableViewModel = {
-    return NotificationTableViewModel(notificationTable: &self.notificationTableView)
+    return NotificationTableViewModel(
+      notificationTable: &self.notificationTableView
+    )
   }()
   
-  @IBOutlet weak var infoBoard: UIView!
+  @IBOutlet weak var navigationBarAccountButton: UIBarButtonItem!
+  
+  @IBOutlet var notificationTableViewSearchBar: UISearchBar!
   @IBOutlet weak var notificationTableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.notificationTableView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+    self.navigationBarAccountButton.setTitleTextAttributes(
+      [.font: UIFont.fontAwesome(ofSize: 20, style: .brands)],
+      for: .normal
+    )
+    self.navigationBarAccountButton.title = String.fontAwesomeIcon(
+      name: .userCircle
+    )
+    self.notificationTableView.backgroundColor =
+      UIColor.gray.withAlphaComponent(0.5)
     self.view.backgroundColor = UIColor.gray
     self.notificationTableViewModel.fetchNotications()
-  }
-  
-  @IBAction func menuAction(_ sender: UIBarButtonItem) {
-    
   }
   
 }
