@@ -70,9 +70,9 @@ class NotificationTableViewModel: NSObject {
     self.source.notificationTableView.rx
       .itemSelected
       .subscribe(onNext: { [weak self] indexPath in
-        guard let section = self?.noticationGroups.value[indexPath.section]
+        guard let sect = self?.visibleNoticationGroups.value[indexPath.section]
         else { return }
-        let item = section.items[indexPath.row]
+        let item = sect.items[indexPath.row]
         let alert = UIAlertController(
           title: item.title,
           message: item.text,
