@@ -27,6 +27,7 @@ class NotificationTableViewModel: NSObject {
     self.delegateNotificationTableViewCellOnClickEvent()
     self.bindSearcherToNotificationTable()
     self.bindTriggererToSearcher()
+    self.bindMenuTriggerer()
   }
   
   private func prepareNotificationTableViewDataSource() {
@@ -136,6 +137,56 @@ class NotificationTableViewModel: NSObject {
         self.source.searchBar.resignFirstResponder()
       }
       .disposed(by: self.disposeBag)
+  }
+  
+  private func bindMenuTriggerer() {
+    let c = self.source.view.constraints.filter({ (c) -> Bool in
+      if let _ = c.firstItem as? UITableView, c.firstAttribute == .top {
+        return true
+      } else {
+        return false
+      }
+    }).first
+    self.source.menuTriggerer.rx
+      .tap
+      .asObservable()
+      .subscribe(
+        onNext: {
+          let alert = UIAlertController(
+            title: "Menu",
+            message: nil,
+            preferredStyle: .actionSheet
+          )
+          alert.addAction(UIAlertAction(
+            title: "Filter",
+            style: .destructive,
+            handler: { _ in
+              self.source.searchBar.isHidden = !self.source.searchBar.isHidden
+              UIView.animate(
+                withDuration: HIDE_SHOW_ANIMATION_PERIOD,
+                animations: {
+                  c?.constant = c?.constant == 0 ? SEARCH_BAR_HEIGHT : 0
+              },
+                completion: { (success) in }
+              )
+          }
+          ))
+          alert.addAction(UIAlertAction(
+            title: "Account",
+            style: .destructive,
+            handler: { _ in
+              
+          }
+          ))
+          self.source.present(alert, animated: true, completion: nil)
+        },
+        onError: { (error) in
+          fatalError("Failed to open menu: \(error.localizedDescription)")
+        },
+        onCompleted: {},
+        onDisposed: {}
+      )
+    .disposed(by: self.disposeBag)
   }
   
   private func bindTriggererToSearcher() {
