@@ -25,4 +25,10 @@ class NotificationTableViewController: UIViewController {
     self.notificationTableViewModel.fetchNotications()
   }
   
+  @IBAction func searchBarTrigger(_ sender: Any) {
+    self.searchBar.bounds = CGRect(x: 0, y: 0, width: 0, height: 0)
+    self.searchBar.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+    self.notificationTableView.updateConstraints()
+  }
+  
 }
