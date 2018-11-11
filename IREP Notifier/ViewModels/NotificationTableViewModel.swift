@@ -14,23 +14,21 @@ import SwiftyJSON
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
   private let noticationGroups: BehaviorRelay<[NotificationGroup]>
-  private let noticationTexts: BehaviorRelay<[String]>
   private let refreshControl = UIRefreshControl()
   private let source: NotificationTableViewController
+  private let visibleNoticationGroups: BehaviorRelay<[NotificationGroup]>
   
-  init(
-    notificationTable: inout UITableView,
-    viewController: NotificationTableViewController
-  ) {
+  init(viewController: NotificationTableViewController) {
     self.noticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
-    self.noticationTexts = BehaviorRelay<[String]>(value: [])
+    self.visibleNoticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
     self.source = viewController
     super.init()
-    self.prepareDataSourceFor(notificationTable: &notificationTable)
-    self.configureOnClickEventHandlingFor(notificationTable: &notificationTable)
+    self.prepareNotificationTableViewDataSource()
+    self.delegateNotificationTableViewCellOnClickEvent()
+    self.bindSearcherToNotificationTable()
   }
   
-  func prepareDataSourceFor(notificationTable: inout UITableView) {
+  private func prepareNotificationTableViewDataSource() {
     let dataSource = RxTableViewSectionedReloadDataSource<NotificationGroup>(
       configureCell: { dataSource, tableView, indexPath, item in
         let cell = tableView.dequeueReusableCell(
@@ -49,9 +47,11 @@ class NotificationTableViewModel: NSObject {
     dataSource.canMoveRowAtIndexPath = {(dataSource, section) in
       return false
     }
-    self.noticationGroups
+    self.visibleNoticationGroups
       .asObservable()
-      .bind(to: notificationTable.rx.items(dataSource: dataSource))
+      .bind(
+        to: self.source.notificationTableView.rx.items(dataSource: dataSource)
+      )
       .disposed(by: self.disposeBag)
     
     self.refreshControl.addTarget(
@@ -60,15 +60,14 @@ class NotificationTableViewModel: NSObject {
       for: .valueChanged
     )
     if #available(iOS 10.0, *) {
-      notificationTable.refreshControl = self.refreshControl
+      self.source.notificationTableView.refreshControl = self.refreshControl
     } else {
-      notificationTable.addSubview(self.refreshControl)
+      self.source.notificationTableView.addSubview(self.refreshControl)
     }
   }
   
-  func configureOnClickEventHandlingFor(notificationTable: inout UITableView) {
-    notificationTable
-      .rx
+  private func delegateNotificationTableViewCellOnClickEvent() {
+    self.source.notificationTableView.rx
       .itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         guard let section = self?.noticationGroups.value[indexPath.section]
@@ -87,7 +86,55 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: disposeBag)
   }
   
-  func bindNotificationTableDataSourceTo(searcher: UISearchBar) {
+  private func bindSearcherToNotificationTable() {
+    let searchBar = self.source.searchBar.rx
+    searchBar
+      .text
+      .orEmpty
+      .filter({ !$0.isEmpty })
+      .distinctUntilChanged()
+      .subscribe(
+        onNext: { (text) in
+          self.visibleNoticationGroups.accept(
+            self.noticationGroups.value.compactMap(
+              { (group) -> NotificationGroup? in
+                let items = group.items.compactMap({ (item) -> Notification? in
+                  let fit = item.text.contains(text) || item.title.contains(text)
+                  return fit ? item : nil
+                })
+                let fit  = items.count > 0 || group.title.contains(text)
+                let newGroup = NotificationGroup(
+                  accountTypeId: group.accountTypeId,
+                  title: group.title,
+                  items: items
+                )
+                return fit ? newGroup : nil
+              }
+            )
+          )
+        },
+        onError: { (error) in
+          fatalError("Failed to filter: \(error.localizedDescription)")
+        },
+        onCompleted: {},
+        onDisposed: {}
+      )
+      .disposed(by: self.disposeBag)
+    
+    searchBar
+      .cancelButtonClicked
+      .asObservable()
+      .bind {
+        self.source.searchBar.text = ""
+      }
+      .disposed(by: self.disposeBag)
+    searchBar
+      .searchButtonClicked
+      .asObservable()
+      .bind {
+        self.source.searchBar.resignFirstResponder()
+      }
+      .disposed(by: self.disposeBag)
   }
   
   @objc func fetchNotications() {
@@ -130,6 +177,7 @@ class NotificationTableViewModel: NSObject {
             })
         )
       })
+      self.visibleNoticationGroups.accept(self.noticationGroups.value)
       DispatchQueue.main.async {
         self.refreshControl.endRefreshing()
       }

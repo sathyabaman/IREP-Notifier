@@ -7,19 +7,16 @@
 //
 
 import UIKit
-import FontAwesome_swift
 import RxCocoa
 import RxSwift
 
 class NotificationTableViewController: UIViewController {
   private lazy var notificationTableViewModel: NotificationTableViewModel = {
-    return NotificationTableViewModel(
-      notificationTable: &self.notificationTableView,
-      viewController: self
-    )
+    return NotificationTableViewModel(viewController: self)
   }()
   
   @IBOutlet weak var notificationTableView: UITableView!
+  @IBOutlet weak var searchBar: UISearchBar!
   
   override func viewDidLoad() {
     super.viewDidLoad()
