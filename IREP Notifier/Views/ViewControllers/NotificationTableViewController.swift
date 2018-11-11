@@ -15,6 +15,7 @@ class NotificationTableViewController: UIViewController {
     return NotificationTableViewModel(viewController: self)
   }()
   
+  @IBOutlet weak var menuTriggerer: UIBarButtonItem!
   @IBOutlet weak var searchBarTriggerer: UIBarButtonItem!
   @IBOutlet weak var notificationTableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!

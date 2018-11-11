@@ -80,11 +80,17 @@
                                 <segue destination="4bC-7n-PMD" kind="show" identifier="showAccounts" id="kfC-UA-Esp"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="acy-63-0yn">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="search" id="acy-63-0yn">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="5fy-0R-xS3">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="menuTriggerer" destination="5fy-0R-xS3" id="aeS-Z2-xpL"/>
                         <outlet property="notificationTableView" destination="pK0-Jl-tRT" id="Af3-0T-oeS"/>
                         <outlet property="searchBar" destination="JZP-Q4-V98" id="9jw-0m-qAQ"/>
                         <outlet property="searchBarTriggerer" destination="acy-63-0yn" id="pGX-nq-LAn"/>
