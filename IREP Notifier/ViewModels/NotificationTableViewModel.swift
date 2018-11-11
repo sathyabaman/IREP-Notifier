@@ -26,6 +26,7 @@ class NotificationTableViewModel: NSObject {
     self.prepareNotificationTableViewDataSource()
     self.delegateNotificationTableViewCellOnClickEvent()
     self.bindSearcherToNotificationTable()
+    self.bindTriggererToSearcher()
   }
   
   private func prepareNotificationTableViewDataSource() {
@@ -53,7 +54,6 @@ class NotificationTableViewModel: NSObject {
         to: self.source.notificationTableView.rx.items(dataSource: dataSource)
       )
       .disposed(by: self.disposeBag)
-    
     self.refreshControl.addTarget(
       self,
       action: #selector(fetchNotications),
@@ -69,6 +69,7 @@ class NotificationTableViewModel: NSObject {
   private func delegateNotificationTableViewCellOnClickEvent() {
     self.source.notificationTableView.rx
       .itemSelected
+      .asObservable()
       .subscribe(onNext: { [weak self] indexPath in
         guard let sect = self?.visibleNoticationGroups.value[indexPath.section]
         else { return }
@@ -120,12 +121,12 @@ class NotificationTableViewModel: NSObject {
         onDisposed: {}
       )
       .disposed(by: self.disposeBag)
-    
     searchBar
       .cancelButtonClicked
       .asObservable()
       .bind {
         self.source.searchBar.text = ""
+        self.source.searchBar.resignFirstResponder()
       }
       .disposed(by: self.disposeBag)
     searchBar
@@ -134,6 +135,37 @@ class NotificationTableViewModel: NSObject {
       .bind {
         self.source.searchBar.resignFirstResponder()
       }
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindTriggererToSearcher() {
+    let target = self.source.view.constraints.filter({ (c) -> Bool in
+      if let _ = c.firstItem as? UITableView, c.firstAttribute == .top {
+        return true
+      } else {
+        return false
+      }
+    }).first
+    self.source.searchBarTriggerer.rx
+      .tap
+      .asObservable()
+      .subscribe(
+        onNext: {
+          self.source.searchBar.isHidden = !self.source.searchBar.isHidden
+          UIView.animate(
+            withDuration: HIDE_SHOW_ANIMATION_PERIOD,
+            animations: {
+              target?.constant = target?.constant == 0 ? SEARCH_BAR_HEIGHT : 0
+            },
+            completion: { (success) in }
+          )
+        },
+        onError: { (error) in
+          fatalError("Failed to trigger search: \(error.localizedDescription)")
+        },
+        onCompleted: {},
+        onDisposed: {}
+      )
       .disposed(by: self.disposeBag)
   }
   
@@ -189,27 +221,3 @@ class NotificationTableViewModel: NSObject {
     }
   }
 }
-
-//extension NotificationTableViewModel: UITableViewDelegate {
-//  func tableView(
-//    _ tableView: UITableView,
-//    viewForHeaderInSection section: Int
-//    ) -> UIView? {
-//    let headerView = UIView(frame: CGRect(
-//      x: 0,
-//      y: 0,
-//      width: UIScreen.main.bounds.size.width,
-//      height: 20
-//    ))
-//    headerView.backgroundColor = UIColor(white: 1.0, alpha: 0.8)
-//    headerView.layer.cornerRadius = 10.0
-//    let title = UILabel(frame: headerView.bounds)
-//    title.center = headerView.center
-//    title.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-//    title.textAlignment = .center
-//    title.textColor = UIColor.gray
-//    title.text = self.noticationGroups.value[section].title
-//    headerView.addSubview(title)
-//    return headerView
-//  }
-//}

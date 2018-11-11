@@ -15,20 +15,21 @@ class NotificationTableViewController: UIViewController {
     return NotificationTableViewModel(viewController: self)
   }()
   
+  @IBOutlet weak var searchBarTriggerer: UIBarButtonItem!
   @IBOutlet weak var notificationTableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.searchBar.frame = CGRect(
+      x: 0,
+      y: 0,
+      width: self.searchBar.bounds.width,
+      height: 0
+    )
     self.notificationTableView.backgroundColor =
       UIColor.gray.withAlphaComponent(0.3)
     self.notificationTableViewModel.fetchNotications()
-  }
-  
-  @IBAction func searchBarTrigger(_ sender: Any) {
-    self.searchBar.bounds = CGRect(x: 0, y: 0, width: 0, height: 0)
-    self.searchBar.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-    self.notificationTableView.updateConstraints()
   }
   
 }

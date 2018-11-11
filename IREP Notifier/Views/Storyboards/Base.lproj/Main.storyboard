@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Filter by keyword" translatesAutoresizingMaskIntoConstraints="NO" id="JZP-Q4-V98">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="pK0-Jl-tRT">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -53,17 +57,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Filter by keyword" translatesAutoresizingMaskIntoConstraints="NO" id="JZP-Q4-V98">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="pK0-Jl-tRT" firstAttribute="top" secondItem="JZP-Q4-V98" secondAttribute="bottom" id="150-YH-5W9"/>
                             <constraint firstItem="JZP-Q4-V98" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="AsC-XA-sWb"/>
                             <constraint firstItem="pK0-Jl-tRT" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="L1J-BB-sME"/>
                             <constraint firstItem="JZP-Q4-V98" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MnP-eR-VTF"/>
+                            <constraint firstItem="pK0-Jl-tRT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="NZm-em-DxD"/>
                             <constraint firstItem="pK0-Jl-tRT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="l4Z-7X-Qig"/>
                             <constraint firstItem="JZP-Q4-V98" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wsb-fL-lvb"/>
                             <constraint firstItem="pK0-Jl-tRT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xeF-vL-59y"/>
@@ -82,14 +82,12 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="acy-63-0yn">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="searchBarTrigger:" destination="BYZ-38-t0r" id="EZ3-w3-teL"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="notificationTableView" destination="pK0-Jl-tRT" id="Af3-0T-oeS"/>
                         <outlet property="searchBar" destination="JZP-Q4-V98" id="9jw-0m-qAQ"/>
+                        <outlet property="searchBarTriggerer" destination="acy-63-0yn" id="pGX-nq-LAn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
