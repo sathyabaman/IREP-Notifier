@@ -36,6 +36,6 @@ struct Notification {
   }
   
   func isCategorized(by keyword: String) -> Bool {
-    return self.text.contains(text) || self.title.contains(text)
+    return self.text.contains(keyword) || self.title.contains(keyword)
   }
 }
