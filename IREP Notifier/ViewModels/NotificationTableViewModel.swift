@@ -85,7 +85,7 @@ class NotificationTableViewModel: NSObject {
       .orEmpty
       .distinctUntilChanged()
       .flatMapLatest({(text) -> Observable<[NotificationGroup]> in
-        let groups = self.visibleNoticationGroups.value
+        let groups = self.allNoticationGroups.value
           .compactMap({ (group) -> NotificationGroup? in
             let items = group.filterNotifications(by: text)
             if group.isCategorized(by: text) {
@@ -97,6 +97,30 @@ class NotificationTableViewModel: NSObject {
         return Observable.of(groups)
       })
       .bind(to: self.visibleNoticationGroups)
+      .disposed(by: self.disposeBag)
+    let searchCancelEvent = searcher.rx.cancelButtonClicked
+    searchCancelEvent.asObservable()
+      .subscribe(
+        onNext: { _ in
+          self.viewController.notificationSearcher.text = nil
+          self.viewController.notificationSearcher.resignFirstResponder()
+        },
+        onError: { (error) in fatalError(error.localizedDescription) },
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
+    let searchEvent = searcher.rx.searchButtonClicked
+    searchEvent.asObservable()
+      .subscribe(
+        onNext: { _ in
+          self.viewController.notificationSearcher.text = nil
+          self.viewController.notificationSearcher.resignFirstResponder()
+      },
+        onError: { (error) in fatalError(error.localizedDescription) },
+        onCompleted: nil,
+        onDisposed: nil
+      )
       .disposed(by: self.disposeBag)
   }
   
@@ -115,87 +139,6 @@ class NotificationTableViewModel: NSObject {
       tableView.addSubview(self.refreshControl)
     }
   }
-  
-//  private func bindMenuTriggerer() {
-//    let c = self.viewController.view.constraints.filter({ (c) -> Bool in
-//      if let _ = c.firstItem as? UITableView, c.firstAttribute == .top {
-//        return true
-//      } else {
-//        return false
-//      }
-//    }).first
-//    self.viewController.menuTriggerer.rx
-//      .tap
-//      .asObservable()
-//      .subscribe(
-//        onNext: {
-//          let alert = UIAlertController(
-//            title: "Menu",
-//            message: nil,
-//            preferredStyle: .actionSheet
-//          )
-//          alert.addAction(UIAlertAction(
-//            title: "Filter",
-//            style: .destructive,
-//            handler: { _ in
-//              self.viewController.searchBar.isHidden = !self.viewController.searchBar.isHidden
-//              UIView.animate(
-//                withDuration: HIDE_SHOW_ANIMATION_PERIOD,
-//                animations: {
-//                  c?.constant = c?.constant == 0 ? SEARCH_BAR_HEIGHT : 0
-//              },
-//                completion: { (success) in }
-//              )
-//          }
-//          ))
-//          alert.addAction(UIAlertAction(
-//            title: "Account",
-//            style: .destructive,
-//            handler: { _ in
-//
-//          }
-//          ))
-//          self.viewController.present(alert, animated: true, completion: nil)
-//        },
-//        onError: { (error) in
-//          fatalError("Failed to open menu: \(error.localizedDescription)")
-//        },
-//        onCompleted: {},
-//        onDisposed: {}
-//      )
-//    .disposed(by: self.disposeBag)
-//  }
-  
-//  private func bindTriggererToSearcher() {
-//    let target = self.viewController.view.constraints.filter({ (c) -> Bool in
-//      if let _ = c.firstItem as? UITableView, c.firstAttribute == .top {
-//        return true
-//      } else {
-//        return false
-//      }
-//    }).first
-//    self.viewController.searchBarTriggerer.rx
-//      .tap
-//      .asObservable()
-//      .subscribe(
-//        onNext: {
-//          self.viewController.searchBar.isHidden = !self.viewController.searchBar.isHidden
-//          UIView.animate(
-//            withDuration: HIDE_SHOW_ANIMATION_PERIOD,
-//            animations: {
-//              target?.constant = target?.constant == 0 ? SEARCH_BAR_HEIGHT : 0
-//            },
-//            completion: { (success) in }
-//          )
-//        },
-//        onError: { (error) in
-//          fatalError("Failed to trigger search: \(error.localizedDescription)")
-//        },
-//        onCompleted: {},
-//        onDisposed: {}
-//      )
-//      .disposed(by: self.disposeBag)
-//  }
   
   @objc private func fetchNotications() {
     self.refreshControl.beginRefreshing()
