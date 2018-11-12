@@ -34,4 +34,8 @@ struct Notification {
     let text = info["FullMessage"].stringValue
     self.init(id: id, title: title, text: text, createdAt: date, isRead: isRead)
   }
+  
+  func isCategorized(by keyword: String) -> Bool {
+    return self.text.contains(text) || self.title.contains(text)
+  }
 }

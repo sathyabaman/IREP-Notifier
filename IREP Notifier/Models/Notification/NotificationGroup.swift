@@ -22,4 +22,14 @@ extension NotificationGroup: SectionModelType {
     self = original
     self.items = items
   }
+  
+  func filterNotifications(by keyword: String) -> [Notification] {
+    return self.items.filter { return $0.isCategorized(by: keyword) }
+  }
+  
+  func isCategorized(by keyword: String) -> Bool {
+    let candidates = self.filterNotifications(by: keyword)
+    return self.title.contains(keyword) || candidates.count > 0
+  }
+  
 }
