@@ -127,8 +127,8 @@ class NotificationTableViewModel: NSObject {
   
   /**
    Method to add UIRefreshControl to notification table view
-   the UIRefreshControl handler drive the notification group observable to load notifications to
-   table view.
+   the UIRefreshControl handler drive the notification group observable to load
+   notifications to table view.
   */
   func bindRefresherToNotifications(tableView: inout UITableView) {
     self.refreshControl.addTarget(
@@ -143,6 +143,9 @@ class NotificationTableViewModel: NSObject {
     }
   }
   
+  /**
+   Method to bind server request observable to notification pool observable.
+  */
   @objc private func fetchNotications() {
     self.refreshControl.beginRefreshing()
     NotificationManager.shared.getNotificationsByDeviceId()?
