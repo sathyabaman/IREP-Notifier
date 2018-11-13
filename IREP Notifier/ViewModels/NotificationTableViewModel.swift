@@ -23,14 +23,26 @@ class NotificationTableViewModel: NSObject {
     self.visibleNoticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
     self.viewController = viewController
     super.init()
+    self.bindDataSourceToNotifications(
+      tableView: self.viewController.notificationTableView
+    )
+    self.bindCellOnSelectionHandlerToNotifications(
+      tableView: self.viewController.notificationTableView
+    )
+    self.bindRefresherToNotifications(
+      tableView: self.viewController.notificationTableView
+    )
+    self.bindNotificationTableViewTo(
+      searcher: self.viewController.notificationSearcher
+    )
     self.fetchNotications()
   }
   
   /**
    Method to create driver for tablke view cell on select event.
    */
-  func bindCellOnSelectionHandlerToNotifications(tableView: inout UITableView) {
-    let events = self.viewController.notificationTableView.rx.itemSelected
+  func bindCellOnSelectionHandlerToNotifications(tableView: UITableView) {
+    let events = tableView.rx.itemSelected
     events.asDriver().drive(
       onNext: { [weak self] indexPath in
         guard let sect = self?.visibleNoticationGroups.value[indexPath.section]
@@ -48,7 +60,7 @@ class NotificationTableViewModel: NSObject {
    Method to bind notification table view data source to a notification group
    observable (NotificationGroup) which emit data for visible notifications.
   */
-  func bindDataSourceToNotifications(tableView: inout UITableView) {
+  func bindDataSourceToNotifications(tableView: UITableView) {
     let dataSource = RxTableViewSectionedReloadDataSource<NotificationGroup>(
       configureCell: { dataviewController, tableView, indexPath, item in
         let cell = tableView.dequeueReusableCell(
@@ -69,9 +81,7 @@ class NotificationTableViewModel: NSObject {
       return false
     }
     self.visibleNoticationGroups.asObservable()
-      .bind(to: self.viewController.notificationTableView.rx.items(
-        dataSource: dataSource
-      ))
+      .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: self.disposeBag)
     self.allNoticationGroups
       .bind(to: self.visibleNoticationGroups)
@@ -83,7 +93,7 @@ class NotificationTableViewModel: NSObject {
    text observable. The last value emitted by search bar will trigger event of
    notification table view data source observable sequences
    */
-  func bindNotificationTableViewTo(searcher: inout UISearchBar) {
+  func bindNotificationTableViewTo(searcher: UISearchBar) {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
@@ -105,8 +115,8 @@ class NotificationTableViewModel: NSObject {
     searchCancelEvent.asDriver()
       .drive(
         onNext: { _ in
-          self.viewController.notificationSearcher.text = nil
-          self.viewController.notificationSearcher.resignFirstResponder()
+          searcher.text = nil
+          searcher.resignFirstResponder()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -116,8 +126,8 @@ class NotificationTableViewModel: NSObject {
     searchEvent.asDriver()
       .drive(
         onNext: { _ in
-          self.viewController.notificationSearcher.text = nil
-          self.viewController.notificationSearcher.resignFirstResponder()
+          searcher.text = nil
+          searcher.resignFirstResponder()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -130,7 +140,7 @@ class NotificationTableViewModel: NSObject {
    the UIRefreshControl handler drive the notification group observable to load
    notifications to table view.
   */
-  func bindRefresherToNotifications(tableView: inout UITableView) {
+  func bindRefresherToNotifications(tableView: UITableView) {
     self.refreshControl.addTarget(
       self,
       action: #selector(fetchNotications),
