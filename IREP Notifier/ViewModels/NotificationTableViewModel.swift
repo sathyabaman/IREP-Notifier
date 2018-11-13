@@ -35,6 +35,9 @@ class NotificationTableViewModel: NSObject {
     self.bindNotificationTableViewTo(
       searcher: self.viewController.notificationSearcher
     )
+    self.bindNotificationTableViewTo(
+      segmentControl: self.viewController.notificationSegmentControl
+    )
     self.fetchNotications()
   }
   
@@ -89,7 +92,7 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to bind notification table view data source observable to serach bar
+   Method to bind notification table view data source observable to search bar
    text observable. The last value emitted by search bar will trigger event of
    notification table view data source observable sequences
    */
@@ -135,6 +138,11 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: self.disposeBag)
   }
   
+  /**
+   Method to bind notification table view data source observable to segment
+   control index observable. The last value emitted by search bar will trigger
+   event of filter the notification by segment control.
+   */
   func bindNotificationTableViewTo(segmentControl: UISegmentedControl) {
     segmentControl.rx.selectedSegmentIndex
       .distinctUntilChanged()
