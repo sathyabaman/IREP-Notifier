@@ -12,17 +12,7 @@ import RxSwift
 
 class NotificationTableViewController: UIViewController {
   private lazy var notificationTableViewModel: NotificationTableViewModel = {
-    let viewModel = NotificationTableViewModel(viewController: self)
-    viewModel.bindDataSourceToNotifications(
-      tableView: &self.notificationTableView
-    )
-    viewModel.bindCellOnSelectionHandlerToNotifications(
-      tableView: &self.notificationTableView
-    )
-    viewModel.bindRefresherToNotifications(
-      tableView: &self.notificationTableView
-    )
-    return viewModel
+    return NotificationTableViewModel(viewController: self)
   }()
   
   @IBOutlet weak var notificationSearcher: UISearchBar!
@@ -34,7 +24,18 @@ class NotificationTableViewController: UIViewController {
     super.viewDidLoad()
     self.notificationTableView.backgroundColor =
       UIColor.gray.withAlphaComponent(0.3)
-    self.notificationTableViewModel.bindNotificationTableViewTo(searcher: &self.notificationSearcher)
+    self.notificationTableViewModel.bindDataSourceToNotifications(
+      tableView: &self.notificationTableView
+    )
+    self.notificationTableViewModel.bindCellOnSelectionHandlerToNotifications(
+      tableView: &self.notificationTableView
+    )
+    self.notificationTableViewModel.bindRefresherToNotifications(
+      tableView: &self.notificationTableView
+    )
+    self.notificationTableViewModel.bindNotificationTableViewTo(
+      searcher: &self.notificationSearcher
+    )
   }
   
 }

@@ -40,8 +40,8 @@ class NotificationTableViewModel: NSObject {
       },
       onCompleted: nil,
       onDisposed: nil
-      )
-      .disposed(by: self.disposeBag)
+    )
+    .disposed(by: self.disposeBag)
   }
   
   /**
@@ -72,6 +72,9 @@ class NotificationTableViewModel: NSObject {
       .bind(to: self.viewController.notificationTableView.rx.items(
         dataSource: dataSource
       ))
+      .disposed(by: self.disposeBag)
+    self.allNoticationGroups
+      .bind(to: self.visibleNoticationGroups)
       .disposed(by: self.disposeBag)
   }
   
@@ -142,9 +145,7 @@ class NotificationTableViewModel: NSObject {
   
   @objc private func fetchNotications() {
     self.refreshControl.beginRefreshing()
-    NotificationManager
-      .shared
-      .getNotificationsByDeviceId()?
+    NotificationManager.shared.getNotificationsByDeviceId()?
       .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
         DispatchQueue.main.async {
           self.refreshControl.endRefreshing()
@@ -156,19 +157,16 @@ class NotificationTableViewModel: NSObject {
             return NotificationGroup(
               accountTypeId: json["AccountTypeID"].intValue,
               title: json["Name"].stringValue,
-              items: json["FCMNotificationMsgList"]
-                .arrayValue
-                .map({ (itemInfo) -> Notification in
+              items: json["FCMNotificationMsgList"].arrayValue.map(
+                { (itemInfo) -> Notification in
                   return Notification(info: itemInfo)
-                })
+                }
+              )
             )
           })
         } catch {
           throw error
         }
-      })
-      .catchError({ (error) -> Observable<[NotificationGroup]> in
-        fatalError("Failed to fetch: \(error.localizedDescription)")
       })
       .bind(to: self.allNoticationGroups)
       .disposed(by: self.disposeBag)
