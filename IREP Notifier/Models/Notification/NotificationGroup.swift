@@ -27,6 +27,10 @@ extension NotificationGroup: SectionModelType {
     return self.items.filter { return $0.isCategorized(by: keyword) }
   }
   
+  func filterNotificationsBy(readStatus: Bool) -> [Notification] {
+    return self.items.filter { return $0.isRead }
+  }
+  
   func isCategorized(by keyword: String) -> Bool {
     let candidates = self.filterNotifications(by: keyword)
     return self.title.contains(keyword) || candidates.count > 0

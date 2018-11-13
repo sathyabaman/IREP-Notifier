@@ -135,6 +135,30 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: self.disposeBag)
   }
   
+  func bindNotificationTableViewTo(segmentControl: UISegmentedControl) {
+    segmentControl.rx.selectedSegmentIndex
+      .distinctUntilChanged()
+      .flatMapLatest { (index) -> Observable<[NotificationGroup]> in
+        switch index {
+        case 1:
+          return Observable.of(self.allNoticationGroups.value.compactMap(
+            { (group) -> NotificationGroup? in
+              let items = group.filterNotificationsBy(readStatus: true)
+              if items.count > 0 {
+                return NotificationGroup(original: group, items: items)
+              } else {
+                return nil
+              }
+            }
+          ))
+        default: // default case is all notifications
+          return self.allNoticationGroups.asObservable()
+        }
+      }
+      .bind(to: self.visibleNoticationGroups)
+      .disposed(by: self.disposeBag)
+  }
+  
   /**
    Method to add UIRefreshControl to notification table view
    the UIRefreshControl handler drive the notification group observable to load
