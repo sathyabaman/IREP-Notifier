@@ -101,6 +101,9 @@ class NotificationTableViewModel: NSObject {
       .orEmpty
       .distinctUntilChanged()
       .flatMapLatest({(text) -> Observable<[NotificationGroup]> in
+        guard !text.isEmpty else {
+          return self.allNoticationGroups.asObservable()
+        }
         let groups = self.allNoticationGroups.value
           .compactMap({ (group) -> NotificationGroup? in
             let items = group.filterNotifications(by: text)
@@ -129,7 +132,6 @@ class NotificationTableViewModel: NSObject {
     searchEvent.asDriver()
       .drive(
         onNext: { _ in
-          searcher.text = nil
           searcher.resignFirstResponder()
         },
         onCompleted: nil,

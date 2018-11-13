@@ -35,5 +35,4 @@ extension NotificationGroup: SectionModelType {
     let candidates = self.filterNotifications(by: keyword)
     return self.title.contains(keyword) || candidates.count > 0
   }
-  
 }
