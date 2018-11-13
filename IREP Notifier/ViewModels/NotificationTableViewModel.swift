@@ -99,25 +99,23 @@ class NotificationTableViewModel: NSObject {
       .bind(to: self.visibleNoticationGroups)
       .disposed(by: self.disposeBag)
     let searchCancelEvent = searcher.rx.cancelButtonClicked
-    searchCancelEvent.asObservable()
-      .subscribe(
+    searchCancelEvent.asDriver()
+      .drive(
         onNext: { _ in
           self.viewController.notificationSearcher.text = nil
           self.viewController.notificationSearcher.resignFirstResponder()
         },
-        onError: { (error) in fatalError(error.localizedDescription) },
         onCompleted: nil,
         onDisposed: nil
       )
       .disposed(by: self.disposeBag)
     let searchEvent = searcher.rx.searchButtonClicked
-    searchEvent.asObservable()
-      .subscribe(
+    searchEvent.asDriver()
+      .drive(
         onNext: { _ in
           self.viewController.notificationSearcher.text = nil
           self.viewController.notificationSearcher.resignFirstResponder()
-      },
-        onError: { (error) in fatalError(error.localizedDescription) },
+        },
         onCompleted: nil,
         onDisposed: nil
       )
@@ -125,8 +123,10 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   
-   */
+   Method to add UIRefreshControl to notification table view
+   the UIRefreshControl handler drive the notification group observable to load notifications to
+   table view.
+  */
   func bindRefresherToNotifications(tableView: inout UITableView) {
     self.refreshControl.addTarget(
       self,
@@ -145,50 +145,32 @@ class NotificationTableViewModel: NSObject {
     NotificationManager
       .shared
       .getNotificationsByDeviceId()?
-      .subscribe {
-        switch $0 {
-        case .error(let error):
-          DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
-          }
-          fatalError(
-            "Failed to get notifications: \(error.localizedDescription)"
-          )
-        case .next(let data):
-          self.processNotications(data)
-        default:
-          DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
-          }
+      .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
+        DispatchQueue.main.async {
+          self.refreshControl.endRefreshing()
         }
-      }
-      .disposed(by: self.disposeBag)
-  }
-  
-  private func processNotications(_ data: Data) {
-    do {
-      let json = try JSON(data: data)
-      let data = json["Data"].arrayValue
-      self.allNoticationGroups.accept(data.map { (json) -> NotificationGroup in
-        return NotificationGroup(
-          accountTypeId: json["AccountTypeID"].intValue,
-          title: json["Name"].stringValue,
-          items: json["FCMNotificationMsgList"]
-            .arrayValue
-            .map({ (itemInfo) -> Notification in
-              return Notification(info: itemInfo)
-            })
-        )
+        do {
+          let json = try JSON(data: data)
+          let data = json["Data"].arrayValue
+          return Observable.of(data.map { (json) -> NotificationGroup in
+            return NotificationGroup(
+              accountTypeId: json["AccountTypeID"].intValue,
+              title: json["Name"].stringValue,
+              items: json["FCMNotificationMsgList"]
+                .arrayValue
+                .map({ (itemInfo) -> Notification in
+                  return Notification(info: itemInfo)
+                })
+            )
+          })
+        } catch {
+          throw error
+        }
       })
-      self.visibleNoticationGroups.accept(self.allNoticationGroups.value)
-      DispatchQueue.main.async {
-        self.refreshControl.endRefreshing()
-      }
-    } catch {
-      DispatchQueue.main.async {
-        self.refreshControl.endRefreshing()
-      }
-      fatalError("JSON parse error: \(error)")
-    }
+      .catchError({ (error) -> Observable<[NotificationGroup]> in
+        fatalError("Failed to fetch: \(error.localizedDescription)")
+      })
+      .bind(to: self.allNoticationGroups)
+      .disposed(by: self.disposeBag)
   }
 }
