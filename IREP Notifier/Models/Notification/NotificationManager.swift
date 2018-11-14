@@ -88,11 +88,17 @@ class NotificationManager: NSObject {
 }
 
 extension NotificationManager: MessagingDelegate {
-  func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+  func messaging(
+    _ messaging: Messaging,
+    didReceiveRegistrationToken fcmToken: String
+  ) {
     self.fcmToken = fcmToken
   }
   
-  func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+  func messaging(
+    _ messaging: Messaging,
+    didReceive remoteMessage: MessagingRemoteMessage
+  ) {
     print("Getting message: \(remoteMessage.messageID)")
     self.messages.append(remoteMessage)
   }

@@ -69,16 +69,34 @@ class NotificationTableViewModel: NSObject {
    */
   func bindCellOnSelectionHandlerToNotifications(tableView: UITableView) {
     let events = tableView.rx.itemSelected
-    events.asDriver().drive(
-      onNext: { [weak self] indexPath in
-        guard let sect = self?.visibleNoticationGroups.value[indexPath.section]
-        else { return }
+    events.asDriver()
+    
+    .drive(
+      onNext: { indexPath in
+        let sect = self.visibleNoticationGroups.value[indexPath.section]
         let item = sect.items[indexPath.row]
-        self?.viewController.alert(title: item.title, message: item.text) {
+        self.viewController.alert(title: item.title, message: item.text) { _ in
           let cell = tableView.cellForRow(
             at: indexPath
           ) as? NotificationTableViewCell
           cell?.titleLabel.textColor = UIColor.red
+          NotificationManager.shared.updateReadNotificationStatusById(
+            id: item.id
+          )?
+          .subscribe(
+            onNext: { data in
+              do {
+                let json = try JSON(data: data)
+                print("Kerk --- \(json.description)")
+              } catch {
+                fatalError(error.localizedDescription)
+              }
+            },
+            onError: {(error) in fatalError(error.localizedDescription)},
+            onCompleted: nil,
+            onDisposed: nil
+          )
+          .disposed(by: self.disposeBag)
         }
       },
       onCompleted: nil,
