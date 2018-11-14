@@ -13,16 +13,38 @@ import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
+  // data observables
   private let allNoticationGroups: BehaviorRelay<[NotificationGroup]>
+  private let readNoticationGroups: BehaviorRelay<[NotificationGroup]>
+  private let visibleNoticationGroups: BehaviorRelay<[NotificationGroup]>
+  // UI elements
   private let refreshControl = UIRefreshControl()
   private let viewController: NotificationTableViewController
-  private let visibleNoticationGroups: BehaviorRelay<[NotificationGroup]>
   
   init(viewController: NotificationTableViewController) {
     self.allNoticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
+    self.readNoticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
     self.visibleNoticationGroups = BehaviorRelay<[NotificationGroup]>(value: [])
     self.viewController = viewController
     super.init()
+    // data observable bindings
+    self.allNoticationGroups
+      .bind(to: self.visibleNoticationGroups)
+      .disposed(by: self.disposeBag)
+    self.allNoticationGroups
+      .map { (groups) -> [NotificationGroup] in
+        return groups.compactMap({ (group) -> NotificationGroup? in
+          let items = group.filterNotificationsBy(readStatus: true)
+          if items.count > 0 {
+            return NotificationGroup(original: group, items: items)
+          } else {
+            return nil
+          }
+        })
+      }
+      .bind(to: self.readNoticationGroups)
+      .disposed(by: self.disposeBag)
+    // bind UI elements with data observables
     self.bindDataSourceToNotifications(
       tableView: self.viewController.notificationTableView
     )
@@ -38,6 +60,7 @@ class NotificationTableViewModel: NSObject {
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
     )
+    // fetch notifications on the spot of this view model is being created.
     self.fetchNotications()
   }
   
@@ -85,9 +108,6 @@ class NotificationTableViewModel: NSObject {
     }
     self.visibleNoticationGroups.asObservable()
       .bind(to: tableView.rx.items(dataSource: dataSource))
-      .disposed(by: self.disposeBag)
-    self.allNoticationGroups
-      .bind(to: self.visibleNoticationGroups)
       .disposed(by: self.disposeBag)
   }
   
@@ -150,17 +170,8 @@ class NotificationTableViewModel: NSObject {
       .distinctUntilChanged()
       .flatMapLatest { (index) -> Observable<[NotificationGroup]> in
         switch index {
-        case 1:
-          return Observable.of(self.allNoticationGroups.value.compactMap(
-            { (group) -> NotificationGroup? in
-              let items = group.filterNotificationsBy(readStatus: true)
-              if items.count > 0 {
-                return NotificationGroup(original: group, items: items)
-              } else {
-                return nil
-              }
-            }
-          ))
+        case 1: // second case is all read notifications
+          return self.readNoticationGroups.asObservable()
         default: // default case is all notifications
           return self.allNoticationGroups.asObservable()
         }
