@@ -119,7 +119,7 @@ class NotificationTableViewModel: NSObject {
           for: indexPath
         ) as! NotificationTableViewCell
         cell.titleLabel.text = item.title
-        cell.titleLabel.textColor = item.isRead ? UIColor.darkGray : UIColor.red
+        cell.titleLabel.textColor = item.isRead ? UIColor.red : UIColor.darkGray
         return cell
       }
     )
