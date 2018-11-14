@@ -26,5 +26,4 @@ class NotificationTableViewController: UIViewController {
       viewController: self
     )
   }
-  
 }
