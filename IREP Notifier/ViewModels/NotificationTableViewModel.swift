@@ -70,39 +70,41 @@ class NotificationTableViewModel: NSObject {
   func bindCellOnSelectionHandlerToNotifications(tableView: UITableView) {
     let events = tableView.rx.itemSelected
     events.asDriver()
-    
-    .drive(
-      onNext: { indexPath in
-        let sect = self.visibleNoticationGroups.value[indexPath.section]
-        let item = sect.items[indexPath.row]
-        self.viewController.alert(title: item.title, message: item.text) { _ in
-          let cell = tableView.cellForRow(
-            at: indexPath
-          ) as? NotificationTableViewCell
-          cell?.titleLabel.textColor = UIColor.red
-          NotificationManager.shared.updateReadNotificationStatusById(
-            id: item.id
-          )?
-          .subscribe(
-            onNext: { data in
-              do {
-                let json = try JSON(data: data)
-                print("Kerk --- \(json.description)")
-              } catch {
-                fatalError(error.localizedDescription)
-              }
-            },
-            onError: {(error) in fatalError(error.localizedDescription)},
-            onCompleted: nil,
-            onDisposed: nil
-          )
-          .disposed(by: self.disposeBag)
-        }
-      },
-      onCompleted: nil,
-      onDisposed: nil
-    )
-    .disposed(by: self.disposeBag)
+      .drive(
+        onNext: { (indexPath) in
+          let sec = self.visibleNoticationGroups.value[indexPath.section]
+          let item = sec.items[indexPath.row]
+          let id = item.id
+          let title = item.title
+          let message = item.text
+          self.viewController.alert(title: title, message: message) { _ in
+            NotificationManager.shared.updateReadNotificationStatusById(id: id)?
+              .subscribe(
+                onNext: { (data) in
+                  do {
+                    let json = try JSON(data: data)
+                    let status = json["Data"]["Status"].intValue
+                    switch status {
+                      case 1:
+                        self.fetchNotications()
+                      default:
+                        break
+                    }
+                  } catch {
+                    fatalError(error.localizedDescription)
+                  }
+                },
+                onError: nil,
+                onCompleted: nil,
+                onDisposed: nil
+              )
+              .disposed(by: self.disposeBag)
+          }
+        },
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
   }
   
   /**
@@ -237,7 +239,9 @@ class NotificationTableViewModel: NSObject {
    Method to bind server request observable to notification pool observable.
   */
   @objc private func fetchNotications() {
-    self.refreshControl.beginRefreshing()
+    DispatchQueue.main.async {
+      self.refreshControl.beginRefreshing()
+    }
     NotificationManager.shared.getNotificationsByDeviceId()?
       .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
         DispatchQueue.main.async {
