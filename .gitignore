@@ -1,3 +1,5 @@
 # config files in local directory
 .DS_Store
 Pods/
+IREP\ Notifier.xcodeproj/xcuserdata/chinwee.xcuserdatad/
+IREP\ Notifier.xcworkspace/xcuserdata/chinwee.xcuserdatad/
