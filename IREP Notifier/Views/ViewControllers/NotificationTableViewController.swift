@@ -17,7 +17,6 @@ class NotificationTableViewController: UIViewController {
   @IBOutlet weak var notificationSegmentControl: UISegmentedControl!
   @IBOutlet weak var notificationTableView: UITableView!
   
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.notificationTableView.backgroundColor =

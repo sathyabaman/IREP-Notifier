@@ -44,15 +44,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ww-eU-FfD">
-                                                    <rect key="frame" x="15" y="9.3333333333333357" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="0Ww-eU-FfD" secondAttribute="height" id="HzN-aH-5fq"/>
-                                                        <constraint firstAttribute="width" constant="25" id="JN7-br-3F9"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFg-AI-Bw7">
-                                                    <rect key="frame" x="45" y="11.666666666666666" width="41.666666666666657" height="20.333333333333336"/>
+                                                    <rect key="frame" x="24.999999999999996" y="11.666666666666666" width="41.666666666666657" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -60,14 +53,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aFg-AI-Bw7" secondAttribute="trailing" id="6GS-uV-SN2"/>
-                                                <constraint firstItem="0Ww-eU-FfD" firstAttribute="centerY" secondItem="Pmq-LR-NaE" secondAttribute="centerY" id="8Er-JU-sd2"/>
+                                                <constraint firstItem="aFg-AI-Bw7" firstAttribute="leading" secondItem="Pmq-LR-NaE" secondAttribute="leadingMargin" constant="10" id="9Xl-Zu-PXA"/>
                                                 <constraint firstItem="aFg-AI-Bw7" firstAttribute="centerY" secondItem="Pmq-LR-NaE" secondAttribute="centerY" id="dVT-1c-vX4"/>
-                                                <constraint firstItem="0Ww-eU-FfD" firstAttribute="leading" secondItem="Pmq-LR-NaE" secondAttribute="leadingMargin" id="j25-V6-Maa"/>
-                                                <constraint firstItem="aFg-AI-Bw7" firstAttribute="leading" secondItem="0Ww-eU-FfD" secondAttribute="trailing" constant="5" id="ltR-UQ-pKm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="iconView" destination="0Ww-eU-FfD" id="que-fI-owr"/>
                                             <outlet property="titleLabel" destination="aFg-AI-Bw7" id="7Oi-k0-K5X"/>
                                         </connections>
                                     </tableViewCell>

@@ -72,9 +72,14 @@ class NotificationTableViewModel: NSObject {
     events.asDriver().drive(
       onNext: { [weak self] indexPath in
         guard let sect = self?.visibleNoticationGroups.value[indexPath.section]
-          else { return }
+        else { return }
         let item = sect.items[indexPath.row]
-        self?.viewController.alert(title: item.title, message: item.text)
+        self?.viewController.alert(title: item.title, message: item.text) {
+          let cell = tableView.cellForRow(
+            at: indexPath
+          ) as? NotificationTableViewCell
+          cell?.titleLabel.textColor = UIColor.red
+        }
       },
       onCompleted: nil,
       onDisposed: nil
@@ -94,6 +99,7 @@ class NotificationTableViewModel: NSObject {
           for: indexPath
         ) as! NotificationTableViewCell
         cell.titleLabel.text = item.title
+        cell.titleLabel.textColor = item.isRead ? UIColor.darkGray : UIColor.red
         return cell
       }
     )
@@ -124,8 +130,19 @@ class NotificationTableViewModel: NSObject {
         guard !text.isEmpty else {
           return self.allNoticationGroups.asObservable()
         }
-        let groups = self.allNoticationGroups.value
-          .compactMap({ (group) -> NotificationGroup? in
+        let data: [NotificationGroup]
+        let segmentControl = self.viewController.notificationSegmentControl
+        switch segmentControl?.selectedSegmentIndex {
+          case .some(let index) where index == 0:
+            data = self.allNoticationGroups.value
+          case .some(let index) where index == 1:
+            data = self.readNoticationGroups.value
+          case .some(_):
+            data = []
+          case .none:
+            fatalError("Unexpected segment index null")
+        }
+        let groups = data.compactMap({ (group) -> NotificationGroup? in
             let items = group.filterNotifications(by: text)
             if group.isCategorized(by: text) {
               return NotificationGroup(original: group, items: items)

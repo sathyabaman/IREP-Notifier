@@ -17,13 +17,13 @@ extension Date {
 }
 
 extension UIViewController {
-  func alert(title: String, message: String) {
+  func alert(title: String, message: String, completion: @escaping () -> Void) {
     let alert = UIAlertController(
       title: title,
       message: message,
       preferredStyle: .alert
     )
     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-    self.present(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: completion)
   }
 }
