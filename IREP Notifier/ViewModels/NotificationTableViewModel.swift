@@ -65,6 +65,10 @@ class NotificationTableViewModel: NSObject {
     self.fetchNotications()
   }
   
+  @objc func drawerHandler(gesture: UISwipeGestureRecognizer) {
+    
+  }
+  
   /**
    Method to bind notification table view data source to visible notification
    observable and configure the cell display based on logics.

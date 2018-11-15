@@ -26,5 +26,9 @@ class NotificationTableViewController: UIViewController {
     self.notificationTableViewModel = NotificationTableViewModel(
       viewController: self
     )
+    let swipeGesture = UISwipeGestureRecognizer(
+      target: self.notificationTableViewModel,
+      action: #selector(self.notificationTableViewModel.drawerHandler(gesture:))
+    )
   }
 }
