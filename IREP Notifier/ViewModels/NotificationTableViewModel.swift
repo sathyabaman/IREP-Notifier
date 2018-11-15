@@ -47,7 +47,8 @@ class NotificationTableViewModel: NSObject {
       segmentControl: self.viewController.notificationSegmentControl
     )
     self.bindNotificationTableViewTo(
-      searcher: self.viewController.notificationSearcher
+      searcher: self.viewController.notificationSearcher,
+      segmentControl: self.viewController.notificationSegmentControl
     )
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
@@ -114,15 +115,25 @@ class NotificationTableViewModel: NSObject {
    `Cancel` event set search bar text to nil which trigger empty keyword
    search in turn.
    */
-  private func bindNotificationTableViewTo(searcher: UISearchBar) {
+  private func bindNotificationTableViewTo(
+    searcher: UISearchBar,
+    segmentControl: UISegmentedControl
+  ) {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
       .subscribe(
         onNext: { (text) in
-          guard !text.isEmpty else { return }
-          self.visibleNoticationGroups.accept(
-            self.visibleNoticationGroups.value.compactMap(
+          let data: [NotificationGroup]
+            switch segmentControl.selectedSegmentIndex {
+            case 0: data = self.allNoticationGroups.value
+            case 1: data = self.readNoticationGroups.value
+            default: data = []
+          }
+          if text.isEmpty {
+            self.visibleNoticationGroups.accept(data)
+          } else {
+            self.visibleNoticationGroups.accept(data.compactMap(
               { (group) -> NotificationGroup? in
                 let items = group.filterNotifications(by: text)
                 if group.isCategorized(by: text) {
@@ -131,8 +142,8 @@ class NotificationTableViewModel: NSObject {
                   return nil
                 }
               }
-            )
-          )
+            ))
+          }
         },
         onError: { (error) in fatalError(error.localizedDescription) },
         onCompleted: nil,
@@ -302,6 +313,7 @@ class NotificationTableViewModel: NSObject {
   
   private func showSearcher() {
     self.viewController.navigationRightButton.isEnabled = false
+    self.viewController.notificationSearcher.text = nil
     self.viewController.notificationSearcher.isHidden = false
     self.viewController.notificationTableViewTop.constant = 56
   }
