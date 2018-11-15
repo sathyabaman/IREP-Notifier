@@ -29,9 +29,6 @@ class NotificationTableViewModel: NSObject {
     super.init()
     // data observable bindings
     self.allNoticationGroups
-      .bind(to: self.visibleNoticationGroups)
-      .disposed(by: self.disposeBag)
-    self.allNoticationGroups
       .map { (groups) -> [NotificationGroup] in
         return groups.compactMap({ (group) -> NotificationGroup? in
           let items = group.filterNotificationsBy(readStatus: true)
