@@ -56,6 +56,13 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.3.4):
     - GoogleUtilities/Logger
+  - KWDrawerController (4.2):
+    - KWDrawerController/Core (= 4.2)
+  - KWDrawerController/Core (4.2)
+  - KWDrawerController/RxSwift (4.2):
+    - KWDrawerController/Core
+    - RxCocoa (>= 4.0.0)
+    - RxSwift (>= 4.0.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -77,6 +84,8 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Firebase/Core
   - Firebase/Messaging
+  - KWDrawerController (~> 4.2)
+  - KWDrawerController/RxSwift
   - RxCocoa (~> 4.0)
   - RxDataSources (~> 3.0)
   - RxSwift (~> 4.0)
@@ -94,6 +103,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleUtilities
+    - KWDrawerController
     - nanopb
     - Protobuf
     - RxAtomic
@@ -113,6 +123,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 0f14a264b0d7f867e8eff5d3556bc5d0d4e57888
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
+  KWDrawerController: 244ecb42378bd13a56826458647b76758db5cb67
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
@@ -121,6 +132,6 @@ SPEC CHECKSUMS:
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: e69b79b654d8f053687c43691acccf7ef923d041
+PODFILE CHECKSUM: bfcf360453897087dbe2fe4a6fbafe13cd2b08f3
 
 COCOAPODS: 1.5.3
