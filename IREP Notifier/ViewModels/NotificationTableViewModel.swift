@@ -53,8 +53,7 @@ class NotificationTableViewModel: NSObject {
       tableView: self.viewController.notificationTableView
     )
     self.bindNotificationTableViewTo(
-      searcher: self.viewController.notificationSearcher,
-      segmentControl: self.viewController.notificationSegmentControl
+      searcher: self.viewController.notificationSearcher
     )
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
@@ -148,20 +147,21 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to bind notification table view data source observable to search bar
-   text observable. The last value emitted by search bar will trigger event of
-   notification table view data source observable sequences
+   Method to bind visible notification observables to search bar event.
+   Keyword search using search bar which filter the data emitted by visible
+   notification observables by checking whether the keyword exists in the title
+   of notification group or in content of notifications.
+   Both `Cancel` and `Done` event cause search bar to resign its responder but
+   `Cancel` event set search bar text to nil which trigger empty keyword
+   search in turn.
    */
-  func bindNotificationTableViewTo(
-    searcher: UISearchBar,
-    segmentControl: UISegmentedControl
-  ) {
+  func bindNotificationTableViewTo(searcher: UISearchBar) {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
       .flatMapLatest({(text) -> Observable<[NotificationGroup]> in
         guard !text.isEmpty else {
-          return self.allNoticationGroups.asObservable()
+          return self.visibleNoticationGroups.asObservable()
         }
         let groups = self.visibleNoticationGroups.value.compactMap(
           { (group) -> NotificationGroup? in
