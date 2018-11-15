@@ -66,7 +66,7 @@ class NotificationTableViewModel: NSObject {
   }
   
   @objc func drawerHandler(gesture: UISwipeGestureRecognizer) {
-    
+    self.viewController.openSide(.right)
   }
   
   /**

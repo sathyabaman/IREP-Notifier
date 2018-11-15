@@ -9,8 +9,9 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import KWDrawerController
 
-class NotificationTableViewController: UIViewController {
+class NotificationTableViewController: DrawerController {
   private var notificationTableViewModel: NotificationTableViewModel!
   
   @IBOutlet weak var navigationRightButton: UIBarButtonItem!

@@ -84,13 +84,16 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="rightSegueIdentifier" value="openMenu"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="navigationRightButton" destination="TRn-oV-Byu" id="Kox-hH-Pe7"/>
                         <outlet property="notificationSearcher" destination="ggz-8j-Hxw" id="LDb-U7-KFX"/>
                         <outlet property="notificationSegmentControl" destination="iRd-2Y-KyW" id="HJ5-wa-ZMl"/>
                         <outlet property="notificationTableView" destination="9U7-1w-oCT" id="eGV-xy-iZJ"/>
                         <outlet property="notificationTableViewTop" destination="dst-kW-sQQ" id="xtq-UU-xRv"/>
-                        <segue destination="54A-VY-r6J" kind="custom" identifier="menuDrawer" customClass="DrawerEmbedLeftControllerSegue" customModule="KWDrawerController" id="H0U-Us-hOk"/>
+                        <segue destination="54A-VY-r6J" kind="custom" identifier="openMenu" customClass="DrawerEmbedRightControllerSegue" customModule="KWDrawerController" id="Iyv-i8-3c0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7l-R5-liP" userLabel="First Responder" sceneMemberID="firstResponder"/>
