@@ -84,6 +84,7 @@
                         <outlet property="notificationSearcher" destination="ggz-8j-Hxw" id="LDb-U7-KFX"/>
                         <outlet property="notificationSegmentControl" destination="iRd-2Y-KyW" id="HJ5-wa-ZMl"/>
                         <outlet property="notificationTableView" destination="9U7-1w-oCT" id="eGV-xy-iZJ"/>
+                        <outlet property="notificationTableViewTop" destination="dst-kW-sQQ" id="xtq-UU-xRv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7l-R5-liP" userLabel="First Responder" sceneMemberID="firstResponder"/>

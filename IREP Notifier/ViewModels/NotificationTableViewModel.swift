@@ -106,8 +106,8 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to bind notification table view data source to a notification group
-   observable (NotificationGroup) which emit data for visible notifications.
+   Method to bind notification table view data source to visible notification
+   observable and configure the cell display based on logics.
   */
   func bindDataSourceToNotifications(
     tableView: UITableView,
@@ -159,23 +159,26 @@ class NotificationTableViewModel: NSObject {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
-      .flatMapLatest({(text) -> Observable<[NotificationGroup]> in
-        guard !text.isEmpty else {
-          return self.visibleNoticationGroups.asObservable()
-        }
-        let groups = self.visibleNoticationGroups.value.compactMap(
-          { (group) -> NotificationGroup? in
-            let items = group.filterNotifications(by: text)
-            if group.isCategorized(by: text) {
-              return NotificationGroup(original: group, items: items)
-            } else {
-              return nil
-            }
-          }
-        )
-        return Observable.of(groups)
-      })
-      .bind(to: self.visibleNoticationGroups)
+      .subscribe(
+        onNext: { (text) in
+          guard !text.isEmpty else { return }
+          self.visibleNoticationGroups.accept(
+            self.visibleNoticationGroups.value.compactMap(
+              { (group) -> NotificationGroup? in
+                let items = group.filterNotifications(by: text)
+                if group.isCategorized(by: text) {
+                  return NotificationGroup(original: group, items: items)
+                } else {
+                  return nil
+                }
+              }
+            )
+          )
+        },
+        onError: { (error) in fatalError(error.localizedDescription) },
+        onCompleted: nil,
+        onDisposed: nil
+      )
       .disposed(by: self.disposeBag)
     let searchCancelEvent = searcher.rx.cancelButtonClicked
     searchCancelEvent.asDriver()
@@ -203,7 +206,7 @@ class NotificationTableViewModel: NSObject {
   /**
    Method to bind notification table view data source observable to segment
    control index observable. The last value emitted by search bar will trigger
-   event of filter the notification by segment control.
+   event of selecting notification observable as the table view data source.
    */
   func bindNotificationTableViewTo(segmentControl: UISegmentedControl) {
     segmentControl.rx.selectedSegmentIndex
@@ -221,8 +224,8 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to add UIRefreshControl to notification table view
-   the UIRefreshControl handler drive the notification group observable to load
+   Method to add UIRefreshControl to notification table view.
+   The UIRefreshControl handler drive the notification observables to load
    notifications to table view.
   */
   func bindRefresherToNotifications(tableView: UITableView) {
@@ -239,7 +242,8 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to bind server request observable to notification pool observable.
+   Method to create observable for the event of getting all notifications from
+   server and emitted as data from all notification observable
   */
   @objc private func fetchNotications() {
     DispatchQueue.main.async {

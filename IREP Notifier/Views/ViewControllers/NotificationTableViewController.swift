@@ -16,6 +16,7 @@ class NotificationTableViewController: UIViewController {
   @IBOutlet weak var notificationSearcher: UISearchBar!
   @IBOutlet weak var notificationSegmentControl: UISegmentedControl!
   @IBOutlet weak var notificationTableView: UITableView!
+  @IBOutlet weak var notificationTableViewTop: NSLayoutConstraint!
   
   override func viewDidLoad() {
     super.viewDidLoad()
