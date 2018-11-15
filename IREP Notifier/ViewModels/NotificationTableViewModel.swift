@@ -46,7 +46,7 @@ class NotificationTableViewModel: NSObject {
       tableView: self.viewController.notificationTableView,
       segmentControl: self.viewController.notificationSegmentControl
     )
-    self.bindCellOnSelectionHandlerToNotifications(
+    self.bindOnSelectionHandlerToNotifications(
       tableView: self.viewController.notificationTableView
     )
     self.bindRefresherToNotifications(
@@ -58,58 +58,16 @@ class NotificationTableViewModel: NSObject {
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
     )
-    // fetch notifications on the spot of this view model is being created.
+    // initial setup
+    self.hideSearcher()
     self.fetchNotications()
-  }
-  
-  /**
-   Method to create driver for tablke view cell on select event.
-   */
-  func bindCellOnSelectionHandlerToNotifications(tableView: UITableView) {
-    let events = tableView.rx.itemSelected
-    events.asDriver()
-      .drive(
-        onNext: { (indexPath) in
-          let sec = self.visibleNoticationGroups.value[indexPath.section]
-          let item = sec.items[indexPath.row]
-          let id = item.id
-          let title = item.title
-          let message = item.text
-          self.viewController.alert(title: title, message: message) { _ in
-            NotificationManager.shared.updateReadNotificationStatusById(id: id)?
-              .subscribe(
-                onNext: { (data) in
-                  do {
-                    let json = try JSON(data: data)
-                    let status = json["Data"]["Status"].intValue
-                    switch status {
-                      case 1:
-                        self.fetchNotications()
-                      default:
-                        break
-                    }
-                  } catch {
-                    fatalError(error.localizedDescription)
-                  }
-                },
-                onError: nil,
-                onCompleted: nil,
-                onDisposed: nil
-              )
-              .disposed(by: self.disposeBag)
-          }
-        },
-        onCompleted: nil,
-        onDisposed: nil
-      )
-      .disposed(by: self.disposeBag)
   }
   
   /**
    Method to bind notification table view data source to visible notification
    observable and configure the cell display based on logics.
   */
-  func bindDataSourceToNotifications(
+  private func bindDataSourceToNotifications(
     tableView: UITableView,
     segmentControl: UISegmentedControl
   ) {
@@ -155,7 +113,7 @@ class NotificationTableViewModel: NSObject {
    `Cancel` event set search bar text to nil which trigger empty keyword
    search in turn.
    */
-  func bindNotificationTableViewTo(searcher: UISearchBar) {
+  private func bindNotificationTableViewTo(searcher: UISearchBar) {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
@@ -186,6 +144,7 @@ class NotificationTableViewModel: NSObject {
         onNext: { _ in
           searcher.text = nil
           searcher.resignFirstResponder()
+          self.hideSearcher()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -196,6 +155,7 @@ class NotificationTableViewModel: NSObject {
       .drive(
         onNext: { _ in
           searcher.resignFirstResponder()
+          self.hideSearcher()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -208,7 +168,7 @@ class NotificationTableViewModel: NSObject {
    control index observable. The last value emitted by search bar will trigger
    event of selecting notification observable as the table view data source.
    */
-  func bindNotificationTableViewTo(segmentControl: UISegmentedControl) {
+  private func bindNotificationTableViewTo(segmentControl: UISegmentedControl) {
     segmentControl.rx.selectedSegmentIndex
       .distinctUntilChanged()
       .flatMapLatest { (index) -> Observable<[NotificationGroup]> in
@@ -224,11 +184,54 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
+   Method to create driver for tablke view cell on select event.
+   */
+  private func bindOnSelectionHandlerToNotifications(tableView: UITableView) {
+    let events = tableView.rx.itemSelected
+    events.asDriver()
+      .drive(
+        onNext: { (indexPath) in
+          let sec = self.visibleNoticationGroups.value[indexPath.section]
+          let item = sec.items[indexPath.row]
+          let id = item.id
+          let title = item.title
+          let message = item.text
+          self.viewController.alert(title: title, message: message) { _ in
+            NotificationManager.shared.updateReadNotificationStatusById(id: id)?
+              .subscribe(
+                onNext: { (data) in
+                  do {
+                    let json = try JSON(data: data)
+                    let status = json["Data"]["Status"].intValue
+                    switch status {
+                    case 1:
+                      self.fetchNotications()
+                    default:
+                      break
+                    }
+                  } catch {
+                    fatalError(error.localizedDescription)
+                  }
+              },
+                onError: nil,
+                onCompleted: nil,
+                onDisposed: nil
+              )
+              .disposed(by: self.disposeBag)
+          }
+      },
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
+  }
+  
+  /**
    Method to add UIRefreshControl to notification table view.
    The UIRefreshControl handler drive the notification observables to load
    notifications to table view.
   */
-  func bindRefresherToNotifications(tableView: UITableView) {
+  private func bindRefresherToNotifications(tableView: UITableView) {
     self.refreshControl.addTarget(
       self,
       action: #selector(fetchNotications),
@@ -239,6 +242,20 @@ class NotificationTableViewModel: NSObject {
     } else {
       tableView.addSubview(self.refreshControl)
     }
+  }
+  
+  /**
+   Method to bind trigger button event to notification table view search bar.
+  */
+  private func bindSearcherTrigger(button: UIBarButtonItem) {
+    let tap = button.rx.tap
+    tap.subscribe(
+      onNext: { self.showSearcher() },
+      onError: nil,
+      onCompleted: nil,
+      onDisposed: nil
+    )
+    .disposed(by: self.disposeBag)
   }
   
   /**
@@ -274,5 +291,17 @@ class NotificationTableViewModel: NSObject {
       })
       .bind(to: self.allNoticationGroups)
       .disposed(by: self.disposeBag)
+  }
+  
+  private func hideSearcher() {
+    self.viewController.navigationRightButton.isEnabled = true
+    self.viewController.notificationSearcher.isHidden = true
+    self.viewController.notificationTableViewTop.constant = 0
+  }
+  
+  private func showSearcher() {
+    self.viewController.navigationRightButton.isEnabled = false
+    self.viewController.notificationSearcher.isHidden = false
+    self.viewController.notificationTableViewTop.constant = 56
   }
 }

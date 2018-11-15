@@ -13,6 +13,7 @@ import RxSwift
 class NotificationTableViewController: UIViewController {
   private var notificationTableViewModel: NotificationTableViewModel!
   
+  @IBOutlet weak var navigationRightButton: UIBarButtonItem!
   @IBOutlet weak var notificationSearcher: UISearchBar!
   @IBOutlet weak var notificationSegmentControl: UISegmentedControl!
   @IBOutlet weak var notificationTableView: UITableView!

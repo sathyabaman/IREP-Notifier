@@ -79,8 +79,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1sS-Rs-B4G"/>
                     </view>
-                    <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg"/>
+                    <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="TRn-oV-Byu">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="navigationRightButton" destination="TRn-oV-Byu" id="Kox-hH-Pe7"/>
                         <outlet property="notificationSearcher" destination="ggz-8j-Hxw" id="LDb-U7-KFX"/>
                         <outlet property="notificationSegmentControl" destination="iRd-2Y-KyW" id="HJ5-wa-ZMl"/>
                         <outlet property="notificationTableView" destination="9U7-1w-oCT" id="eGV-xy-iZJ"/>
