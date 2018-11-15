@@ -46,18 +46,19 @@ class NotificationTableViewModel: NSObject {
       tableView: self.viewController.notificationTableView,
       segmentControl: self.viewController.notificationSegmentControl
     )
-    self.bindOnSelectionHandlerToNotifications(
-      tableView: self.viewController.notificationTableView
-    )
-    self.bindRefresherToNotifications(
-      tableView: self.viewController.notificationTableView
-    )
     self.bindNotificationTableViewTo(
       searcher: self.viewController.notificationSearcher
     )
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
     )
+    self.bindOnSelectionHandlerToNotifications(
+      tableView: self.viewController.notificationTableView
+    )
+    self.bindRefresherToNotifications(
+      tableView: self.viewController.notificationTableView
+    )
+    self.bindSearcherTrigger(button: self.viewController.navigationRightButton)
     // initial setup
     self.hideSearcher()
     self.fetchNotications()
