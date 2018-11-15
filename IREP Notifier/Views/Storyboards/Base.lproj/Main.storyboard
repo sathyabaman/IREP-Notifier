@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iRd-2Y-KyW">
-                                <rect key="frame" x="0.0" y="144" width="375" height="51"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="V5R-7j-10U"/>
                                 </constraints>
@@ -28,10 +28,6 @@
                                     <segment title="Unread"/>
                                 </segments>
                             </segmentedControl>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ggz-8j-Hxw">
-                                <rect key="frame" x="0.0" y="88" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9U7-1w-oCT">
                                 <rect key="frame" x="0.0" y="194" width="375" height="584"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -63,18 +59,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ggz-8j-Hxw">
+                                <rect key="frame" x="0.0" y="138" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9U7-1w-oCT" firstAttribute="top" secondItem="iRd-2Y-KyW" secondAttribute="bottom" id="1qN-YR-wCI"/>
                             <constraint firstItem="9U7-1w-oCT" firstAttribute="trailing" secondItem="1sS-Rs-B4G" secondAttribute="trailing" id="39M-Bt-CWq"/>
+                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="top" secondItem="iRd-2Y-KyW" secondAttribute="bottom" id="5y9-7x-op8"/>
                             <constraint firstItem="9U7-1w-oCT" firstAttribute="bottom" secondItem="1sS-Rs-B4G" secondAttribute="bottom" id="GKg-Tg-QZl"/>
                             <constraint firstItem="iRd-2Y-KyW" firstAttribute="leading" secondItem="1sS-Rs-B4G" secondAttribute="leading" id="GSc-SQ-avx"/>
-                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="top" secondItem="1sS-Rs-B4G" secondAttribute="top" id="Xdk-5b-ztB"/>
+                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="leading" secondItem="1sS-Rs-B4G" secondAttribute="leading" id="J8n-aG-4pn"/>
+                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="trailing" secondItem="1sS-Rs-B4G" secondAttribute="trailing" id="Jff-34-4qJ"/>
+                            <constraint firstItem="9U7-1w-oCT" firstAttribute="top" secondItem="iRd-2Y-KyW" secondAttribute="bottom" constant="56" id="dst-kW-sQQ"/>
                             <constraint firstItem="9U7-1w-oCT" firstAttribute="leading" secondItem="1sS-Rs-B4G" secondAttribute="leading" id="e1N-fL-fTr"/>
-                            <constraint firstItem="iRd-2Y-KyW" firstAttribute="top" secondItem="1sS-Rs-B4G" secondAttribute="top" constant="56" id="eG3-ZC-Mm2"/>
-                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="trailing" secondItem="1sS-Rs-B4G" secondAttribute="trailing" id="kub-bc-cZm"/>
-                            <constraint firstItem="ggz-8j-Hxw" firstAttribute="leading" secondItem="1sS-Rs-B4G" secondAttribute="leading" id="rbM-GT-3kF"/>
+                            <constraint firstItem="iRd-2Y-KyW" firstAttribute="top" secondItem="1sS-Rs-B4G" secondAttribute="top" id="eG3-ZC-Mm2"/>
                             <constraint firstItem="iRd-2Y-KyW" firstAttribute="trailing" secondItem="1sS-Rs-B4G" secondAttribute="trailing" id="yj0-vj-2VS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1sS-Rs-B4G"/>
@@ -88,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7l-R5-liP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421.60000000000002" y="27.436281859070466"/>
+            <point key="canvasLocation" x="421.60000000000002" y="27.339901477832512"/>
         </scene>
         <!--IREP Notifier-->
         <scene sceneID="lcT-lK-ntl">

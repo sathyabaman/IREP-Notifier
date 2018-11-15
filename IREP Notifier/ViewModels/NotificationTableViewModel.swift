@@ -163,23 +163,16 @@ class NotificationTableViewModel: NSObject {
         guard !text.isEmpty else {
           return self.allNoticationGroups.asObservable()
         }
-        let data: [NotificationGroup]
-        switch segmentControl.selectedSegmentIndex {
-          case 0:
-            data = self.allNoticationGroups.value
-          case 1:
-            data = self.readNoticationGroups.value
-          default:
-            fatalError("Unexpected notification segment index 'nil'")
-        }
-        let groups = data.compactMap({ (group) -> NotificationGroup? in
+        let groups = self.visibleNoticationGroups.value.compactMap(
+          { (group) -> NotificationGroup? in
             let items = group.filterNotifications(by: text)
             if group.isCategorized(by: text) {
               return NotificationGroup(original: group, items: items)
             } else {
               return nil
             }
-          })
+          }
+        )
         return Observable.of(groups)
       })
       .bind(to: self.visibleNoticationGroups)
