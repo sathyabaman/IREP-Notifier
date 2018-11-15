@@ -46,7 +46,8 @@ class NotificationTableViewModel: NSObject {
       .disposed(by: self.disposeBag)
     // bind UI elements with data observables
     self.bindDataSourceToNotifications(
-      tableView: self.viewController.notificationTableView
+      tableView: self.viewController.notificationTableView,
+      segmentControl: self.viewController.notificationSegmentControl
     )
     self.bindCellOnSelectionHandlerToNotifications(
       tableView: self.viewController.notificationTableView
@@ -112,7 +113,10 @@ class NotificationTableViewModel: NSObject {
    Method to bind notification table view data source to a notification group
    observable (NotificationGroup) which emit data for visible notifications.
   */
-  func bindDataSourceToNotifications(tableView: UITableView) {
+  func bindDataSourceToNotifications(
+    tableView: UITableView,
+    segmentControl: UISegmentedControl
+  ) {
     let dataSource = RxTableViewSectionedReloadDataSource<NotificationGroup>(
       configureCell: { dataviewController, tableView, indexPath, item in
         let cell = tableView.dequeueReusableCell(
@@ -120,7 +124,15 @@ class NotificationTableViewModel: NSObject {
           for: indexPath
         ) as! NotificationTableViewCell
         cell.titleLabel.text = item.title
-        cell.titleLabel.textColor = item.isRead ? UIColor.red : UIColor.darkGray
+        switch segmentControl.selectedSegmentIndex {
+          case 0:
+            cell.titleLabel.textColor =
+              item.isRead ? UIColor.red : UIColor.darkGray
+          case 1:
+            cell.titleLabel.textColor = UIColor.darkGray
+          default:
+            break
+        }
         return cell
       }
     )
@@ -156,9 +168,9 @@ class NotificationTableViewModel: NSObject {
         }
         let data: [NotificationGroup]
         switch segmentControl.selectedSegmentIndex {
-          case let index where index == 0:
+          case 0:
             data = self.allNoticationGroups.value
-          case let index where index == 1:
+          case 1:
             data = self.readNoticationGroups.value
           default:
             fatalError("Unexpected notification segment index 'nil'")
