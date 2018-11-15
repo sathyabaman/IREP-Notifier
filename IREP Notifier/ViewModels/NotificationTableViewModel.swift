@@ -55,7 +55,8 @@ class NotificationTableViewModel: NSObject {
       tableView: self.viewController.notificationTableView
     )
     self.bindNotificationTableViewTo(
-      searcher: self.viewController.notificationSearcher
+      searcher: self.viewController.notificationSearcher,
+      segmentControl: self.viewController.notificationSegmentControl
     )
     self.bindNotificationTableViewTo(
       segmentControl: self.viewController.notificationSegmentControl
@@ -142,7 +143,10 @@ class NotificationTableViewModel: NSObject {
    text observable. The last value emitted by search bar will trigger event of
    notification table view data source observable sequences
    */
-  func bindNotificationTableViewTo(searcher: UISearchBar) {
+  func bindNotificationTableViewTo(
+    searcher: UISearchBar,
+    segmentControl: UISegmentedControl
+  ) {
     searcher.rx.text
       .orEmpty
       .distinctUntilChanged()
@@ -151,16 +155,13 @@ class NotificationTableViewModel: NSObject {
           return self.allNoticationGroups.asObservable()
         }
         let data: [NotificationGroup]
-        let segmentControl = self.viewController.notificationSegmentControl
-        switch segmentControl?.selectedSegmentIndex {
-          case .some(let index) where index == 0:
+        switch segmentControl.selectedSegmentIndex {
+          case let index where index == 0:
             data = self.allNoticationGroups.value
-          case .some(let index) where index == 1:
+          case let index where index == 1:
             data = self.readNoticationGroups.value
-          case .some(_):
-            data = []
-          case .none:
-            fatalError("Unexpected segment index null")
+          default:
+            fatalError("Unexpected notification segment index 'nil'")
         }
         let groups = data.compactMap({ (group) -> NotificationGroup? in
             let items = group.filterNotifications(by: text)
