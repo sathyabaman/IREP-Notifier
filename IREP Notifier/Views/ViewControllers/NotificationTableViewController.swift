@@ -31,5 +31,6 @@ class NotificationTableViewController: DrawerController {
       target: self.notificationTableViewModel,
       action: #selector(self.notificationTableViewModel.drawerHandler(gesture:))
     )
+    self.view.addGestureRecognizer(swipeGesture)
   }
 }
