@@ -219,11 +219,8 @@ class NotificationTableViewModel: NSObject {
                   do {
                     let json = try JSON(data: data)
                     let status = json["Data"]["Status"].intValue
-                    switch status {
-                    case 1:
+                    if status == 1 {
                       self.fetchNotications()
-                    default:
-                      break
                     }
                   } catch {
                     fatalError(error.localizedDescription)
