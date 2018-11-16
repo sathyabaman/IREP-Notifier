@@ -66,6 +66,7 @@ class NotificationTableViewModel: NSObject {
   }
   
   @objc func drawerHandler(gesture: UISwipeGestureRecognizer) {
+    self.viewController.alert(title: "Swipe!", message: nil, completion: { _ in })
     self.viewController.openSide(.right)
   }
   

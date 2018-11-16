@@ -19,7 +19,7 @@ extension Date {
 extension UIViewController {
   func alert(
     title: String,
-    message: String,
+    message: String?,
     completion: @escaping (UIAlertAction) -> Void
   ) {
     let alert = UIAlertController(
