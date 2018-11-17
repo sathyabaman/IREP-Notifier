@@ -6,9 +6,9 @@
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
+import RxSwift
 import RxCocoa
 import RxDataSources
-import RxSwift
 import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
@@ -31,7 +31,7 @@ class NotificationTableViewModel: NSObject {
     self.allNoticationGroups
       .map { (groups) -> [NotificationGroup] in
         return groups.compactMap({ (group) -> NotificationGroup? in
-          let items = group.filterNotificationsBy(readStatus: true)
+          let items = group.filterNotificationsBy(readStatus: false)
           if items.count > 0 {
             return NotificationGroup(original: group, items: items)
           } else {

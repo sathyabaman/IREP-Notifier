@@ -14,6 +14,10 @@
 		4D1AEAA7FDE8516186FBF6B7 /* Pods_IREP_NotifierTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E01727E7EE29A7440F46713 /* Pods_IREP_NotifierTests.framework */; };
 		720943B0218DF189009318AD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720943AF218DF189009318AD /* Notification.swift */; };
 		720943B2218DF4A4009318AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720943B1218DF4A4009318AD /* Extensions.swift */; };
+		726847CC21A02A1200132E06 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CB21A02A1200132E06 /* SideMenuTableViewCell.swift */; };
+		726847CE21A02A3500132E06 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CD21A02A3400132E06 /* SideMenuTableViewController.swift */; };
+		726847D021A02A6F00132E06 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */; };
+		726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847D121A02AAB00132E06 /* AccountLoginViewController.swift */; };
 		7274ACC32184601B0023543D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACC22184601B0023543D /* AppDelegate.swift */; };
 		7274ACC82184601B0023543D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7274ACC62184601B0023543D /* Main.storyboard */; };
 		7274ACCA2184601E0023543D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7274ACC92184601E0023543D /* Assets.xcassets */; };
@@ -62,6 +66,10 @@
 		65F2F64DDEE540EB289430AA /* Pods_IREP_Notifier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_Notifier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		720943AF218DF189009318AD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		720943B1218DF4A4009318AD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		726847CB21A02A1200132E06 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		726847CD21A02A3400132E06 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SideMenuTableViewController.swift; path = "/Users/chinweekerk/Documents/IOS/IREP Notifier/IREP Notifier/Views/ViewControllers/SideMenuTableViewController.swift"; sourceTree = "<absolute>"; };
+		726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
+		726847D121A02AAB00132E06 /* AccountLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewController.swift; sourceTree = "<group>"; };
 		7274ACBF2184601B0023543D /* IREP Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IREP Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7274ACC22184601B0023543D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7274ACC72184601B0023543D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,8 +147,10 @@
 		720BC12C218580A7001C5595 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				726847D121A02AAB00132E06 /* AccountLoginViewController.swift */,
 				A490172C21875C480022F420 /* AccountManagerViewController.swift */,
 				A490172A21875C200022F420 /* NotificationTableViewController.swift */,
+				726847CD21A02A3400132E06 /* SideMenuTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -233,6 +243,7 @@
 			children = (
 				A471AF042189F09A009FE1F0 /* AccountTableViewCell.swift */,
 				2CC8140D219142EC005E1485 /* NotificationTableViewCell.swift */,
+				726847CB21A02A1200132E06 /* SideMenuTableViewCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 			children = (
 				A471AF012189F030009FE1F0 /* AccountViewModel.swift */,
 				2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */,
+				726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -506,18 +518,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				726847CC21A02A1200132E06 /* SideMenuTableViewCell.swift in Sources */,
 				A490172D21875C480022F420 /* AccountManagerViewController.swift in Sources */,
 				A4901729218743E00022F420 /* AccountManager.swift in Sources */,
 				2CC8140E219142EC005E1485 /* NotificationTableViewCell.swift in Sources */,
 				720943B0218DF189009318AD /* Notification.swift in Sources */,
 				A471AF022189F030009FE1F0 /* AccountViewModel.swift in Sources */,
+				726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */,
 				2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */,
+				726847CE21A02A3500132E06 /* SideMenuTableViewController.swift in Sources */,
 				2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */,
 				A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */,
 				720943B2218DF4A4009318AD /* Extensions.swift in Sources */,
 				7274ACC32184601B0023543D /* AppDelegate.swift in Sources */,
 				2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */,
 				A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */,
+				726847D021A02A6F00132E06 /* SideMenuViewModel.swift in Sources */,
 				A437D7252188A42900A5301A /* Constants.swift in Sources */,
 				A471AF002189EFE6009FE1F0 /* Account.swift in Sources */,
 			);

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/chinweekerk/Documents/IOS/IREP Notifier/IREP Notifier/Views/ViewControllers/SideMenuTableViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:IREP Notifier.xcodeproj">
    </FileRef>
    <FileRef
