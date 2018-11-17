@@ -11,7 +11,6 @@ import UIKit
 class NotificationTableViewCell: UITableViewCell {
   static let identifier = "notification"
 
-  @IBOutlet weak var iconView: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
   
   override func awakeFromNib() {

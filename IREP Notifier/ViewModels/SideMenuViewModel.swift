@@ -12,5 +12,6 @@ import RxDataSources
 
 struct SideMenuViewModel {
   init(viewController: SideMenuTableViewController) {
+    
   }
 }
