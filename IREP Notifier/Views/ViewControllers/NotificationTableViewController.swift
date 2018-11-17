@@ -9,9 +9,8 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import KWDrawerController
 
-class NotificationTableViewController: DrawerController {
+class NotificationTableViewController: UIViewController {
   private var notificationTableViewModel: NotificationTableViewModel!
   
   @IBOutlet weak var navigationRightButton: UIBarButtonItem!
@@ -27,10 +26,5 @@ class NotificationTableViewController: DrawerController {
     self.notificationTableViewModel = NotificationTableViewModel(
       viewController: self
     )
-    let swipeGesture = UISwipeGestureRecognizer(
-      target: self.notificationTableViewModel,
-      action: #selector(self.notificationTableViewModel.drawerHandler(gesture:))
-    )
-    self.view.addGestureRecognizer(swipeGesture)
   }
 }
