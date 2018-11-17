@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
+import RxCocoa
 
 class NotificationTableViewController: UIViewController {
   private var notificationTableViewModel: NotificationTableViewModel!

@@ -79,31 +79,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1sS-Rs-B4G"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="juL-fG-3Jx"/>
-                        <barButtonItem style="done" systemItem="bookmarks" id="sMm-qV-2n3">
-                            <connections>
-                                <segue destination="iYt-zL-tw7" kind="show" id="ofl-f8-UFf"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zDM-sB-ed9"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="TRn-oV-Byu">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="rightSegueIdentifier" value="openDrawer"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="navigationRightButton" destination="TRn-oV-Byu" id="Kox-hH-Pe7"/>
                         <outlet property="notificationSearcher" destination="ggz-8j-Hxw" id="LDb-U7-KFX"/>
                         <outlet property="notificationSegmentControl" destination="iRd-2Y-KyW" id="HJ5-wa-ZMl"/>
                         <outlet property="notificationTableView" destination="9U7-1w-oCT" id="eGV-xy-iZJ"/>
                         <outlet property="notificationTableViewTop" destination="dst-kW-sQQ" id="xtq-UU-xRv"/>
-                        <segue destination="iYt-zL-tw7" kind="show" identifier="openSideMenu" id="N0b-Yw-8UV"/>
+                        <segue destination="iYt-zL-tw7" kind="show" identifier="openSideMenu" id="vyY-Ik-jCV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7l-R5-liP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -117,14 +106,27 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2BE-T6-otc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="uN7-ua-RpL">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuItem" id="uN7-ua-RpL">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uN7-ua-RpL" id="m1v-Rh-nKB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-1I-77p">
+                                            <rect key="frame" x="15.999999999999996" y="11.666666666666666" width="41.666666666666657" height="20.333333333333336"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="G8E-1I-77p" secondAttribute="trailing" id="I22-tQ-9pF"/>
+                                        <constraint firstItem="G8E-1I-77p" firstAttribute="leading" secondItem="m1v-Rh-nKB" secondAttribute="leadingMargin" id="K0E-4R-vQ9"/>
+                                        <constraint firstItem="G8E-1I-77p" firstAttribute="centerY" secondItem="m1v-Rh-nKB" secondAttribute="centerY" id="u3J-4m-UXN"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -134,10 +136,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="BYe-wd-dRa"/>
+                    <connections>
+                        <segue destination="4bC-7n-PMD" kind="show" identifier="listAccount" id="meb-Do-6UL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kev-6L-Zbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2234" y="27"/>
+            <point key="canvasLocation" x="1314" y="760"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="kO6-By-aDh">
@@ -156,7 +161,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZC-qz-Gxy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1278" y="27"/>
+            <point key="canvasLocation" x="422" y="760"/>
         </scene>
         <!--IREP Notifier-->
         <scene sceneID="lcT-lK-ntl">
@@ -167,7 +172,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5yc-xx-oOS">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountTableViewCell" id="RXu-3z-53B" customClass="AccountTableViewCell" customModule="IREP_Notifier" customModuleProvider="target">
@@ -222,12 +227,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjB-Z3-HMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="620" y="791"/>
+            <point key="canvasLocation" x="2222" y="760"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="FXH-dS-3kK" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FXH-dS-3kK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="idA-lB-anq">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -239,7 +244,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UH6-QF-Wul">
-                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -251,7 +255,4 @@
             <point key="canvasLocation" x="-337" y="30"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="N0b-Yw-8UV"/>
-    </inferredMetricsTieBreakers>
 </document>
