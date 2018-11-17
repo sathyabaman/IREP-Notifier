@@ -12,6 +12,7 @@ target 'IREP Notifier' do
   pod 'RxCocoa',    '~> 4.0'
   pod 'RxDataSources', '~> 3.0'
   pod 'RxSwift',    '~> 4.0'
+  pod 'SideMenu'
   pod 'SwiftyJSON', '~> 4.0'
 
   target 'IREP NotifierTests' do

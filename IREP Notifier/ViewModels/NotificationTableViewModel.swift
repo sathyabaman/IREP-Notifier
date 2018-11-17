@@ -65,9 +65,6 @@ class NotificationTableViewModel: NSObject {
     self.fetchNotications()
   }
   
-  @objc func drawerHandler(gesture: UISwipeGestureRecognizer) {
-  }
-  
   /**
    Method to bind notification table view data source to visible notification
    observable and configure the cell display based on logics.
@@ -268,6 +265,24 @@ class NotificationTableViewModel: NSObject {
       onDisposed: nil
     )
     .disposed(by: self.disposeBag)
+  }
+  
+  private func bindSideMenu() {
+    let swipeGesture = UISwipeGestureRecognizer(
+      target: self,
+      action: #selector(self.drawerHandler(gesture:))
+    )
+    self.viewController.view.addGestureRecognizer(swipeGesture)
+  }
+  
+  @objc private func drawerHandler(gesture: UISwipeGestureRecognizer) {
+    switch gesture.direction {
+    case .right:
+      let source = self.viewController
+      source.performSegue(withIdentifier:source.sideMenuSegueKey, sender: nil)
+    default:
+      break
+    }
   }
   
   /**

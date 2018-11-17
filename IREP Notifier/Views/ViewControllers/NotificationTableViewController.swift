@@ -13,6 +13,8 @@ import RxSwift
 class NotificationTableViewController: UIViewController {
   private var notificationTableViewModel: NotificationTableViewModel!
   
+  let sideMenuSegueKey = "openSideMenu"
+  
   @IBOutlet weak var navigationRightButton: UIBarButtonItem!
   @IBOutlet weak var notificationSearcher: UISearchBar!
   @IBOutlet weak var notificationSegmentControl: UISegmentedControl!
