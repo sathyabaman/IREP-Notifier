@@ -9,5 +9,7 @@
 import UIKit
 
 class SideMenuTableViewCell: UITableViewCell {
-  @IBOutlet weak var titleText: UILabel!
+  static let identifier = "menuItem"
+  
+  @IBOutlet weak var titleLabel: UILabel!
 }

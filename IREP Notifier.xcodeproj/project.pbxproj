@@ -12,11 +12,11 @@
 		2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */; };
 		2CC8140E219142EC005E1485 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8140D219142EC005E1485 /* NotificationTableViewCell.swift */; };
 		4D1AEAA7FDE8516186FBF6B7 /* Pods_IREP_NotifierTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E01727E7EE29A7440F46713 /* Pods_IREP_NotifierTests.framework */; };
+		7207DA1621A044B2009FAF7E /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207DA1521A044B2009FAF7E /* SideMenu.swift */; };
 		720943B0218DF189009318AD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720943AF218DF189009318AD /* Notification.swift */; };
 		720943B2218DF4A4009318AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720943B1218DF4A4009318AD /* Extensions.swift */; };
 		726847CC21A02A1200132E06 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CB21A02A1200132E06 /* SideMenuTableViewCell.swift */; };
 		726847CE21A02A3500132E06 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CD21A02A3400132E06 /* SideMenuTableViewController.swift */; };
-		726847D021A02A6F00132E06 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */; };
 		726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726847D121A02AAB00132E06 /* AccountLoginViewController.swift */; };
 		7274ACC32184601B0023543D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACC22184601B0023543D /* AppDelegate.swift */; };
 		7274ACC82184601B0023543D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7274ACC62184601B0023543D /* Main.storyboard */; };
@@ -64,11 +64,11 @@
 		2CA719AB21912C63000CA745 /* IREP Notifier.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IREP Notifier.entitlements"; sourceTree = "<group>"; };
 		2CC8140D219142EC005E1485 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		65F2F64DDEE540EB289430AA /* Pods_IREP_Notifier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_Notifier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7207DA1521A044B2009FAF7E /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		720943AF218DF189009318AD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		720943B1218DF4A4009318AD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		726847CB21A02A1200132E06 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		726847CD21A02A3400132E06 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SideMenuTableViewController.swift; path = "/Users/chinweekerk/Documents/IOS/IREP Notifier/IREP Notifier/Views/ViewControllers/SideMenuTableViewController.swift"; sourceTree = "<absolute>"; };
-		726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		726847D121A02AAB00132E06 /* AccountLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewController.swift; sourceTree = "<group>"; };
 		7274ACBF2184601B0023543D /* IREP Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IREP Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7274ACC22184601B0023543D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +124,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7207DA1421A0448E009FAF7E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A437D7242188A42900A5301A /* Constants.swift */,
+				720943B1218DF4A4009318AD /* Extensions.swift */,
+				7207DA1521A044B2009FAF7E /* SideMenu.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		720943AE218DF168009318AD /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,10 +261,9 @@
 		A4D8734E2185F9B80008A055 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A437D7242188A42900A5301A /* Constants.swift */,
-				720943B1218DF4A4009318AD /* Extensions.swift */,
 				A471AEFE2189EFAA009FE1F0 /* Account */,
 				720943AE218DF168009318AD /* Notification */,
+				7207DA1421A0448E009FAF7E /* Shared */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,7 +273,6 @@
 			children = (
 				A471AF012189F030009FE1F0 /* AccountViewModel.swift */,
 				2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */,
-				726847CF21A02A6F00132E06 /* SideMenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -521,6 +529,7 @@
 				726847CC21A02A1200132E06 /* SideMenuTableViewCell.swift in Sources */,
 				A490172D21875C480022F420 /* AccountManagerViewController.swift in Sources */,
 				A4901729218743E00022F420 /* AccountManager.swift in Sources */,
+				7207DA1621A044B2009FAF7E /* SideMenu.swift in Sources */,
 				2CC8140E219142EC005E1485 /* NotificationTableViewCell.swift in Sources */,
 				720943B0218DF189009318AD /* Notification.swift in Sources */,
 				A471AF022189F030009FE1F0 /* AccountViewModel.swift in Sources */,
@@ -533,7 +542,6 @@
 				7274ACC32184601B0023543D /* AppDelegate.swift in Sources */,
 				2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */,
 				A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */,
-				726847D021A02A6F00132E06 /* SideMenuViewModel.swift in Sources */,
 				A437D7252188A42900A5301A /* Constants.swift in Sources */,
 				A471AF002189EFE6009FE1F0 /* Account.swift in Sources */,
 			);

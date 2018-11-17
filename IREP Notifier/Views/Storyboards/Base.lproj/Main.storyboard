@@ -99,16 +99,16 @@
             </objects>
             <point key="canvasLocation" x="421.60000000000002" y="27.339901477832512"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Side Menu Table View Controller-->
         <scene sceneID="iO0-Bs-Kfg">
             <objects>
-                <tableViewController id="B9K-kb-8k2" sceneMemberID="viewController">
+                <tableViewController id="B9K-kb-8k2" customClass="SideMenuTableViewController" customModule="IREP_Notifier" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2BE-T6-otc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuItem" id="uN7-ua-RpL">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuItem" id="uN7-ua-RpL" customClass="SideMenuTableViewCell" customModule="IREP_Notifier" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uN7-ua-RpL" id="m1v-Rh-nKB">
@@ -128,6 +128,9 @@
                                         <constraint firstItem="G8E-1I-77p" firstAttribute="centerY" secondItem="m1v-Rh-nKB" secondAttribute="centerY" id="u3J-4m-UXN"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="G8E-1I-77p" id="alC-h8-3v3"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -135,9 +138,9 @@
                             <outlet property="delegate" destination="B9K-kb-8k2" id="ZRy-51-KnR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="BYe-wd-dRa"/>
+                    <navigationItem key="navigationItem" id="BYe-wd-dRa"/>
                     <connections>
-                        <segue destination="4bC-7n-PMD" kind="show" identifier="listAccount" id="meb-Do-6UL"/>
+                        <segue destination="4bC-7n-PMD" kind="show" identifier="listAccounts" id="meb-Do-6UL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kev-6L-Zbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
