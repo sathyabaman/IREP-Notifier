@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import UserNotifications
+import SideMenu
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print(NotificationManager.shared.fcmToken)
     application.registerForRemoteNotifications()
     self.configUserNotificationSettingsFor(application)
+    SideMenuManager.default.menuFadeStatusBar = false
     return true
   }
 
