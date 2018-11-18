@@ -59,7 +59,8 @@ class NotificationTableViewModel: NSObject {
     self.bindRefresherToNotifications(
       tableView: self.viewController.notificationTableView
     )
-    self.bindSearcherTrigger(button: self.viewController.navigationRightButton)
+    self.bindSearcherTrigger(button: self.viewController.navigationSearchButton)
+    self.bindSideMenuTrigger(button: self.viewController.navigationMenuButton)
     // initial setup
     self.hideSearcher()
     self.fetchNotications()
@@ -267,23 +268,19 @@ class NotificationTableViewModel: NSObject {
     .disposed(by: self.disposeBag)
   }
   
-  private func bindSideMenu() {
-    let swipeGesture = UISwipeGestureRecognizer(
-      target: self,
-      action: #selector(self.drawerHandler(gesture:))
-    )
-    self.viewController.view.addGestureRecognizer(swipeGesture)
-  }
-  
-  @objc private func drawerHandler(gesture: UISwipeGestureRecognizer) {
-    switch gesture.direction {
-    case .right:
-      let source = self.viewController
-      source.performSegue(withIdentifier:source.sideMenuSegueKey, sender: nil)
-    default:
-      break
-    }
-  }
+  private func bindSideMenuTrigger(button: UIBarButtonItem) {
+    let tap = button.rx.tap
+    tap.subscribe(
+      onNext: {
+        let source = self.viewController
+        source.performSegue(withIdentifier:source.sideMenuSegueKey, sender: nil)
+      },
+      onError: nil,
+      onCompleted: nil,
+      onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
+  }
   
   /**
    Method to create observable for the event of getting all notifications from
@@ -321,13 +318,13 @@ class NotificationTableViewModel: NSObject {
   }
   
   private func hideSearcher() {
-    self.viewController.navigationRightButton.isEnabled = true
+    self.viewController.navigationSearchButton.isEnabled = true
     self.viewController.notificationSearcher.isHidden = true
     self.viewController.notificationTableViewTop.constant = 0
   }
   
   private func showSearcher() {
-    self.viewController.navigationRightButton.isEnabled = false
+    self.viewController.navigationSearchButton.isEnabled = false
     self.viewController.notificationSearcher.text = nil
     self.viewController.notificationSearcher.isHidden = false
     self.viewController.notificationTableViewTop.constant = 56

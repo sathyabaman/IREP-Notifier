@@ -15,7 +15,8 @@ class NotificationTableViewController: UIViewController {
   
   let sideMenuSegueKey = "openSideMenu"
   
-  @IBOutlet weak var navigationRightButton: UIBarButtonItem!
+  @IBOutlet weak var navigationMenuButton: UIBarButtonItem!
+  @IBOutlet weak var navigationSearchButton: UIBarButtonItem!
   @IBOutlet weak var notificationSearcher: UISearchBar!
   @IBOutlet weak var notificationSegmentControl: UISegmentedControl!
   @IBOutlet weak var notificationTableView: UITableView!
