@@ -12,5 +12,6 @@ class AccountTableViewCell: UITableViewCell {
   static let identifier = "AccountTableViewCell"
   
   @IBOutlet weak var categoryLabel: UILabel!
+  @IBOutlet weak var loginIdLabel: UILabel!
   @IBOutlet weak var nameLabel: UILabel!
 }
