@@ -23,8 +23,9 @@ struct AccountViewModel {
         cellIdentifier: AccountTableViewCell.identifier,
         cellType: AccountTableViewCell.self
       )) {(row, account, cell) in
-        cell.categoryLabel.text = account.company
-        cell.nameLabel.text = account.name
+        cell.categoryLabel.text = "Product name: \(account.category)"
+        cell.loginIdLabel.text = "Login ID: \(account.loginId)"
+        cell.nameLabel.text = "User name: \(account.name)"
       }
       .disposed(by: self.disposeBag)
   }
