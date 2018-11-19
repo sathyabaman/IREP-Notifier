@@ -9,9 +9,11 @@
 import UIKit
 
 class AccountLoginViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
+  
+  @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet weak var loginFormView: UIView!
+  @IBOutlet weak var companyIdTextField: UITextField!
+  @IBOutlet weak var usernameTextField: UITextField!
+  @IBOutlet weak var passwordTextField: UITextField!
+  
 }
