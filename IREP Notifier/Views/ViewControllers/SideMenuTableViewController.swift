@@ -10,7 +10,7 @@ import UIKit
 class SideMenuTableViewController: UITableViewController {
   
   private let segues: [SideMenu] = [
-    SideMenu(title: "Add Account", segue: "loginAccount"),
+    SideMenu(title: "Add Account", segue: "addAccount"),
     SideMenu(title: "Show Accounts", segue: "listAccounts")
   ]
 

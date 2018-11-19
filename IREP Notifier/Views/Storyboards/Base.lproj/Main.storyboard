@@ -90,7 +90,9 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg"/>
+                    <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="29F-hk-Cp6"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="navigationMenuButton" destination="7mD-8C-dYi" id="sut-L3-GMV"/>
@@ -104,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7l-R5-liP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421.60000000000002" y="27.339901477832512"/>
+            <point key="canvasLocation" x="422" y="30"/>
         </scene>
         <!--Side Menu Table View Controller-->
         <scene sceneID="iO0-Bs-Kfg">
@@ -149,6 +151,7 @@
                     <navigationItem key="navigationItem" id="BYe-wd-dRa"/>
                     <connections>
                         <segue destination="4bC-7n-PMD" kind="show" identifier="listAccounts" id="meb-Do-6UL"/>
+                        <segue destination="Rwp-nf-KCH" kind="show" identifier="addAccount" id="2bE-ab-g1L"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kev-6L-Zbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -257,7 +260,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjB-Z3-HMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2221.5999999999999" y="759.60591133004925"/>
+            <point key="canvasLocation" x="1313" y="1510"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="isx-uC-ehk">
+            <objects>
+                <viewController id="Rwp-nf-KCH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E30-aE-cWp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0TG-1u-8i6"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ap-NI-IKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="422" y="1510"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">
@@ -279,7 +297,7 @@
                         <color key="barTintColor" red="0.035294117649999998" green="0.45882352939999999" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>
                     <connections>
-                        <segue destination="cK5-9U-rqi" kind="relationship" relationship="rootViewController" id="dGe-x7-unW"/>
+                        <segue destination="cK5-9U-rqi" kind="relationship" relationship="rootViewController" id="OjT-WG-imX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bop-Lq-3b6" userLabel="First Responder" sceneMemberID="firstResponder"/>
