@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FA683219496E6006EFDAA /* NotificationGroup.swift */; };
-		2C8BD92421A2B14A00E9C799 /* AccountDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8BD92321A2B14A00E9C799 /* AccountDelegate.swift */; };
 		2C8BD92621A2B19800E9C799 /* AccountLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */; };
 		2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A5218F25A1000CA745 /* NotificationManager.swift */; };
 		2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */; };
@@ -61,7 +60,6 @@
 		1D5E091AB8A6E66B6DE939DA /* Pods-IREP NotifierUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierUITests/Pods-IREP NotifierUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2484F4F6DE076458FC0EBBC4 /* Pods-IREP Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP Notifier.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP Notifier/Pods-IREP Notifier.release.xcconfig"; sourceTree = "<group>"; };
 		2C3FA683219496E6006EFDAA /* NotificationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationGroup.swift; sourceTree = "<group>"; };
-		2C8BD92321A2B14A00E9C799 /* AccountDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDelegate.swift; sourceTree = "<group>"; };
 		2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewModel.swift; sourceTree = "<group>"; };
 		2CA719A5218F25A1000CA745 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewModel.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 		A4D8734F2185F9BE0008A055 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				2C8BD92321A2B14A00E9C799 /* AccountDelegate.swift */,
 				2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */,
 				A471AF012189F030009FE1F0 /* AccountViewModel.swift */,
 				2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */,
@@ -542,7 +539,6 @@
 				726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */,
 				2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */,
 				2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */,
-				2C8BD92421A2B14A00E9C799 /* AccountDelegate.swift in Sources */,
 				A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */,
 				2C8BD92621A2B19800E9C799 /* AccountLoginViewModel.swift in Sources */,
 				720943B2218DF4A4009318AD /* Extensions.swift in Sources */,
