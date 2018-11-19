@@ -9,6 +9,9 @@
 import UIKit
 
 class AccountLoginViewController: UIViewController {
+  private lazy var accountViewModel: AccountLoginViewModel = {
+    return AccountLoginViewModel(viewController: self)
+  }()
   
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var loginFormView: UIView!
