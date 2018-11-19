@@ -10,30 +10,21 @@ import Alamofire
 import Firebase
 import RxSwift
 
-class NotificationManager: NSObject {
-  static let shared = NotificationManager()
-  
-  private(set) var fcmToken: String
-  private(set) var messages: [MessagingRemoteMessage]
-  
-  private override init() {
-    self.fcmToken = ""
-    self.messages = [MessagingRemoteMessage]()
-    super.init()
-    Messaging.messaging().delegate = self
-  }
-  
+struct NotificationManager {
   func getNotificationsByDeviceId() -> Observable<Data>? {
     let path = "\(BASE_URL)/api/Notification/GetNotificationByDeviceID"
-    guard let url = URL(string: path) else { return nil }
+    guard
+      let url = URL(string: path),
+      let delegate = UIApplication.shared.delegate as? AppDelegate,
+    let fcmToken = delegate.fcmToken
+    else {
+      return nil
+    }
     return Observable.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
-        parameters: [
-          "FcmID": self.fcmToken,
-          "Imei": "356904080702361"
-        ],
+        parameters: ["FcmID": fcmToken, "Imei": "356904080702361"],
         encoding: JSONEncoding(),
         headers: nil
       ).responseJSON(
@@ -84,22 +75,5 @@ class NotificationManager: NSObject {
         // do anything needed when clean up.
       }
     }
-  }
-}
-
-extension NotificationManager: MessagingDelegate {
-  func messaging(
-    _ messaging: Messaging,
-    didReceiveRegistrationToken fcmToken: String
-  ) {
-    self.fcmToken = fcmToken
-  }
-  
-  func messaging(
-    _ messaging: Messaging,
-    didReceive remoteMessage: MessagingRemoteMessage
-  ) {
-    print("Getting message: \(remoteMessage.messageID)")
-    self.messages.append(remoteMessage)
   }
 }

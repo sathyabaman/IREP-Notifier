@@ -13,6 +13,7 @@ import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
+  private let model = NotificationManager()
   // data observables
   private let allNoticationGroups: BehaviorRelay<[NotificationGroup]>
   private let readNoticationGroups: BehaviorRelay<[NotificationGroup]>
@@ -63,7 +64,9 @@ class NotificationTableViewModel: NSObject {
     self.bindSideMenuTrigger(button: self.viewController.navigationMenuButton)
     // initial setup
     self.hideSearcher()
-    self.fetchNotications()
+    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+      appDelegate.fcmNotifierDelegate = self
+    }
   }
   
   /**
@@ -210,7 +213,7 @@ class NotificationTableViewModel: NSObject {
           let title = item.title
           let message = item.text
           self.viewController.alert(title: title, message: message) { _ in
-            NotificationManager.shared.updateReadNotificationStatusById(id: id)?
+            self.model.updateReadNotificationStatusById(id: id)?
               .subscribe(
                 onNext: { (data) in
                   do {
@@ -290,7 +293,7 @@ class NotificationTableViewModel: NSObject {
     DispatchQueue.main.async {
       self.refreshControl.beginRefreshing()
     }
-    NotificationManager.shared.getNotificationsByDeviceId()?
+    self.model.getNotificationsByDeviceId()?
       .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
         DispatchQueue.main.async {
           self.refreshControl.endRefreshing()
@@ -328,5 +331,11 @@ class NotificationTableViewModel: NSObject {
     self.viewController.notificationSearcher.text = nil
     self.viewController.notificationSearcher.isHidden = false
     self.viewController.notificationTableViewTop.constant = 56
+  }
+}
+
+extension NotificationTableViewModel: FcmNotifierDelegate {
+  func receivedFcmToken() {
+    self.fetchNotications()
   }
 }

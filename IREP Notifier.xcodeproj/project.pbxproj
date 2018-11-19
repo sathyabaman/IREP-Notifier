@@ -33,6 +33,7 @@
 		A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A490172A21875C200022F420 /* NotificationTableViewController.swift */; };
 		A490172D21875C480022F420 /* AccountManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A490172C21875C480022F420 /* AccountManagerViewController.swift */; };
 		A4B5AECC21A1945B00D54810 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5AECB21A1945B00D54810 /* SideMenuTableViewController.swift */; };
+		A4FEF06821A309FF00916066 /* FcmNotifierDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEF06721A309FF00916066 /* FcmNotifierDelegate.swift */; };
 		DBEED0A0D05FC0234EC191AA /* Pods_IREP_NotifierUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773898643AF7C8866045C9ED /* Pods_IREP_NotifierUITests.framework */; };
 		E555F9A12EEACA9FCE9F0C7B /* Pods_IREP_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F2F64DDEE540EB289430AA /* Pods_IREP_Notifier.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		A490172A21875C200022F420 /* NotificationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
 		A490172C21875C480022F420 /* AccountManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagerViewController.swift; sourceTree = "<group>"; };
 		A4B5AECB21A1945B00D54810 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		A4FEF06721A309FF00916066 /* FcmNotifierDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FcmNotifierDelegate.swift; sourceTree = "<group>"; };
 		AB53665326B641357C3F675B /* Pods-IREP Notifier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP Notifier.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IREP Notifier/Pods-IREP Notifier.debug.xcconfig"; sourceTree = "<group>"; };
 		B9902E363444CCC8CAD27BD6 /* Pods-IREP NotifierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierTests/Pods-IREP NotifierTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7E1FA590FA6FD6B2CC98EF8 /* Pods-IREP NotifierUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierUITests/Pods-IREP NotifierUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		720943AE218DF168009318AD /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				A4FEF06721A309FF00916066 /* FcmNotifierDelegate.swift */,
 				720943AF218DF189009318AD /* Notification.swift */,
 				2C3FA683219496E6006EFDAA /* NotificationGroup.swift */,
 				2CA719A5218F25A1000CA745 /* NotificationManager.swift */,
@@ -540,6 +543,7 @@
 				A471AF022189F030009FE1F0 /* AccountViewModel.swift in Sources */,
 				726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */,
 				2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */,
+				A4FEF06821A309FF00916066 /* FcmNotifierDelegate.swift in Sources */,
 				2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */,
 				A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */,
 				2C8BD92621A2B19800E9C799 /* AccountLoginViewModel.swift in Sources */,

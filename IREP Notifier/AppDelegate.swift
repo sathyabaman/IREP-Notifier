@@ -15,7 +15,10 @@ import SideMenu
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+  private(set) var fcmToken: String? = nil
+  private(set) var messages = [MessagingRemoteMessage]()
   var window: UIWindow?
+  weak var fcmNotifierDelegate: FcmNotifierDelegate?
 
   func application(
     _ application: UIApplication,
@@ -24,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ]?
   ) -> Bool {
     FirebaseApp.configure()
-    print(NotificationManager.shared.fcmToken)
     application.registerForRemoteNotifications()
     self.configUserNotificationSettingsFor(application)
     IQKeyboardManager.shared.enable = true
+    Messaging.messaging().delegate = self
     SideMenuManager.default.menuFadeStatusBar = false
     return true
   }
@@ -72,5 +75,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       )
       application.registerUserNotificationSettings(settings)
     }
+  }
+}
+
+extension AppDelegate: MessagingDelegate {
+  func messaging(
+    _ messaging: Messaging,
+    didReceiveRegistrationToken fcmToken: String
+  ) {
+    print("Getting FCM token: \(fcmToken)")
+    self.fcmToken = fcmToken
+    self.fcmNotifierDelegate?.receivedFcmToken()
+  }
+  
+  func messaging(
+    _ messaging: Messaging,
+    didReceive remoteMessage: MessagingRemoteMessage
+  ) {
+    print("Getting message: \(remoteMessage.messageID)")
+    self.messages.append(remoteMessage)
   }
 }

@@ -17,7 +17,13 @@ struct AccountManager {
     password: String
   ) -> Observable<Data>? {
     let path = "\(BASE_URL)/api/Account/RegisterAccount"
-    guard let url = URL(string: path) else { return nil }
+    guard
+      let url = URL(string: path),
+      let delegate = UIApplication.shared.delegate as? AppDelegate,
+      let fcmToken = delegate.fcmToken
+      else {
+        return nil
+    }
     return Observable.create { (observable) -> Disposable in
       Alamofire.request(
         url,
@@ -25,14 +31,15 @@ struct AccountManager {
         parameters: [
           "AccountType": type,
           "CompanyID": companyId,
-          "FcmID": NotificationManager.shared.fcmToken,
+          "FcmID": fcmToken,
           "Imei": DEVICE_IMEI,
           "LoginID": username,
           "Password": password
         ],
         encoding: JSONEncoding(),
         headers: nil
-      ).responseJSON(
+      )
+      .responseJSON(
         queue: DispatchQueue.global(),
         options: JSONSerialization.ReadingOptions.mutableContainers
       ) { (response) in
@@ -53,7 +60,7 @@ struct AccountManager {
       }
     }
   }
-  
+
   static func deleteAccountBy(accountId: Int) -> Observable<Data>? {
     let path = "\(BASE_URL)/api/Account/DeleteAccountByID"
     guard let url = URL(string: path) else { return nil }
@@ -113,6 +120,4 @@ struct AccountManager {
       }
     }
   }
-  
-  private init() {}
 }
