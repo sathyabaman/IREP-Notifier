@@ -277,7 +277,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIt-qA-84o">
-                                <rect key="frame" x="20" y="295.66666666666669" width="339" height="210"/>
+                                <rect key="frame" x="20" y="295.66666666666669" width="339" height="270.00000000000006"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zT2-DI-zuK">
                                         <rect key="frame" x="10" y="20" width="319" height="50"/>
@@ -306,18 +306,31 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hP-cN-9hz">
+                                        <rect key="frame" x="10" y="200" width="319" height="50"/>
+                                        <color key="backgroundColor" red="0.035294117649999998" green="0.45882352939999999" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="L5M-MX-5Wb"/>
+                                        </constraints>
+                                        <state key="normal" title="Add Account">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="6hP-cN-9hz" firstAttribute="top" secondItem="NXQ-Ws-Bxs" secondAttribute="bottom" constant="10" id="0j5-d6-zyV"/>
+                                    <constraint firstItem="6hP-cN-9hz" firstAttribute="leading" secondItem="KIt-qA-84o" secondAttribute="leading" constant="10" id="6la-16-xgX"/>
                                     <constraint firstItem="zT2-DI-zuK" firstAttribute="leading" secondItem="KIt-qA-84o" secondAttribute="leading" constant="10" id="9ip-HB-opC"/>
+                                    <constraint firstAttribute="bottom" secondItem="6hP-cN-9hz" secondAttribute="bottom" constant="20" id="Dfc-vJ-tlE"/>
                                     <constraint firstItem="NXQ-Ws-Bxs" firstAttribute="leading" secondItem="KIt-qA-84o" secondAttribute="leading" constant="10" id="H6u-5v-8RN"/>
                                     <constraint firstItem="zT2-DI-zuK" firstAttribute="top" secondItem="KIt-qA-84o" secondAttribute="top" constant="20" id="QQL-0N-hPG"/>
                                     <constraint firstItem="Oaw-Sc-oT9" firstAttribute="top" secondItem="zT2-DI-zuK" secondAttribute="bottom" constant="10" id="TL3-FY-hZ8"/>
                                     <constraint firstAttribute="trailing" secondItem="Oaw-Sc-oT9" secondAttribute="trailing" constant="10" id="b09-cL-N6f"/>
                                     <constraint firstItem="Oaw-Sc-oT9" firstAttribute="leading" secondItem="KIt-qA-84o" secondAttribute="leading" constant="10" id="hLM-Md-Op4"/>
                                     <constraint firstAttribute="trailing" secondItem="zT2-DI-zuK" secondAttribute="trailing" constant="10" id="l20-SB-Kt8"/>
-                                    <constraint firstAttribute="bottom" secondItem="NXQ-Ws-Bxs" secondAttribute="bottom" constant="20" id="lgI-SO-iMm"/>
                                     <constraint firstItem="NXQ-Ws-Bxs" firstAttribute="top" secondItem="Oaw-Sc-oT9" secondAttribute="bottom" constant="10" id="mBI-l5-uD8"/>
+                                    <constraint firstAttribute="trailing" secondItem="6hP-cN-9hz" secondAttribute="trailing" constant="10" id="mTn-Ki-2wE"/>
                                     <constraint firstAttribute="trailing" secondItem="NXQ-Ws-Bxs" secondAttribute="trailing" constant="10" id="utX-DZ-FwL"/>
                                 </constraints>
                             </view>
@@ -334,6 +347,7 @@
                         <viewLayoutGuide key="safeArea" id="0TG-1u-8i6"/>
                     </view>
                     <connections>
+                        <outlet property="addAccountButton" destination="6hP-cN-9hz" id="92u-bf-JSl"/>
                         <outlet property="companyIdTextField" destination="zT2-DI-zuK" id="nOF-mL-Mhg"/>
                         <outlet property="imageView" destination="znR-JY-BCF" id="MiA-Tx-sCd"/>
                         <outlet property="loginFormView" destination="KIt-qA-84o" id="K8p-0R-GCp"/>

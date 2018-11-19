@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import Firebase
 import UserNotifications
+import Firebase
+import IQKeyboardManagerSwift
 import SideMenu
 
 @UIApplicationMain
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print(NotificationManager.shared.fcmToken)
     application.registerForRemoteNotifications()
     self.configUserNotificationSettingsFor(application)
+    IQKeyboardManager.shared.enable = true
     SideMenuManager.default.menuFadeStatusBar = false
     return true
   }

@@ -18,9 +18,11 @@ class AccountLoginViewController: UIViewController {
   @IBOutlet weak var companyIdTextField: UITextField!
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
+  @IBOutlet weak var addAccountButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.addAccountButton.layer.cornerRadius = 5.0
   }
   
 }
