@@ -292,32 +292,32 @@ class NotificationTableViewModel: NSObject {
   @objc private func fetchNotications() {
     DispatchQueue.main.async {
       self.refreshControl.beginRefreshing()
-    }
-    self.model.getNotificationsByDeviceId()?
-      .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
-        DispatchQueue.main.async {
-          self.refreshControl.endRefreshing()
-        }
-        do {
-          let json = try JSON(data: data)
-          let data = json["Data"].arrayValue
-          return Observable.of(data.map { (json) -> NotificationGroup in
-            return NotificationGroup(
-              accountTypeId: json["AccountTypeID"].intValue,
-              title: json["Name"].stringValue,
-              items: json["FCMNotificationMsgList"].arrayValue.map(
-                { (itemInfo) -> Notification in
-                  return Notification(info: itemInfo)
-                }
+      self.model.getNotificationsByDeviceId()?
+        .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
+          DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+          }
+          do {
+            let json = try JSON(data: data)
+            let data = json["Data"].arrayValue
+            return Observable.of(data.map { (json) -> NotificationGroup in
+              return NotificationGroup(
+                accountTypeId: json["AccountTypeID"].intValue,
+                title: json["Name"].stringValue,
+                items: json["FCMNotificationMsgList"].arrayValue.map(
+                  { (itemInfo) -> Notification in
+                    return Notification(info: itemInfo)
+                  }
+                )
               )
-            )
-          })
-        } catch {
-          throw error
-        }
-      })
-      .bind(to: self.allNoticationGroups)
-      .disposed(by: self.disposeBag)
+            })
+          } catch {
+            throw error
+          }
+        })
+        .bind(to: self.allNoticationGroups)
+        .disposed(by: self.disposeBag)
+    }
   }
   
   private func hideSearcher() {
