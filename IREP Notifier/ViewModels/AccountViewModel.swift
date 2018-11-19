@@ -46,26 +46,26 @@ struct AccountViewModel {
       .disposed(by: self.disposeBag)
   }
   
-//  func registerAccountBy(accountType: Int, companyId: String, username: String, password: String) {
-//    AccountManager.registerAccountBy(
-//      type: accountType,
-//      companyId: companyId,
-//      username: username,
-//      password: password
-//    )?
-//      // reactiveX logics goes here
-//      .subscribe {
-//        switch $0 {
-//        case .error(let error):
-//          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
-//        case .next(let data):
-//          self.processServerResponseForAccount(data)
-//        case .completed:
-//          break
-//        }
-//      }
-//      .disposed(by: self.disposeBag)
-//  }
+  func registerAccountBy(accountType: Int, companyId: String, username: String, password: String) {
+    AccountManager.registerAccountBy(
+      type: accountType,
+      companyId: companyId,
+      username: username,
+      password: password
+    )?
+      // reactiveX logics goes here
+      .subscribe {
+        switch $0 {
+        case .error(let error):
+          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
+        case .next(let data):
+          self.processServerResponseForAccount(data)
+        case .completed:
+          break
+        }
+      }
+      .disposed(by: self.disposeBag)
+  }
   
   func removeAccountBy(accountId: Int) {
     AccountManager.deleteAccountBy(accountId: accountId)?

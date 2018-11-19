@@ -16,11 +16,14 @@ struct AccountLoginViewModel {
   private let companyId: BehaviorRelay<String?>
   private let username: BehaviorRelay<String?>
   private let password: BehaviorRelay<String?>
+  // UI elements
+  private let viewController: AccountLoginViewController
   
   init(viewController: AccountLoginViewController) {
     self.companyId = BehaviorRelay<String?>(value: nil)
     self.username = BehaviorRelay<String?>(value: nil)
     self.password = BehaviorRelay<String?>(value: nil)
+    self.viewController = viewController
     self.bindTextField(viewController.companyIdTextField, source: self.companyId)
     self.bindTextField(viewController.usernameTextField, source: self.username)
     self.bindTextField(viewController.passwordTextField, source: self.password)
@@ -43,12 +46,55 @@ struct AccountLoginViewModel {
       .asDriver()
       .drive(
         onNext: {
-          
+          AccountManager.registerAccountBy(
+            type: 1,
+            companyId: self.viewController.companyIdTextField.text ?? "",
+            username: self.viewController.usernameTextField.text ?? "",
+            password: self.viewController.passwordTextField.text ?? ""
+          )?
+          .subscribe({
+            switch $0 {
+              case .error(let error):
+                self.viewController.alert(
+                  title: "Failed to add account",
+                  message: error.localizedDescription,
+                  completion: { _ in }
+                )
+              case .next(let data):
+                self.processAddAccountServerResponse(data)
+              case .completed:
+                break
+            }
+          })
+          .disposed(by: self.disposeBag)
         },
         onCompleted: nil,
         onDisposed: nil
       )
       .disposed(by: self.disposeBag)
+  }
+  
+  private func processAddAccountServerResponse(_ data: Data) {
+    do {
+      let json = try JSON(data: data)
+      let status = json["status"].intValue
+      switch status {
+        case 1: // success
+          self.viewController.dismiss(animated: true, completion: nil)
+        case 0: // failure
+          if let errorMessage = json["ErrMsg"].string {
+            self.viewController.alert(
+              title: "IREP Notifier is rejected to add account",
+              message: errorMessage,
+              completion: { _ in }
+            )
+          }
+        default: // unexpected encounter
+          fatalError("Unexpected result from register account server request")
+        }
+    } catch {
+      fatalError("JSON parse error: \(error)")
+    }
   }
   
 }
