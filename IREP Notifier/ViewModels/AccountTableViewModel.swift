@@ -6,13 +6,14 @@
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
-import RxCocoa
 import RxSwift
+import RxCocoa
+import RxDataSources
 import SwiftyJSON
 
 struct AccountTableViewModel {
   private let disposeBag = DisposeBag()
-  
+  // data observables
   let accountInfo: BehaviorRelay<[Account]>
   
   init(accountTable: inout UITableView) {

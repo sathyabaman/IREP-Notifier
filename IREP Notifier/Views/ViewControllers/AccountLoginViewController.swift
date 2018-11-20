@@ -24,9 +24,8 @@ class AccountLoginViewController: UIViewController {
     super.viewDidLoad()
     self.accountViewModel = AccountLoginViewModel(viewController: self)
     self.addAccountButton.layer.cornerRadius = 5.0
-    let initText = "IREP Security \(String.fontAwesomeIcon(name: .plane))"
-    self.categoryButton.setTitle(String.fontAwesomeIcon(name: .plane), for: .normal)
-    self.categoryButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 20, style: .brands)
+    let buttonText = "IREP Security \(String.fontAwesomeIcon(name: .plane))"
+    self.categoryButton.setTitle(buttonText, for: .normal)
   }
   
 }
