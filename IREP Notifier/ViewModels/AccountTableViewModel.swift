@@ -46,27 +46,6 @@ struct AccountTableViewModel {
       .disposed(by: self.disposeBag)
   }
   
-  func registerAccountBy(accountType: Int, companyId: String, username: String, password: String) {
-    AccountManager.registerAccountBy(
-      type: accountType,
-      companyId: companyId,
-      username: username,
-      password: password
-    )?
-      // reactiveX logics goes here
-      .subscribe {
-        switch $0 {
-        case .error(let error):
-          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
-        case .next(let data):
-          self.processServerResponseForAccount(data)
-        case .completed:
-          break
-        }
-      }
-      .disposed(by: self.disposeBag)
-  }
-  
   func removeAccountBy(accountId: Int) {
     AccountManager.deleteAccountBy(accountId: accountId)?
       // reactiveX logics goes here
@@ -75,7 +54,7 @@ struct AccountTableViewModel {
         case .error(let error):
           fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
         case .next(let data):
-          self.processServerResponseForAccount(data)
+          self.processRemoveAccountServerResponse(data)
         case .completed:
           break
         }
@@ -95,7 +74,7 @@ struct AccountTableViewModel {
     }
   }
   
-  private func processServerResponseForAccount(_ data: Data) {
+  private func processRemoveAccountServerResponse(_ data: Data) {
     do {
       let json = try JSON(data: data)
       let status = json["status"].intValue
