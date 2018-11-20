@@ -6,11 +6,13 @@
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
+import FontAwesome_swift
 import RxCocoa
 import RxSwift
 import SwiftyJSON
 
 struct AccountLoginViewModel {
+  private let categories = ["IREP Security", "IREP Workforce", "M2 Sense"]
   private let disposeBag = DisposeBag()
   // data observables
   private let companyId: BehaviorRelay<String?>
@@ -42,8 +44,15 @@ struct AccountLoginViewModel {
   
   private func bindAddAccountButton(_ button: UIButton) {
     button.rx.tap
-      .asDriver()
-      .drive(
+      .asObservable()
+      .filter({ _ -> Bool in
+        let source = self.viewController
+        let isCompanyIdEmpty = source.companyIdTextField.text?.isEmpty ?? false
+        let isUsernameEmpty = source.usernameTextField.text?.isEmpty ?? false
+        let isPasswordEmpty = source.passwordTextField.text?.isEmpty ?? false
+        return !isCompanyIdEmpty && !isUsernameEmpty && !isPasswordEmpty
+      })
+      .subscribe(
         onNext: {
           AccountManager.registerAccountBy(
             type: 1,
@@ -63,14 +72,19 @@ struct AccountLoginViewModel {
                 self.processAddAccountServerResponse(data)
               case .completed:
                 break
-            }
-          })
-          .disposed(by: self.disposeBag)
+              }
+            })
+            .disposed(by: self.disposeBag)
         },
+        onError: nil,
         onCompleted: nil,
         onDisposed: nil
       )
       .disposed(by: self.disposeBag)
+  }
+  
+  private func bindCategoryButton(_ button: UIButton) {
+    
   }
   
   private func processAddAccountServerResponse(_ data: Data) {
