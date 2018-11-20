@@ -13,6 +13,7 @@ class AccountLoginViewController: UIViewController {
   
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var loginFormView: UIView!
+  @IBOutlet weak var categoryButton: UIButton!
   @IBOutlet weak var companyIdTextField: UITextField!
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
