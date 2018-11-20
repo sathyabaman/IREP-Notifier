@@ -1,5 +1,5 @@
 //
-//  AccountViewModel.swift
+//  AccountTableViewModel.swift
 //  IREP Notifier
 //
 //  Created by Kerk Chin Wee on 31/10/18.
@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import SwiftyJSON
 
-struct AccountViewModel {
+struct AccountTableViewModel {
   private let disposeBag = DisposeBag()
   
   let accountInfo: BehaviorRelay<[Account]>
