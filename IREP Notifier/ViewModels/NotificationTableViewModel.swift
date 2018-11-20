@@ -9,6 +9,7 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
+import SideMenu
 import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
@@ -283,7 +284,11 @@ class NotificationTableViewModel: NSObject {
       onDisposed: nil
       )
       .disposed(by: self.disposeBag)
-  }
+    
+    SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(
+      toView: self.viewController.view
+    )
+  }
   
   /**
    Method to create observable for the event of getting all notifications from

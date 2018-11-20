@@ -34,8 +34,7 @@ struct AccountLoginViewModel {
     _ textfield: UITextField,
     source: BehaviorRelay<String?>
   ) {
-    textfield.rx.text
-      .asObservable()
+    textfield.rx.text.asObservable()
       .distinctUntilChanged()
       .bind(to: source)
       .disposed(by: self.disposeBag)

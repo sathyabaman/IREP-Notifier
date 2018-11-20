@@ -9,9 +9,7 @@
 import UIKit
 
 class AccountLoginViewController: UIViewController {
-  private lazy var accountViewModel: AccountLoginViewModel = {
-    return AccountLoginViewModel(viewController: self)
-  }()
+  private var accountViewModel: AccountLoginViewModel!
   
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var loginFormView: UIView!
@@ -22,6 +20,7 @@ class AccountLoginViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.accountViewModel = AccountLoginViewModel(viewController: self)
     self.addAccountButton.layer.cornerRadius = 5.0
   }
   
