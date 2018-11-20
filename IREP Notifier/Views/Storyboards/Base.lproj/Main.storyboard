@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="422" y="30"/>
         </scene>
-        <!--Side Menu Table View Controller-->
+        <!--Menu-->
         <scene sceneID="iO0-Bs-Kfg">
             <objects>
                 <tableViewController id="B9K-kb-8k2" customClass="SideMenuTableViewController" customModule="IREP_Notifier" customModuleProvider="target" sceneMemberID="viewController">
@@ -148,7 +148,7 @@
                             <outlet property="delegate" destination="B9K-kb-8k2" id="ZRy-51-KnR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="BYe-wd-dRa"/>
+                    <navigationItem key="navigationItem" title="Menu" id="BYe-wd-dRa"/>
                     <connections>
                         <segue destination="4bC-7n-PMD" kind="show" identifier="listAccounts" id="meb-Do-6UL"/>
                         <segue destination="Rwp-nf-KCH" kind="show" identifier="addAccount" id="2bE-ab-g1L"/>
