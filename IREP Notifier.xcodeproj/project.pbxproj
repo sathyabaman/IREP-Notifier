@@ -26,6 +26,7 @@
 		7274ACE32184601E0023543D /* IREP_NotifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACE22184601E0023543D /* IREP_NotifierUITests.swift */; };
 		72C4314E218DB5DF00F0628F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */; };
 		A437D7252188A42900A5301A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A437D7242188A42900A5301A /* Constants.swift */; };
+		A44033D221A4594900F937E5 /* AccountGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44033D121A4594900F937E5 /* AccountGroup.swift */; };
 		A471AF002189EFE6009FE1F0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AEFF2189EFE6009FE1F0 /* Account.swift */; };
 		A471AF022189F030009FE1F0 /* AccountTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AF012189F030009FE1F0 /* AccountTableViewModel.swift */; };
 		A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AF042189F09A009FE1F0 /* AccountTableViewCell.swift */; };
@@ -87,6 +88,7 @@
 		72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		773898643AF7C8866045C9ED /* Pods_IREP_NotifierUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_NotifierUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A437D7242188A42900A5301A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A44033D121A4594900F937E5 /* AccountGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountGroup.swift; sourceTree = "<group>"; };
 		A471AEFF2189EFE6009FE1F0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A471AF012189F030009FE1F0 /* AccountTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewModel.swift; sourceTree = "<group>"; };
 		A471AF042189F09A009FE1F0 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				A471AEFF2189EFE6009FE1F0 /* Account.swift */,
+				A44033D121A4594900F937E5 /* AccountGroup.swift */,
 				A4901728218743E00022F420 /* AccountManager.swift */,
 			);
 			path = Account;
@@ -543,6 +546,7 @@
 				2CC8140E219142EC005E1485 /* NotificationTableViewCell.swift in Sources */,
 				720943B0218DF189009318AD /* Notification.swift in Sources */,
 				A471AF022189F030009FE1F0 /* AccountTableViewModel.swift in Sources */,
+				A44033D221A4594900F937E5 /* AccountGroup.swift in Sources */,
 				726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */,
 				2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */,
 				A4FEF06821A309FF00916066 /* FcmNotifierDelegate.swift in Sources */,

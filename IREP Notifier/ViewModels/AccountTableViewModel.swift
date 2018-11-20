@@ -8,7 +8,6 @@
 
 import RxSwift
 import RxCocoa
-import RxDataSources
 import SwiftyJSON
 
 struct AccountTableViewModel {
@@ -18,8 +17,7 @@ struct AccountTableViewModel {
   
   init(accountTable: inout UITableView) {
     self.accountInfo = BehaviorRelay<[Account]>(value: [])
-    self.accountInfo
-      .asObservable()
+    self.accountInfo.asObservable()
       .bind(to: accountTable.rx.items(
         cellIdentifier: AccountTableViewCell.identifier,
         cellType: AccountTableViewCell.self

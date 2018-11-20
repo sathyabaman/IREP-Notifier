@@ -97,6 +97,7 @@ class NotificationTableViewModel: NSObject {
         return cell
       }
     )
+    dataSource.rowAnimation = .fade
     dataSource.titleForHeaderInSection = {(dataviewController, section) in
       return dataviewController.sectionModels[section].title
     }
