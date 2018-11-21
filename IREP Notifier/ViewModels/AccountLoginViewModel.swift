@@ -164,24 +164,23 @@ struct AccountLoginViewModel {
   
   private func bindDataSourceTo(_ picker: UIPickerView) {
     self.items
-      .bind(to: picker.rx.itemTitles) { (row, component) in
-        return component
+      .bind(to: picker.rx.itemTitles) { (row, element) in
+        return element
       }
       .disposed(by: self.disposeBag)
   }
   
   private func bindOnSelctionHandlerTo(_ picker: UIPickerView) {
     picker.rx.itemSelected
-      .subscribe(
-        onNext: { (row, component) in
-          let opt = self.categories[row]
-          self.viewController.categoryButton.setTitle(opt, for: .normal)
-          self.viewController.pickerView.isHidden = true
-        },
-        onError: nil,
-        onCompleted: nil,
-        onDisposed: nil
-      )
+      .flatMapLatest({ (row, component) -> Observable<LoginInfo> in
+        let opt = self.categories[row]
+        self.viewController.categoryButton.setTitle(opt, for: .normal)
+        self.viewController.pickerView.isHidden = true
+        var info = self.loginInfo.value
+        info.category = row + 1
+        return Observable.of(info)
+      })
+      .bind(to: self.loginInfo)
       .disposed(by: self.disposeBag)
   }
   
