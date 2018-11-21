@@ -49,21 +49,6 @@ struct AccountTableViewModel {
   
   func fetchAccounts() {
     AccountManager.getAccountListByDeviceId()?
-      .catchError({ (error) -> Observable<Data> in
-        fatalError(error.localizedDescription)
-      })
-      .flatMapLatest({ (data) -> Observable<[Account]> in
-        do {
-          let json = try JSON(data: data)
-          let data = json["Data"].arrayValue
-          let accounts = data.map({ (info) -> Account in
-            return Account(info: info)
-          })
-          return Observable.of(accounts)
-        } catch {
-          throw error
-        }
-      })
       .bind(to: self.accountInfo)
       .disposed(by: self.disposeBag)
   }

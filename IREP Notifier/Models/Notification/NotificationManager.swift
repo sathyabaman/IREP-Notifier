@@ -7,7 +7,6 @@
 //
 
 import Alamofire
-import Firebase
 import RxSwift
 import SwiftyJSON
 

@@ -8,6 +8,7 @@
 
 import Alamofire
 import RxSwift
+import SwiftyJSON
 
 struct AccountManager {
   static func registerAccountBy(
@@ -91,10 +92,10 @@ struct AccountManager {
     }
   }
   
-  static func getAccountListByDeviceId() -> Observable<Data>? {
+  static func getAccountListByDeviceId() -> Observable<[Account]>? {
     let path = "\(BASE_URL)/api/Account/GetAccountListByDeviceID"
     guard let url = URL(string: path) else { return nil }
-    return Observable.create { (observable) -> Disposable in
+    return Observable<Data>.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
@@ -119,5 +120,17 @@ struct AccountManager {
         // do anything needed when clean up.
       }
     }
+    .flatMapLatest({ (data) -> Observable<[Account]> in
+      do {
+        let json = try JSON(data: data)
+        let data = json["Data"].arrayValue
+        let accounts = data.map({ (info) -> Account in
+          return Account(info: info)
+        })
+        return Observable.of(accounts)
+      } catch {
+        throw error
+      }
+    })
   }
 }
