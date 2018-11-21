@@ -20,7 +20,7 @@ extension UIViewController {
   func alert(
     title: String,
     message: String?,
-    completion: @escaping (UIAlertAction) -> Void
+    completion: ((UIAlertAction) -> Void)?
   ) {
     let alert = UIAlertController(
       title: title,

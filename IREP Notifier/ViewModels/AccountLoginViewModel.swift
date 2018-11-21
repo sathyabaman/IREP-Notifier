@@ -66,7 +66,7 @@ struct AccountLoginViewModel {
                 self.viewController.alert(
                   title: "Failed to add account",
                   message: error.localizedDescription,
-                  completion: { _ in }
+                  completion: nil
                 )
               case .next(let data):
                 self.processAddAccountServerResponse(data)
@@ -99,7 +99,7 @@ struct AccountLoginViewModel {
             self.viewController.alert(
               title: "IREP Notifier is rejected to add account",
               message: errorMessage,
-              completion: { _ in }
+              completion: nil
             )
           }
         default: // unexpected encounter
