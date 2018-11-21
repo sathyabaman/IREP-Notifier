@@ -19,9 +19,16 @@ struct AccountLoginViewModel {
   // UI elements
   private let viewController: AccountLoginViewController
   
+  var isFormFilled: Bool {
+    let x = self.viewController.companyIdTextField.text?.isEmpty ?? false
+    let y = self.viewController.usernameTextField.text?.isEmpty ?? false
+    let z = self.viewController.passwordTextField.text?.isEmpty ?? false
+    return !x && !y && !z
+  }
+  
   init(viewController: AccountLoginViewController) {
     self.items = Observable.of(self.categories)
-    let info = LoginInfo(category: 0, company: "", username: "", password: "")
+    let info = LoginInfo(category: 1, company: "", username: "", password: "")
     self.loginInfo = BehaviorRelay<LoginInfo>(value: info)
     self.viewController = viewController
     // data observable bindings
@@ -31,36 +38,7 @@ struct AccountLoginViewModel {
     self.bindAddAccountButton(viewController.addAccountButton)
     self.bindCategoryButton(viewController.categoryButton)
     self.bindDataSourceTo(self.viewController.pickerView)
-    self.bindOnSelctionHandlerTo(self.viewController.pickerView)
-    // initial setup
-//    let i = LoginInfo(
-//      category: 1,
-//      company: "SEN0001",
-//      username: "aaronlee",
-//      password: "6628"
-//    )
-//    AccountManager.insertAccountBy(info: i)?
-//      .subscribe(
-//        onNext: { (result) in
-//          if result.statusCode == 1 {
-//            viewController.alert(
-//              title: "OK", message: result.statusMessage, completion: nil
-//            )
-//          } else {
-//            viewController.alert(
-//              title: "Error(?)", message: result.statusMessage, completion: nil
-//            )
-//          }
-//        },
-//        onError: { (err) in
-//          viewController.alert(
-//            title: err.localizedDescription, message: nil, completion: nil
-//          )
-//        },
-//        onCompleted: nil,
-//        onDisposed: nil
-//      )
-//      .disposed(by: self.disposeBag)
+    self.bindOnSelectionHandlerTo(self.viewController.pickerView)
   }
   
   private func bindCompanyIdFrom(_ textfield: UITextField) {
@@ -112,6 +90,13 @@ struct AccountLoginViewModel {
     button.rx.tap.asDriver()
       .drive(
         onNext: {
+          guard self.isFormFilled else {
+            self.viewController.alert(
+              title: "Missing login information",
+              message: "Please fill all text fields before login",
+              completion: nil
+            )
+          }
           AccountManager.insertAccountBy(info: self.loginInfo.value)?
             .subscribe(
               onNext: { (result) in
@@ -170,7 +155,7 @@ struct AccountLoginViewModel {
       .disposed(by: self.disposeBag)
   }
   
-  private func bindOnSelctionHandlerTo(_ picker: UIPickerView) {
+  private func bindOnSelectionHandlerTo(_ picker: UIPickerView) {
     picker.rx.itemSelected
       .flatMapLatest({ (row, component) -> Observable<LoginInfo> in
         let opt = self.categories[row]
@@ -183,5 +168,4 @@ struct AccountLoginViewModel {
       .bind(to: self.loginInfo)
       .disposed(by: self.disposeBag)
   }
-  
 }
