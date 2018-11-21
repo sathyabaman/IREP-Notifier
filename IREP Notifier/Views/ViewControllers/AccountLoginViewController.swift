@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FontAwesome_swift
 
 class AccountLoginViewController: UIViewController {
   private var accountViewModel: AccountLoginViewModel!
@@ -25,8 +24,6 @@ class AccountLoginViewController: UIViewController {
     super.viewDidLoad()
     self.accountViewModel = AccountLoginViewModel(viewController: self)
     self.addAccountButton.layer.cornerRadius = 5.0
-    let buttonText = "IREP Security \(String.fontAwesomeIcon(name: .plane))"
-    self.categoryButton.setTitle(buttonText, for: .normal)
     self.navigationController?.navigationBar.tintColor = UIColor.white
   }
   

@@ -6,7 +6,6 @@
 //  Copyright © 2018 Chin Wee Kerk. All rights reserved.
 //
 
-import FontAwesome_swift
 import RxCocoa
 import RxSwift
 import SwiftyJSON
@@ -14,7 +13,6 @@ import SwiftyJSON
 struct AccountLoginViewModel {
   private let categories = ["IREP Security", "IREP Workforce", "M2 Sense"]
   private let disposeBag = DisposeBag()
-  private var selectedCategory: Int = 0
   // data observables
   private let items: Observable<[String]>
   private let companyId: BehaviorRelay<String?>
@@ -106,7 +104,6 @@ struct AccountLoginViewModel {
     picker.rx.itemSelected
       .subscribe(
         onNext: { (row, component) in
-          self.selectedCategory = row
           let opt = self.categories[row]
           self.viewController.categoryButton.setTitle(opt, for: .normal)
           self.viewController.pickerView.isHidden = true

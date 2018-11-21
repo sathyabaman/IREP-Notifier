@@ -9,7 +9,6 @@ target 'IREP Notifier' do
   pod 'Alamofire', '~> 4.7'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  pod 'FontAwesome.swift'
   pod 'IQKeyboardManagerSwift'
   pod 'RxCocoa',    '~> 4.0'
   pod 'RxDataSources', '~> 3.0'

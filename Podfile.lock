@@ -32,7 +32,6 @@ PODS:
     - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Reachability (~> 5.2)
     - Protobuf (~> 3.1)
-  - FontAwesome.swift (1.4.5)
   - GoogleAppMeasurement (5.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -80,7 +79,6 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Firebase/Core
   - Firebase/Messaging
-  - FontAwesome.swift
   - IQKeyboardManagerSwift
   - RxCocoa (~> 4.0)
   - RxDataSources (~> 3.0)
@@ -98,7 +96,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
-    - FontAwesome.swift
     - GoogleAppMeasurement
     - GoogleUtilities
     - IQKeyboardManagerSwift
@@ -120,7 +117,6 @@ SPEC CHECKSUMS:
   FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseMessaging: 0f14a264b0d7f867e8eff5d3556bc5d0d4e57888
-  FontAwesome.swift: a351dbb86b9fcec9aad6bce2fdd5b95e9a7b8828
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
@@ -133,6 +129,6 @@ SPEC CHECKSUMS:
   SideMenu: 87efd943737bb83aedf0358884d09fcf5576636d
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 603dcbc504c497e09a599c29140010b4a062b199
+PODFILE CHECKSUM: 3d9ab684be7964c1ce2ee5ffbc583bee1599912e
 
 COCOAPODS: 1.5.3
