@@ -20,13 +20,14 @@ struct AccountTableViewModel {
   init(viewController: AccountTableViewController) {
     self.accountInfo = BehaviorRelay<[Account]>(value: [])
     self.viewController = viewController
-    self.bindAccountTable(self.viewController.accountTableView)
+    self.bindDataSourceToAccounts(self.viewController.accountTableView)
+    self.bindOnSelectionHandlerTo(self.viewController.accountTableView)
     self.fetchAccounts()
   }
   
-  private func bindAccountTable(_ accountTable: UITableView) {
+  private func bindDataSourceToAccounts(_ tableView: UITableView) {
     self.accountInfo.asObservable()
-      .bind(to: accountTable.rx.items(
+      .bind(to: tableView.rx.items(
         cellIdentifier: AccountTableViewCell.identifier,
         cellType: AccountTableViewCell.self
       )) {(row, account, cell) in
@@ -35,11 +36,22 @@ struct AccountTableViewModel {
         cell.nameLabel.text = "User name: \(account.name)"
       }
       .disposed(by: self.disposeBag)
-    let select = accountTable.rx.itemSelected
+  }
+  
+  private func bindOnSelectionHandlerTo(_ tableView: UITableView) {
+    let select = tableView.rx.itemSelected
     select.asDriver()
       .drive(
         onNext: { (indexPath) in
-          self.removeAccountBy(accountId: self.accountInfo.value[indexPath.row].id)
+          self.viewController.enquiry(
+            title: "Remove this account?",
+            message: nil,
+            accept: { _ in
+              let accountId = self.accountInfo.value[indexPath.row].id
+              self.removeAccountBy(accountId: accountId)
+            },
+            reject: nil
+          )
         },
         onCompleted: nil,
         onDisposed: nil

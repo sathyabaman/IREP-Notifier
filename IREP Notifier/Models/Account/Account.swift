@@ -35,6 +35,12 @@ struct Account {
     let category = info["Name"].stringValue
     let loginId = info["LoginID"].stringValue
     let name = info["UserName"].stringValue
-    self.init(id: id, company: company, category: category, loginId: loginId, name: name)
+    self.init(
+      id: id,
+      company: company,
+      category: category,
+      loginId: loginId,
+      name: name
+    )
   }
 }

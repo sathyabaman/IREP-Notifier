@@ -227,7 +227,7 @@ class NotificationTableViewModel: NSObject {
               )
               .disposed(by: self.disposeBag)
           }
-      },
+        },
         onCompleted: nil,
         onDisposed: nil
       )

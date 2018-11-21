@@ -32,4 +32,24 @@ extension UIViewController {
     )
     self.present(alert, animated: true, completion: nil)
   }
+  
+  func enquiry(
+    title: String,
+    message: String?,
+    accept: ((UIAlertAction) -> Void)?,
+    reject: ((UIAlertAction) -> Void)?
+  ) {
+    let alert = UIAlertController(
+      title: title,
+      message: message,
+      preferredStyle: .alert
+    )
+    alert.addAction(
+      UIAlertAction(title: "Ok", style: .default, handler: accept)
+    )
+    alert.addAction(
+      UIAlertAction(title: "Cancel", style: .cancel, handler: reject)
+    )
+    self.present(alert, animated: true, completion: nil)
+  }
 }
