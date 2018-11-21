@@ -299,6 +299,9 @@ class NotificationTableViewModel: NSObject {
     DispatchQueue.main.async {
       self.refreshControl.beginRefreshing()
       self.model.getNotificationsByDeviceId()?
+        .catchError({ (error) -> Observable<Data> in
+          fatalError(error.localizedDescription)
+        })
         .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
           DispatchQueue.main.async {
             self.refreshControl.endRefreshing()

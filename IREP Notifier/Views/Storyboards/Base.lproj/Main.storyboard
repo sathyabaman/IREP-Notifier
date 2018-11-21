@@ -86,17 +86,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1sS-Rs-B4G"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="search" id="QKz-Yl-c8T">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WjT-Jc-cjf"/>
-                        <barButtonItem systemItem="action" id="7mD-8C-dYi">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="IREP Notifier" id="iKX-Ne-cyg">
                         <barButtonItem key="backBarButtonItem" title="Back" id="29F-hk-Cp6"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="7mD-8C-dYi">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="QKz-Yl-c8T">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
