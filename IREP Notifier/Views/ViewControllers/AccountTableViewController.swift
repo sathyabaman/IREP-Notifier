@@ -17,6 +17,7 @@ class AccountTableViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.accountTableViewModel = AccountTableViewModel(viewController: self)
+    self.navigationController?.navigationBar.tintColor = UIColor.white
   }
 
 }

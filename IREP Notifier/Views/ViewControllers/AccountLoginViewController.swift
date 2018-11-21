@@ -27,6 +27,7 @@ class AccountLoginViewController: UIViewController {
     self.addAccountButton.layer.cornerRadius = 5.0
     let buttonText = "IREP Security \(String.fontAwesomeIcon(name: .plane))"
     self.categoryButton.setTitle(buttonText, for: .normal)
+    self.navigationController?.navigationBar.tintColor = UIColor.white
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
