@@ -62,10 +62,10 @@ struct AccountManager {
     }
   }
 
-  static func deleteAccountBy(accountId: Int) -> Observable<Data>? {
+  static func deleteAccountBy(accountId: Int) -> Observable<ServerResult>? {
     let path = "\(BASE_URL)/api/Account/DeleteAccountByID"
     guard let url = URL(string: path) else { return nil }
-    return Observable.create { (observable) -> Disposable in
+    return Observable<Data>.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
@@ -90,6 +90,17 @@ struct AccountManager {
         // do anything needed when clean up.
       }
     }
+    .flatMapLatest({ (data) -> Observable<ServerResult> in
+      do {
+        let json = try JSON(data: data)
+        let status = json["status"].intValue
+        let message = json["ErrMsg"].string
+        let error = ServerResult(statusCode: status, statusMessage: message)
+        return Observable.of(error)
+      } catch {
+        throw error
+      }
+    })
   }
   
   static func getAccountListByDeviceId() -> Observable<[Account]>? {

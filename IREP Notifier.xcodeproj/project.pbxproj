@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FA683219496E6006EFDAA /* NotificationGroup.swift */; };
+		2C89DE3D21A55B9800B94010 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89DE3C21A55B9800B94010 /* ServerError.swift */; };
 		2C8BD92621A2B19800E9C799 /* AccountLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */; };
 		2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A5218F25A1000CA745 /* NotificationManager.swift */; };
 		2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */; };
@@ -61,6 +62,7 @@
 		1D5E091AB8A6E66B6DE939DA /* Pods-IREP NotifierUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierUITests/Pods-IREP NotifierUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2484F4F6DE076458FC0EBBC4 /* Pods-IREP Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP Notifier.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP Notifier/Pods-IREP Notifier.release.xcconfig"; sourceTree = "<group>"; };
 		2C3FA683219496E6006EFDAA /* NotificationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationGroup.swift; sourceTree = "<group>"; };
+		2C89DE3C21A55B9800B94010 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewModel.swift; sourceTree = "<group>"; };
 		2CA719A5218F25A1000CA745 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewModel.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				A437D7242188A42900A5301A /* Constants.swift */,
 				720943B1218DF4A4009318AD /* Extensions.swift */,
+				2C89DE3C21A55B9800B94010 /* ServerError.swift */,
 				7207DA1521A044B2009FAF7E /* SideMenu.swift */,
 			);
 			path = Shared;
@@ -556,6 +559,7 @@
 				A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */,
 				A437D7252188A42900A5301A /* Constants.swift in Sources */,
 				A471AF002189EFE6009FE1F0 /* Account.swift in Sources */,
+				2C89DE3D21A55B9800B94010 /* ServerError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

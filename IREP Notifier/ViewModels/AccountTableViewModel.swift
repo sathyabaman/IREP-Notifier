@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
-import SwiftyJSON
 
 struct AccountTableViewModel {
   private let disposeBag = DisposeBag()
@@ -55,33 +54,28 @@ struct AccountTableViewModel {
   
   private func removeAccountBy(accountId: Int) {
     AccountManager.deleteAccountBy(accountId: accountId)?
-      .catchError({ (error) -> Observable<Data> in
-        fatalError(error.localizedDescription)
-      })
-      .flatMapLatest({ (data) -> Observable<[Account]> in
-        do {
-          let json = try JSON(data: data)
-          let status = json["status"].intValue
-          switch status {
-          case 1: // success
-            var accounts = self.accountInfo.value
-            accounts = accounts.filter({ (account) -> Bool in
-              return account.id != accountId
-            })
-            return Observable.of(accounts)
-          case 0: // failure
-            if let errorMessage = json["ErrMsg"].string {
-              self.viewController.alert(title: errorMessage, message: nil, completion: nil)
+      .subscribe({
+        switch $0 {
+          case .error(let error):
+            self.viewController.alert(
+              title: "Failed to delete account",
+              message: error.localizedDescription,
+              completion: nil
+            )
+          case .next(let result):
+            if result.statusMessage != nil {
+              self.viewController.alert(
+                title: "Failed to delete account",
+                message: result.statusMessage,
+                completion: nil
+              )
+            } else {
+              self.fetchAccounts()
             }
-            return self.accountInfo.asObservable()
-          default: // unexpected encounter
-            return self.accountInfo.asObservable()
-          }
-        } catch {
-          return self.accountInfo.asObservable()
+          case .completed:
+            break
         }
       })
-      .bind(to: self.accountInfo)
       .disposed(by: self.disposeBag)
   }
 }
