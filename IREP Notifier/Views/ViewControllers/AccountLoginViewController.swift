@@ -32,6 +32,7 @@ class AccountLoginViewController: UIViewController {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.view.endEditing(false)
+    self.pickerView.isHidden = true
   }
   
 }

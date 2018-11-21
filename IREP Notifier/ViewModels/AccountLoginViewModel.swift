@@ -14,7 +14,9 @@ import SwiftyJSON
 struct AccountLoginViewModel {
   private let categories = ["IREP Security", "IREP Workforce", "M2 Sense"]
   private let disposeBag = DisposeBag()
+  private var selectedCategory: Int = 0
   // data observables
+  private let items: Observable<[String]>
   private let companyId: BehaviorRelay<String?>
   private let username: BehaviorRelay<String?>
   private let password: BehaviorRelay<String?>
@@ -22,6 +24,7 @@ struct AccountLoginViewModel {
   private let viewController: AccountLoginViewController
   
   init(viewController: AccountLoginViewController) {
+    self.items = Observable.of(self.categories)
     self.companyId = BehaviorRelay<String?>(value: nil)
     self.username = BehaviorRelay<String?>(value: nil)
     self.password = BehaviorRelay<String?>(value: nil)
@@ -30,90 +33,89 @@ struct AccountLoginViewModel {
     self.bindTextField(viewController.usernameTextField, source: self.username)
     self.bindTextField(viewController.passwordTextField, source: self.password)
     self.bindAddAccountButton(viewController.addAccountButton)
+    self.bindCategoryButton(viewController.categoryButton)
+    self.bindDataSourceTo(self.viewController.pickerView)
+    self.bindOnSelctionHandlerTo(self.viewController.pickerView)
     // initial setup
     self.viewController.pickerView.isHidden = true
-  }
-  
-  private func bindTextField(
-    _ textfield: UITextField,
-    source: BehaviorRelay<String?>
-  ) {
-    textfield.rx.text.asObservable()
-      .distinctUntilChanged()
-      .bind(to: source)
-      .disposed(by: self.disposeBag)
-  }
-  
-  private func bindAddAccountButton(_ button: UIButton) {
-    button.rx.tap
-      .asObservable()
-      .filter({ _ -> Bool in
-        let source = self.viewController
-        let isCompanyIdEmpty = source.companyIdTextField.text?.isEmpty ?? false
-        let isUsernameEmpty = source.usernameTextField.text?.isEmpty ?? false
-        let isPasswordEmpty = source.passwordTextField.text?.isEmpty ?? false
-        return !isCompanyIdEmpty && !isUsernameEmpty && !isPasswordEmpty
-      })
+    let info = LoginInfo(
+      category: 1,
+      company: "SEN0001",
+      username: "aaronlee",
+      password: "6628"
+    )
+    AccountManager.insertAccountBy(info: info)?
       .subscribe(
-        onNext: {
-          AccountManager.registerAccountBy(
-            type: 1,
-            companyId: self.viewController.companyIdTextField.text ?? "",
-            username: self.viewController.usernameTextField.text ?? "",
-            password: self.viewController.passwordTextField.text ?? ""
-          )?
-          .subscribe({
-            switch $0 {
-              case .error(let error):
-                self.viewController.alert(
-                  title: "Failed to add account",
-                  message: error.localizedDescription,
-                  completion: { _ in
-                    self.viewController.dismiss(animated: true, completion: nil)
-                  }
-                )
-              case .next(let data):
-                self.processAddAccountServerResponse(data)
-              case .completed:
-                break
-              }
-            })
-            .disposed(by: self.disposeBag)
+        onNext: { (result) in
+          if result.statusCode == 1 {
+            viewController.alert(
+              title: "OK", message: result.statusMessage, completion: nil
+            )
+          } else {
+            viewController.alert(
+              title: "Error(?)", message: result.statusMessage, completion: nil
+            )
+          }
         },
-        onError: nil,
+        onError: { (err) in
+          viewController.alert(
+            title: err.localizedDescription, message: nil, completion: nil
+          )
+        },
         onCompleted: nil,
         onDisposed: nil
       )
       .disposed(by: self.disposeBag)
   }
   
-  private func bindCategoryButton(_ button: UIButton) {
+  private func bindTextField(
+    _ textfield: UITextField,
+    source: BehaviorRelay<String?>
+  ) {
+    textfield.rx.text
+      .distinctUntilChanged()
+      .bind(to: source)
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindAddAccountButton(_ button: UIButton) {
     
   }
   
-  private func processAddAccountServerResponse(_ data: Data) {
-    do {
-      let json = try JSON(data: data)
-      let status = json["status"].intValue
-      switch status {
-        case 1: // success
-          self.viewController.dismiss(animated: true, completion: nil)
-        case 0: // failure
-          if let errorMessage = json["ErrMsg"].string {
-            self.viewController.alert(
-              title: "IREP Notifier is rejected to add account",
-              message: errorMessage,
-              completion: { _ in
-                self.viewController.dismiss(animated: true, completion: nil)
-              }
-            )
-          }
-        default: // unexpected encounter
-          fatalError("Unexpected result from register account server request")
-        }
-    } catch {
-      fatalError("JSON parse error: \(error)")
-    }
+  private func bindCategoryButton(_ button: UIButton) {
+    button.rx.tap.asDriver()
+      .drive(
+        onNext: {
+          self.viewController.pickerView.isHidden = false
+        },
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindDataSourceTo(_ picker: UIPickerView) {
+    self.items
+      .bind(to: picker.rx.itemTitles) { (row, component) in
+        return component
+      }
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindOnSelctionHandlerTo(_ picker: UIPickerView) {
+    picker.rx.itemSelected
+      .subscribe(
+        onNext: { (row, component) in
+          self.selectedCategory = row
+          let opt = self.categories[row]
+          self.viewController.categoryButton.setTitle(opt, for: .normal)
+          self.viewController.pickerView.isHidden = true
+        },
+        onError: nil,
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
   }
   
 }
