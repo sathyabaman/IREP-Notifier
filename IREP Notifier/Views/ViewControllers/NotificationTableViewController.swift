@@ -31,6 +31,11 @@ class NotificationTableViewController: UIViewController {
     )
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.notificationTableViewModel.fetchNotications()
+  }
+  
   func hideSearcher() {
     self.navigationSearchButton.isEnabled = true
     self.notificationSearcher.isHidden = true

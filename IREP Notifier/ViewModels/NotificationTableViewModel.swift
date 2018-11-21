@@ -63,7 +63,6 @@ class NotificationTableViewModel: NSObject {
     self.bindSearcherTrigger(button: self.viewController.navigationSearchButton)
     self.bindSideMenuTrigger(button: self.viewController.navigationMenuButton)
     // initial setup
-    self.viewController.hideSearcher()
     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
       appDelegate.fcmNotifierDelegate = self
     }
@@ -288,7 +287,7 @@ class NotificationTableViewModel: NSObject {
    Method to bind the event of getting all notifications from server and emitted
    as data from all notification observable
   */
-  @objc private func fetchNotications() {
+  @objc func fetchNotications() {
     DispatchQueue.main.async {
       self.refreshControl.beginRefreshing()
       self.model.getNotificationsByDeviceId()?
