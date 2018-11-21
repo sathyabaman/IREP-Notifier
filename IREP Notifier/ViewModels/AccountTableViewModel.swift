@@ -76,14 +76,14 @@ struct AccountTableViewModel {
               completion: nil
             )
           case .next(let result):
-            if result.statusMessage != nil {
+            if result.statusCode == 1 {
+              self.fetchAccounts()
+            } else {
               self.viewController.alert(
                 title: "Failed to delete account",
                 message: result.statusMessage,
                 completion: nil
               )
-            } else {
-              self.fetchAccounts()
             }
           case .completed:
             break

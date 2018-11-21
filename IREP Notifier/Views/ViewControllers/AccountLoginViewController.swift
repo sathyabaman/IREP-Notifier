@@ -25,6 +25,7 @@ class AccountLoginViewController: UIViewController {
     self.accountViewModel = AccountLoginViewModel(viewController: self)
     self.addAccountButton.layer.cornerRadius = 5.0
     self.navigationController?.navigationBar.tintColor = UIColor.white
+    self.pickerView.isHidden = true
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
