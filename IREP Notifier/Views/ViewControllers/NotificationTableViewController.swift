@@ -30,4 +30,17 @@ class NotificationTableViewController: UIViewController {
       viewController: self
     )
   }
+  
+  func hideSearcher() {
+    self.navigationSearchButton.isEnabled = true
+    self.notificationSearcher.isHidden = true
+    self.notificationTableViewTop.constant = 0
+  }
+  
+  func showSearcher() {
+    self.navigationSearchButton.isEnabled = false
+    self.notificationSearcher.text = nil
+    self.notificationSearcher.isHidden = false
+    self.notificationTableViewTop.constant = 56
+  }
 }

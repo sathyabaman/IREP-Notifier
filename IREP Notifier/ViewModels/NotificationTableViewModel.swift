@@ -64,7 +64,7 @@ class NotificationTableViewModel: NSObject {
     self.bindSearcherTrigger(button: self.viewController.navigationSearchButton)
     self.bindSideMenuTrigger(button: self.viewController.navigationMenuButton)
     // initial setup
-    self.hideSearcher()
+    self.viewController.hideSearcher()
     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
       appDelegate.fcmNotifierDelegate = self
     }
@@ -162,7 +162,7 @@ class NotificationTableViewModel: NSObject {
         onNext: { _ in
           searcher.text = nil
           searcher.resignFirstResponder()
-          self.hideSearcher()
+          self.viewController.hideSearcher()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -173,7 +173,7 @@ class NotificationTableViewModel: NSObject {
       .drive(
         onNext: { _ in
           searcher.resignFirstResponder()
-          self.hideSearcher()
+          self.viewController.hideSearcher()
         },
         onCompleted: nil,
         onDisposed: nil
@@ -265,7 +265,7 @@ class NotificationTableViewModel: NSObject {
   private func bindSearcherTrigger(button: UIBarButtonItem) {
     let tap = button.rx.tap
     tap.subscribe(
-      onNext: { self.showSearcher() },
+      onNext: { self.viewController.showSearcher() },
       onError: nil,
       onCompleted: nil,
       onDisposed: nil
@@ -327,19 +327,6 @@ class NotificationTableViewModel: NSObject {
         .bind(to: self.allNoticationGroups)
         .disposed(by: self.disposeBag)
     }
-  }
-  
-  private func hideSearcher() {
-    self.viewController.navigationSearchButton.isEnabled = true
-    self.viewController.notificationSearcher.isHidden = true
-    self.viewController.notificationTableViewTop.constant = 0
-  }
-  
-  private func showSearcher() {
-    self.viewController.navigationSearchButton.isEnabled = false
-    self.viewController.notificationSearcher.text = nil
-    self.viewController.notificationSearcher.isHidden = false
-    self.viewController.notificationTableViewTop.constant = 56
   }
 }
 
