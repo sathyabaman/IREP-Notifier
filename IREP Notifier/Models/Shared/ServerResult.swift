@@ -1,5 +1,5 @@
 //
-//  ServerError.swift
+//  ServerResult.swift
 //  IREP Notifier
 //
 //  Created by Kerk Chin Wee on 21/11/18.

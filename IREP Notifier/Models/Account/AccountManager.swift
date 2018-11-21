@@ -11,31 +11,26 @@ import RxSwift
 import SwiftyJSON
 
 struct AccountManager {
-  static func registerAccountBy(
-    type: Int,
-    companyId: String,
-    username: String,
-    password: String
-  ) -> Observable<Data>? {
+  static func insertAccountBy(info: LoginInfo) -> Observable<ServerResult>? {
     let path = "\(BASE_URL)/api/Account/RegisterAccount"
     guard
       let url = URL(string: path),
       let delegate = UIApplication.shared.delegate as? AppDelegate,
       let fcmToken = delegate.fcmToken
-      else {
+    else {
         return nil
     }
-    return Observable.create { (observable) -> Disposable in
+    return Observable<Data>.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
         parameters: [
-          "AccountType": type,
-          "CompanyID": companyId,
+          "AccountType": info.category,
+          "CompanyID": info.company,
           "FcmID": fcmToken,
           "Imei": DEVICE_IMEI,
-          "LoginID": username,
-          "Password": password
+          "LoginID": info.username,
+          "Password": info.password
         ],
         encoding: JSONEncoding(),
         headers: nil
@@ -45,21 +40,30 @@ struct AccountManager {
         options: JSONSerialization.ReadingOptions.mutableContainers
       ) { (response) in
         switch (response.data, response.error) {
-          case (_, .some(let error)):
-            observable.onError(error)
-          case (.some(let data), _):
-            // data return 1 when succeed
-            // data return 0 when failed
-            observable.onNext(data)
-            observable.onCompleted()
-          default:
-            break
+        case (_, .some(let error)):
+          observable.onError(error)
+        case (.some(let data), _):
+          observable.onNext(data)
+          observable.onCompleted()
+        default:
+          break
         }
       }
       return Disposables.create {
         // do anything needed when clean up.
       }
     }
+    .flatMapLatest({ (data) -> Observable<ServerResult> in
+      do {
+        let json = try JSON(data: data)
+        let status = json["status"].intValue
+        let message = json["ErrMsg"].string
+        let result = ServerResult(statusCode: status, statusMessage: message)
+        return Observable.of(result)
+      } catch {
+        throw error
+      }
+    })
   }
 
   static func deleteAccountBy(accountId: Int) -> Observable<ServerResult>? {
@@ -95,8 +99,8 @@ struct AccountManager {
         let json = try JSON(data: data)
         let status = json["status"].intValue
         let message = json["ErrMsg"].string
-        let error = ServerResult(statusCode: status, statusMessage: message)
-        return Observable.of(error)
+        let result = ServerResult(statusCode: status, statusMessage: message)
+        return Observable.of(result)
       } catch {
         throw error
       }
@@ -144,4 +148,6 @@ struct AccountManager {
       }
     })
   }
+  
+  private init() {}
 }

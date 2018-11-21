@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C3FA684219496E6006EFDAA /* NotificationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FA683219496E6006EFDAA /* NotificationGroup.swift */; };
-		2C89DE3D21A55B9800B94010 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89DE3C21A55B9800B94010 /* ServerError.swift */; };
+		2C89DE3D21A55B9800B94010 /* ServerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89DE3C21A55B9800B94010 /* ServerResult.swift */; };
 		2C8BD92621A2B19800E9C799 /* AccountLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */; };
 		2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A5218F25A1000CA745 /* NotificationManager.swift */; };
 		2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */; };
@@ -26,6 +26,7 @@
 		7274ACD82184601E0023543D /* IREP_NotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACD72184601E0023543D /* IREP_NotifierTests.swift */; };
 		7274ACE32184601E0023543D /* IREP_NotifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274ACE22184601E0023543D /* IREP_NotifierUITests.swift */; };
 		72C4314E218DB5DF00F0628F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */; };
+		A4027F2021A5805C00ACBD58 /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4027F1F21A5805C00ACBD58 /* LoginInfo.swift */; };
 		A437D7252188A42900A5301A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A437D7242188A42900A5301A /* Constants.swift */; };
 		A471AF002189EFE6009FE1F0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AEFF2189EFE6009FE1F0 /* Account.swift */; };
 		A471AF022189F030009FE1F0 /* AccountTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471AF012189F030009FE1F0 /* AccountTableViewModel.swift */; };
@@ -62,7 +63,7 @@
 		1D5E091AB8A6E66B6DE939DA /* Pods-IREP NotifierUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP NotifierUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IREP NotifierUITests/Pods-IREP NotifierUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2484F4F6DE076458FC0EBBC4 /* Pods-IREP Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IREP Notifier.release.xcconfig"; path = "Pods/Target Support Files/Pods-IREP Notifier/Pods-IREP Notifier.release.xcconfig"; sourceTree = "<group>"; };
 		2C3FA683219496E6006EFDAA /* NotificationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationGroup.swift; sourceTree = "<group>"; };
-		2C89DE3C21A55B9800B94010 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		2C89DE3C21A55B9800B94010 /* ServerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResult.swift; sourceTree = "<group>"; };
 		2C8BD92521A2B19800E9C799 /* AccountLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewModel.swift; sourceTree = "<group>"; };
 		2CA719A5218F25A1000CA745 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2CA719A921911EC3000CA745 /* NotificationTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewModel.swift; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		7274ACE42184601E0023543D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72C4314D218DB5DF00F0628F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		773898643AF7C8866045C9ED /* Pods_IREP_NotifierUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IREP_NotifierUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4027F1F21A5805C00ACBD58 /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
 		A437D7242188A42900A5301A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A471AEFF2189EFE6009FE1F0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A471AF012189F030009FE1F0 /* AccountTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewModel.swift; sourceTree = "<group>"; };
@@ -135,7 +137,7 @@
 			children = (
 				A437D7242188A42900A5301A /* Constants.swift */,
 				720943B1218DF4A4009318AD /* Extensions.swift */,
-				2C89DE3C21A55B9800B94010 /* ServerError.swift */,
+				2C89DE3C21A55B9800B94010 /* ServerResult.swift */,
 				7207DA1521A044B2009FAF7E /* SideMenu.swift */,
 			);
 			path = Shared;
@@ -252,6 +254,7 @@
 			children = (
 				A471AEFF2189EFE6009FE1F0 /* Account.swift */,
 				A4901728218743E00022F420 /* AccountManager.swift */,
+				A4027F1F21A5805C00ACBD58 /* LoginInfo.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				A471AF022189F030009FE1F0 /* AccountTableViewModel.swift in Sources */,
 				726847D221A02AAB00132E06 /* AccountLoginViewController.swift in Sources */,
 				2CA719A6218F25A1000CA745 /* NotificationManager.swift in Sources */,
+				A4027F2021A5805C00ACBD58 /* LoginInfo.swift in Sources */,
 				A4FEF06821A309FF00916066 /* FcmNotifierDelegate.swift in Sources */,
 				2CA719AA21911EC3000CA745 /* NotificationTableViewModel.swift in Sources */,
 				A490172B21875C200022F420 /* NotificationTableViewController.swift in Sources */,
@@ -559,7 +563,7 @@
 				A471AF052189F09A009FE1F0 /* AccountTableViewCell.swift in Sources */,
 				A437D7252188A42900A5301A /* Constants.swift in Sources */,
 				A471AF002189EFE6009FE1F0 /* Account.swift in Sources */,
-				2C89DE3D21A55B9800B94010 /* ServerError.swift in Sources */,
+				2C89DE3D21A55B9800B94010 /* ServerResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
