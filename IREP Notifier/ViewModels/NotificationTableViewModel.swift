@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import SideMenu
-import SwiftyJSON
 
 class NotificationTableViewModel: NSObject {
   private let disposeBag = DisposeBag()
@@ -217,18 +216,12 @@ class NotificationTableViewModel: NSObject {
           self.viewController.alert(title: title, message: message) { _ in
             self.model.updateReadNotificationStatusById(id: id)?
               .subscribe(
-                onNext: { (data) in
-                  do {
-                    let json = try JSON(data: data)
-                    let status = json["Data"]["Status"].intValue
-                    if status == 1 {
-                      self.fetchNotications()
-                    }
-                  } catch {
-                    fatalError(error.localizedDescription)
+                onNext: { (status) in
+                  if status {
+                    self.fetchNotications()
                   }
-              },
-                onError: nil,
+                },
+                onError: { (error) in fatalError(error.localizedDescription) },
                 onCompleted: nil,
                 onDisposed: nil
               )
@@ -292,37 +285,18 @@ class NotificationTableViewModel: NSObject {
   }
   
   /**
-   Method to create observable for the event of getting all notifications from
-   server and emitted as data from all notification observable
+   Method to bind the event of getting all notifications from server and emitted
+   as data from all notification observable
   */
   @objc private func fetchNotications() {
     DispatchQueue.main.async {
       self.refreshControl.beginRefreshing()
       self.model.getNotificationsByDeviceId()?
-        .catchError({ (error) -> Observable<Data> in
-          fatalError(error.localizedDescription)
-        })
-        .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
+        .map({ (groups) -> [NotificationGroup] in
           DispatchQueue.main.async {
             self.refreshControl.endRefreshing()
           }
-          do {
-            let json = try JSON(data: data)
-            let data = json["Data"].arrayValue
-            return Observable.of(data.map { (json) -> NotificationGroup in
-              return NotificationGroup(
-                accountTypeId: json["AccountTypeID"].intValue,
-                title: json["Name"].stringValue,
-                items: json["FCMNotificationMsgList"].arrayValue.map(
-                  { (itemInfo) -> Notification in
-                    return Notification(info: itemInfo)
-                  }
-                )
-              )
-            })
-          } catch {
-            throw error
-          }
+          return groups
         })
         .bind(to: self.allNoticationGroups)
         .disposed(by: self.disposeBag)

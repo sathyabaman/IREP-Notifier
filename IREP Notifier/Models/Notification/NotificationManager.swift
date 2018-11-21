@@ -9,9 +9,10 @@
 import Alamofire
 import Firebase
 import RxSwift
+import SwiftyJSON
 
 struct NotificationManager {
-  func getNotificationsByDeviceId() -> Observable<Data>? {
+  func getNotificationsByDeviceId() -> Observable<[NotificationGroup]>? {
     let path = "\(BASE_URL)/api/Notification/GetNotificationByDeviceID"
     guard
       let url = URL(string: path),
@@ -20,7 +21,7 @@ struct NotificationManager {
     else {
       return nil
     }
-    return Observable.create { (observable) -> Disposable in
+    return Observable<Data>.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
@@ -45,12 +46,31 @@ struct NotificationManager {
         // do anything needed when clean up.
       }
     }
+    .flatMapLatest({ (data) -> Observable<[NotificationGroup]> in
+      do {
+        let json = try JSON(data: data)
+        let data = json["Data"].arrayValue
+        return Observable.of(data.map { (json) -> NotificationGroup in
+          return NotificationGroup(
+            accountTypeId: json["AccountTypeID"].intValue,
+            title: json["Name"].stringValue,
+            items: json["FCMNotificationMsgList"].arrayValue.map(
+              { (itemInfo) -> Notification in
+                return Notification(info: itemInfo)
+              }
+            )
+          )
+        })
+      } catch {
+        throw error
+      }
+    })
   }
   
-  func updateReadNotificationStatusById(id: String) -> Observable<Data>? {
+  func updateReadNotificationStatusById(id: String) -> Observable<Bool>? {
     let path = "\(BASE_URL)/api/Notification/UpdateReadNotificationStatusByID"
     guard let url = URL(string: path) else { return nil }
-    return Observable.create { (observable) -> Disposable in
+    return Observable<Data>.create { (observable) -> Disposable in
       Alamofire.request(
         url,
         method: .post,
@@ -75,5 +95,14 @@ struct NotificationManager {
         // do anything needed when clean up.
       }
     }
+    .flatMapLatest({ (data) -> Observable<Bool> in
+      do {
+        let json = try JSON(data: data)
+        let status = json["Data"]["Status"].intValue
+        return Observable.of(status == 1)
+      } catch {
+        throw error
+      }
+    })
   }
 }
