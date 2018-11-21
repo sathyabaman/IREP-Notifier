@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class AccountTableViewController: UIViewController {
   private lazy var accountTableViewModel: AccountTableViewModel = {
-    return AccountTableViewModel(accountTable: &self.accountTableView)
+    return AccountTableViewModel(viewController: self)
   }()
   
   @IBOutlet weak var accountTableView: UITableView!

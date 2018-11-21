@@ -8,15 +8,23 @@
 
 import RxSwift
 import RxCocoa
+import RxDataSources
 import SwiftyJSON
 
 struct AccountTableViewModel {
   private let disposeBag = DisposeBag()
   // data observables
   let accountInfo: BehaviorRelay<[Account]>
+  // UI elements
+  private let viewController:AccountTableViewController
   
-  init(accountTable: inout UITableView) {
+  init(viewController: AccountTableViewController) {
     self.accountInfo = BehaviorRelay<[Account]>(value: [])
+    self.viewController = viewController
+    self.bindAccountTable(self.viewController.accountTableView)
+  }
+  
+  private func bindAccountTable(_ accountTable: UITableView) {
     self.accountInfo.asObservable()
       .bind(to: accountTable.rx.items(
         cellIdentifier: AccountTableViewCell.identifier,
@@ -27,68 +35,68 @@ struct AccountTableViewModel {
         cell.nameLabel.text = "User name: \(account.name)"
       }
       .disposed(by: self.disposeBag)
+    let select = accountTable.rx.itemSelected
+    select.asDriver()
+      .drive(
+        onNext: { (indexPath) in
+          self.removeAccountBy(accountId: self.accountInfo.value[indexPath.row].id)
+        },
+        onCompleted: nil,
+        onDisposed: nil
+      )
+      .disposed(by: self.disposeBag)
   }
   
   func fetchAccounts() {
     AccountManager.getAccountListByDeviceId()?
-      // reactiveX logics goes here
-      .subscribe {
-        switch $0 {
-        case .error(let error):
-          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
-        case .next(let data):
-          self.processAccountInfo(data)
-        case .completed:
-          break
+      .catchError({ (error) -> Observable<Data> in
+        fatalError(error.localizedDescription)
+      })
+      .flatMapLatest({ (data) -> Observable<[Account]> in
+        do {
+          let json = try JSON(data: data)
+          let data = json["Data"].arrayValue
+          let accounts = data.map({ (info) -> Account in
+            return Account(info: info)
+          })
+          return Observable.of(accounts)
+        } catch {
+          throw error
         }
-      }
+      })
+      .bind(to: self.accountInfo)
       .disposed(by: self.disposeBag)
   }
   
-  func removeAccountBy(accountId: Int) {
+  private func removeAccountBy(accountId: Int) {
     AccountManager.deleteAccountBy(accountId: accountId)?
-      // reactiveX logics goes here
-      .subscribe {
-        switch $0 {
-        case .error(let error):
-          fatalError("Failed to get account list by device ID: \(error.localizedDescription)")
-        case .next(let data):
-          self.processRemoveAccountServerResponse(data)
-        case .completed:
-          break
+      .catchError({ (error) -> Observable<Data> in
+        fatalError(error.localizedDescription)
+      })
+      .flatMapLatest({ (data) -> Observable<[Account]> in
+        do {
+          let json = try JSON(data: data)
+          let status = json["status"].intValue
+          switch status {
+          case 1: // success
+            var accounts = self.accountInfo.value
+            accounts = accounts.filter({ (account) -> Bool in
+              return account.id != accountId
+            })
+            return Observable.of(accounts)
+          case 0: // failure
+            if let errorMessage = json["ErrMsg"].string {
+              self.viewController.alert(title: errorMessage, message: nil, completion: nil)
+            }
+            return self.accountInfo.asObservable()
+          default: // unexpected encounter
+            return self.accountInfo.asObservable()
+          }
+        } catch {
+          return self.accountInfo.asObservable()
         }
-      }
+      })
+      .bind(to: self.accountInfo)
       .disposed(by: self.disposeBag)
-  }
-  
-  private func processAccountInfo(_ data: Data) {
-    do {
-      let json = try JSON(data: data)
-      let data = json["Data"].arrayValue
-      self.accountInfo.accept(data.map({ (info) -> Account in
-        return Account(info: info)
-      }))
-    } catch {
-      fatalError("JSON parse error: \(error)")
-    }
-  }
-  
-  private func processRemoveAccountServerResponse(_ data: Data) {
-    do {
-      let json = try JSON(data: data)
-      let status = json["status"].intValue
-      switch status {
-      case 1: // success
-        break
-      case 0: // failure
-        if let errorMessage = json["ErrMsg"].string {
-          print("Should Alert error: \(errorMessage)")
-        }
-      default: // unexpected encounter
-        fatalError("Unexpected encounter of result returns from register account server request")
-      }
-    } catch {
-      fatalError("JSON parse error: \(error)")
-    }
   }
 }
