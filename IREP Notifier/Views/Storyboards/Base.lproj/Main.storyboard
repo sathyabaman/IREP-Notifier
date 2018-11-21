@@ -154,7 +154,7 @@
                     <navigationItem key="navigationItem" title="Menu" id="BYe-wd-dRa"/>
                     <connections>
                         <segue destination="4bC-7n-PMD" kind="show" identifier="listAccounts" id="meb-Do-6UL"/>
-                        <segue destination="Rwp-nf-KCH" kind="show" identifier="addAccount" id="2bE-ab-g1L"/>
+                        <segue destination="Rwp-nf-KCH" kind="show" identifier="addAccount" id="oBt-Sr-zTX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kev-6L-Zbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,9 +275,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjB-Z3-HMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1312.8" y="1509.6059113300494"/>
+            <point key="canvasLocation" x="1313" y="1510"/>
         </scene>
-        <!--Account Login View Controller-->
+        <!--Account Login Form-->
         <scene sceneID="isx-uC-ehk">
             <objects>
                 <viewController id="Rwp-nf-KCH" customClass="AccountLoginViewController" customModule="IREP_Notifier" customModuleProvider="target" sceneMemberID="viewController">
@@ -381,6 +381,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0TG-1u-8i6"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Account Login Form" id="Aou-GC-mh7"/>
                     <connections>
                         <outlet property="addAccountButton" destination="6hP-cN-9hz" id="92u-bf-JSl"/>
                         <outlet property="categoryButton" destination="eiL-Wd-Jsd" id="kTs-UE-sM8"/>
@@ -394,7 +395,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ap-NI-IKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421.60000000000002" y="1509.6059113300494"/>
+            <point key="canvasLocation" x="422" y="1510"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">
