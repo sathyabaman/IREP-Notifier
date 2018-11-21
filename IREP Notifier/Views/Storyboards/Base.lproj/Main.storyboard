@@ -353,13 +353,19 @@
                                     <constraint firstAttribute="trailing" secondItem="NXQ-Ws-Bxs" secondAttribute="trailing" constant="10" id="utX-DZ-FwL"/>
                                 </constraints>
                             </view>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyL-79-i4n">
+                                <rect key="frame" x="0.0" y="596" width="375" height="216"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="znR-JY-BCF" firstAttribute="top" secondItem="0TG-1u-8i6" secondAttribute="top" constant="20" id="4zt-D9-fHt"/>
+                            <constraint firstItem="lyL-79-i4n" firstAttribute="leading" secondItem="0TG-1u-8i6" secondAttribute="leading" id="CFR-zK-MhK"/>
                             <constraint firstItem="KIt-qA-84o" firstAttribute="top" secondItem="znR-JY-BCF" secondAttribute="bottom" constant="20" id="ChO-hO-qql"/>
                             <constraint firstItem="KIt-qA-84o" firstAttribute="leading" secondItem="0TG-1u-8i6" secondAttribute="leading" constant="20" id="Gsw-Vb-CBK"/>
+                            <constraint firstAttribute="trailing" secondItem="lyL-79-i4n" secondAttribute="trailing" id="dsp-2y-phm"/>
                             <constraint firstItem="0TG-1u-8i6" firstAttribute="trailing" secondItem="KIt-qA-84o" secondAttribute="trailing" constant="16" id="l3U-ei-Hs2"/>
+                            <constraint firstAttribute="bottom" secondItem="lyL-79-i4n" secondAttribute="bottom" id="l8I-FZ-Esq"/>
                             <constraint firstItem="znR-JY-BCF" firstAttribute="leading" secondItem="0TG-1u-8i6" secondAttribute="leading" constant="20" id="pgl-9W-Pv1"/>
                             <constraint firstItem="0TG-1u-8i6" firstAttribute="trailing" secondItem="znR-JY-BCF" secondAttribute="trailing" constant="20" id="u8x-xz-p25"/>
                         </constraints>
@@ -372,6 +378,7 @@
                         <outlet property="imageView" destination="znR-JY-BCF" id="MiA-Tx-sCd"/>
                         <outlet property="loginFormView" destination="KIt-qA-84o" id="K8p-0R-GCp"/>
                         <outlet property="passwordTextField" destination="NXQ-Ws-Bxs" id="iy5-4v-560"/>
+                        <outlet property="pickerView" destination="lyL-79-i4n" id="1Kb-n3-T3N"/>
                         <outlet property="usernameTextField" destination="Oaw-Sc-oT9" id="LrK-ed-KEH"/>
                     </connections>
                 </viewController>
@@ -382,7 +389,7 @@
         <!--Navigation Controller-->
         <scene sceneID="G6w-C8-GCn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="FXH-dS-3kK" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FXH-dS-3kK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="idA-lB-anq">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -394,7 +401,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UH6-QF-Wul">
-                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.035294117649999998" green="0.45882352939999999" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>

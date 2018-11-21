@@ -19,6 +19,7 @@ class AccountLoginViewController: UIViewController {
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var addAccountButton: UIButton!
+  @IBOutlet weak var pickerView: UIPickerView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +27,10 @@ class AccountLoginViewController: UIViewController {
     self.addAccountButton.layer.cornerRadius = 5.0
     let buttonText = "IREP Security \(String.fontAwesomeIcon(name: .plane))"
     self.categoryButton.setTitle(buttonText, for: .normal)
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.view.endEditing(false)
   }
   
 }

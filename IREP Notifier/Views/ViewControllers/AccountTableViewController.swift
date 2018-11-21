@@ -10,15 +10,13 @@ import UIKit
 import SwiftyJSON
 
 class AccountTableViewController: UIViewController {
-  private lazy var accountTableViewModel: AccountTableViewModel = {
-    return AccountTableViewModel(viewController: self)
-  }()
+  private var accountTableViewModel: AccountTableViewModel!
   
   @IBOutlet weak var accountTableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.accountTableViewModel.fetchAccounts()
+    self.accountTableViewModel = AccountTableViewModel(viewController: self)
   }
 
 }

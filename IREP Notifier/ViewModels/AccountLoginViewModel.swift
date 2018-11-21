@@ -30,6 +30,8 @@ struct AccountLoginViewModel {
     self.bindTextField(viewController.usernameTextField, source: self.username)
     self.bindTextField(viewController.passwordTextField, source: self.password)
     self.bindAddAccountButton(viewController.addAccountButton)
+    // initial setup
+    self.viewController.pickerView.isHidden = true
   }
   
   private func bindTextField(

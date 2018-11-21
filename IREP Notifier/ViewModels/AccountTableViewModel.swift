@@ -21,6 +21,7 @@ struct AccountTableViewModel {
     self.accountInfo = BehaviorRelay<[Account]>(value: [])
     self.viewController = viewController
     self.bindAccountTable(self.viewController.accountTableView)
+    self.fetchAccounts()
   }
   
   private func bindAccountTable(_ accountTable: UITableView) {
@@ -46,7 +47,7 @@ struct AccountTableViewModel {
       .disposed(by: self.disposeBag)
   }
   
-  func fetchAccounts() {
+  private func fetchAccounts() {
     AccountManager.getAccountListByDeviceId()?
       .bind(to: self.accountInfo)
       .disposed(by: self.disposeBag)
