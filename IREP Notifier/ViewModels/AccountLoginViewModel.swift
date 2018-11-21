@@ -15,69 +15,139 @@ struct AccountLoginViewModel {
   private let disposeBag = DisposeBag()
   // data observables
   private let items: Observable<[String]>
-  private let companyId: BehaviorRelay<String?>
-  private let username: BehaviorRelay<String?>
-  private let password: BehaviorRelay<String?>
+  private let loginInfo: BehaviorRelay<LoginInfo>
   // UI elements
   private let viewController: AccountLoginViewController
   
   init(viewController: AccountLoginViewController) {
     self.items = Observable.of(self.categories)
-    self.companyId = BehaviorRelay<String?>(value: nil)
-    self.username = BehaviorRelay<String?>(value: nil)
-    self.password = BehaviorRelay<String?>(value: nil)
+    let info = LoginInfo(category: 0, company: "", username: "", password: "")
+    self.loginInfo = BehaviorRelay<LoginInfo>(value: info)
     self.viewController = viewController
-    self.bindTextField(viewController.companyIdTextField, source: self.companyId)
-    self.bindTextField(viewController.usernameTextField, source: self.username)
-    self.bindTextField(viewController.passwordTextField, source: self.password)
+    // data observable bindings
+    self.bindCompanyIdFrom(viewController.companyIdTextField)
+    self.bindUsernameFrom(viewController.usernameTextField)
+    self.bindPasswordFrom(viewController.passwordTextField)
     self.bindAddAccountButton(viewController.addAccountButton)
     self.bindCategoryButton(viewController.categoryButton)
     self.bindDataSourceTo(self.viewController.pickerView)
     self.bindOnSelctionHandlerTo(self.viewController.pickerView)
     // initial setup
-    self.viewController.pickerView.isHidden = true
-    let info = LoginInfo(
-      category: 1,
-      company: "SEN0001",
-      username: "aaronlee",
-      password: "6628"
-    )
-    AccountManager.insertAccountBy(info: info)?
-      .subscribe(
-        onNext: { (result) in
-          if result.statusCode == 1 {
-            viewController.alert(
-              title: "OK", message: result.statusMessage, completion: nil
+//    let i = LoginInfo(
+//      category: 1,
+//      company: "SEN0001",
+//      username: "aaronlee",
+//      password: "6628"
+//    )
+//    AccountManager.insertAccountBy(info: i)?
+//      .subscribe(
+//        onNext: { (result) in
+//          if result.statusCode == 1 {
+//            viewController.alert(
+//              title: "OK", message: result.statusMessage, completion: nil
+//            )
+//          } else {
+//            viewController.alert(
+//              title: "Error(?)", message: result.statusMessage, completion: nil
+//            )
+//          }
+//        },
+//        onError: { (err) in
+//          viewController.alert(
+//            title: err.localizedDescription, message: nil, completion: nil
+//          )
+//        },
+//        onCompleted: nil,
+//        onDisposed: nil
+//      )
+//      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindCompanyIdFrom(_ textfield: UITextField) {
+    textfield.rx.text
+      .distinctUntilChanged()
+      .filter { (text) -> Bool in
+        return text != nil && !text!.isEmpty
+      }
+      .flatMapLatest { (text) -> Observable<LoginInfo> in
+        var info = self.loginInfo.value
+        info.company = text!
+        return Observable.of(info)
+      }
+      .bind(to: self.loginInfo)
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindUsernameFrom(_ textfield: UITextField) {
+    textfield.rx.text
+      .distinctUntilChanged()
+      .filter { (text) -> Bool in
+        return text != nil && !text!.isEmpty
+      }
+      .flatMapLatest { (text) -> Observable<LoginInfo> in
+        var info = self.loginInfo.value
+        info.username = text!
+        return Observable.of(info)
+      }
+      .bind(to: self.loginInfo)
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindPasswordFrom(_ textfield: UITextField) {
+    textfield.rx.text
+      .distinctUntilChanged()
+      .filter { (text) -> Bool in
+        return text != nil && !text!.isEmpty
+      }
+      .flatMapLatest { (text) -> Observable<LoginInfo> in
+        var info = self.loginInfo.value
+        info.password = text!
+        return Observable.of(info)
+      }
+      .bind(to: self.loginInfo)
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func bindAddAccountButton(_ button: UIButton) {
+    button.rx.tap.asDriver()
+      .drive(
+        onNext: {
+          AccountManager.insertAccountBy(info: self.loginInfo.value)?
+            .subscribe(
+              onNext: { (result) in
+                if result.statusCode == 1 {
+                  self.viewController.alert(
+                    title: "Added account successfully",
+                    message: result.statusMessage
+                  ) { _ in
+                    self.viewController.dismiss(animated: true, completion: nil)
+                  }
+                } else {
+                  self.viewController.alert(
+                    title: "Failed to add account",
+                    message: result.statusMessage
+                  ) { _ in
+                    self.viewController.dismiss(animated: true, completion: nil)
+                  }
+                }
+              },
+              onError: { (error) in
+                self.viewController.alert(
+                  title: "Failed to add account",
+                  message: error.localizedDescription
+                ) { _ in
+                  self.viewController.dismiss(animated: true, completion: nil)
+                }
+              },
+              onCompleted: nil,
+              onDisposed: nil
             )
-          } else {
-            viewController.alert(
-              title: "Error(?)", message: result.statusMessage, completion: nil
-            )
-          }
-        },
-        onError: { (err) in
-          viewController.alert(
-            title: err.localizedDescription, message: nil, completion: nil
-          )
+            .disposed(by: self.disposeBag)
         },
         onCompleted: nil,
         onDisposed: nil
       )
       .disposed(by: self.disposeBag)
-  }
-  
-  private func bindTextField(
-    _ textfield: UITextField,
-    source: BehaviorRelay<String?>
-  ) {
-    textfield.rx.text
-      .distinctUntilChanged()
-      .bind(to: source)
-      .disposed(by: self.disposeBag)
-  }
-  
-  private func bindAddAccountButton(_ button: UIButton) {
-    
   }
   
   private func bindCategoryButton(_ button: UIButton) {
