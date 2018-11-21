@@ -96,6 +96,7 @@ struct AccountLoginViewModel {
               message: "Please fill all text fields before login",
               completion: nil
             )
+            return
           }
           AccountManager.insertAccountBy(info: self.loginInfo.value)?
             .subscribe(
