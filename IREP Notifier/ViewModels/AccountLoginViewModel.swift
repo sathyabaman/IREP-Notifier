@@ -90,45 +90,18 @@ struct AccountLoginViewModel {
     button.rx.tap.asDriver()
       .drive(
         onNext: {
-          guard self.isFormFilled else {
-            self.viewController.alert(
-              title: "Missing login information",
-              message: "Please fill all text fields before login",
-              completion: nil
-            )
-            return
+          DispatchQueue.main.async {
+            self.viewController.view.endEditing(false)
+            guard self.isFormFilled else {
+              self.viewController.alert(
+                title: "Missing login information",
+                message: "Please fill all text fields before login",
+                completion: nil
+              )
+              return
+            }
+            self.addAccount()
           }
-          AccountManager.insertAccountBy(info: self.loginInfo.value)?
-            .subscribe(
-              onNext: { (result) in
-                if result.statusCode == 1 {
-                  self.viewController.alert(
-                    title: "Added account successfully",
-                    message: result.statusMessage
-                  ) { _ in
-                    self.viewController.dismiss(animated: true, completion: nil)
-                  }
-                } else {
-                  self.viewController.alert(
-                    title: "Failed to add account",
-                    message: result.statusMessage
-                  ) { _ in
-                    self.viewController.dismiss(animated: true, completion: nil)
-                  }
-                }
-              },
-              onError: { (error) in
-                self.viewController.alert(
-                  title: "Failed to add account",
-                  message: error.localizedDescription
-                ) { _ in
-                  self.viewController.dismiss(animated: true, completion: nil)
-                }
-              },
-              onCompleted: nil,
-              onDisposed: nil
-            )
-            .disposed(by: self.disposeBag)
         },
         onCompleted: nil,
         onDisposed: nil
@@ -167,6 +140,37 @@ struct AccountLoginViewModel {
         return Observable.of(info)
       })
       .bind(to: self.loginInfo)
+      .disposed(by: self.disposeBag)
+  }
+  
+  private func addAccount() {
+    AccountManager.insertAccountBy(info: self.loginInfo.value)?
+      .subscribe(
+        onNext: { (result) in
+          DispatchQueue.main.async {
+            self.viewController.alert(
+              title: "Added account successfully",
+              message: result.statusMessage
+            ) { _ in
+              self.viewController.navigationController?
+                .popViewController(animated: true)
+            }
+          }
+        },
+        onError: { (error) in
+          DispatchQueue.main.async {
+            self.viewController.alert(
+              title: "Failed to add account",
+              message: error.localizedDescription
+            ) { _ in
+              self.viewController.navigationController?
+                .popViewController(animated: true)
+            }
+          }
+        },
+        onCompleted: nil,
+        onDisposed: nil
+      )
       .disposed(by: self.disposeBag)
   }
 }

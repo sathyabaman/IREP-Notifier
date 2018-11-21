@@ -43,15 +43,17 @@ struct AccountTableViewModel {
     select.asDriver()
       .drive(
         onNext: { (indexPath) in
-          self.viewController.enquiry(
-            title: "Remove this account?",
-            message: nil,
-            accept: { _ in
-              let accountId = self.accountInfo.value[indexPath.row].id
-              self.removeAccountBy(accountId: accountId)
+          DispatchQueue.main.async {
+            self.viewController.enquiry(
+              title: "Remove this account?",
+              message: nil,
+              accept: { _ in
+                let accountId = self.accountInfo.value[indexPath.row].id
+                self.removeAccountBy(accountId: accountId)
             },
-            reject: nil
-          )
+              reject: nil
+            )
+          }
         },
         onCompleted: nil,
         onDisposed: nil
@@ -69,24 +71,18 @@ struct AccountTableViewModel {
     AccountManager.deleteAccountBy(accountId: accountId)?
       .subscribe({
         switch $0 {
-          case .error(let error):
+        case .error(let error):
+          DispatchQueue.main.async {
             self.viewController.alert(
               title: "Failed to delete account",
               message: error.localizedDescription,
               completion: nil
             )
-          case .next(let result):
-            if result.statusCode == 1 {
-              self.fetchAccounts()
-            } else {
-              self.viewController.alert(
-                title: "Failed to delete account",
-                message: result.statusMessage,
-                completion: nil
-              )
-            }
-          case .completed:
-            break
+          }
+        case .next(_):
+          self.fetchAccounts()
+        case .completed:
+          break
         }
       })
       .disposed(by: self.disposeBag)
